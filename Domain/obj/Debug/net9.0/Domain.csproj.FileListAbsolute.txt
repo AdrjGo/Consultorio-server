@@ -1,0 +1,11 @@
+/home/adrian/Documentos/Projects/server/Domain/bin/Debug/net9.0/Domain.deps.json
+/home/adrian/Documentos/Projects/server/Domain/bin/Debug/net9.0/Domain.dll
+/home/adrian/Documentos/Projects/server/Domain/bin/Debug/net9.0/Domain.pdb
+/home/adrian/Documentos/Projects/server/Domain/obj/Debug/net9.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/adrian/Documentos/Projects/server/Domain/obj/Debug/net9.0/Domain.AssemblyInfoInputs.cache
+/home/adrian/Documentos/Projects/server/Domain/obj/Debug/net9.0/Domain.AssemblyInfo.cs
+/home/adrian/Documentos/Projects/server/Domain/obj/Debug/net9.0/Domain.csproj.CoreCompileInputs.cache
+/home/adrian/Documentos/Projects/server/Domain/obj/Debug/net9.0/Domain.dll
+/home/adrian/Documentos/Projects/server/Domain/obj/Debug/net9.0/refint/Domain.dll
+/home/adrian/Documentos/Projects/server/Domain/obj/Debug/net9.0/Domain.pdb
+/home/adrian/Documentos/Projects/server/Domain/obj/Debug/net9.0/ref/Domain.dll

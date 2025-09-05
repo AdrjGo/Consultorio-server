@@ -1,0 +1,15 @@
+/home/adrian/Documentos/Projects/server/Application/bin/Debug/net9.0/Application.deps.json
+/home/adrian/Documentos/Projects/server/Application/bin/Debug/net9.0/Application.dll
+/home/adrian/Documentos/Projects/server/Application/bin/Debug/net9.0/Application.pdb
+/home/adrian/Documentos/Projects/server/Application/bin/Debug/net9.0/Domain.dll
+/home/adrian/Documentos/Projects/server/Application/bin/Debug/net9.0/Domain.pdb
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/Application.csproj.AssemblyReference.cache
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/Application.AssemblyInfoInputs.cache
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/Application.AssemblyInfo.cs
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/Application.csproj.CoreCompileInputs.cache
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/Applicat.44B5EDA2.Up2Date
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/Application.dll
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/refint/Application.dll
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/Application.pdb
+/home/adrian/Documentos/Projects/server/Application/obj/Debug/net9.0/ref/Application.dll
