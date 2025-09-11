@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data
 {
-    public class UserRolConfig : IEntityTypeConfiguration<UserRol>
+    public class UserRoleConfig : IEntityTypeConfiguration<UserRole>
     {
-        public void Configure(EntityTypeBuilder<UserRol> builder)
+        public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder.ToTable("user_rol");
             builder.HasKey(ur => ur.Id);
@@ -21,12 +21,12 @@ namespace Infrastructure.Data
             builder.Property(p => p.State).HasColumnName("state").HasConversion<string>().IsRequired();
 
             builder.HasOne(ur => ur.User)
-                   .WithMany(u => u.UserRols)
+                   .WithMany(u => u.UserRoles)
                    .HasForeignKey(ur => ur.UserId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(ur => ur.Role)
-                   .WithMany(r => r.UserRols)
+                   .WithMany(r => r.UserRoles)
                    .HasForeignKey(ur => ur.RoleId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
