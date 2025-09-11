@@ -1,5 +1,3 @@
-using System.Net.Http.Json;
-
 namespace Domain.Entities
 {
     public class FormRes : BaseEntity

@@ -6,7 +6,7 @@ namespace Domain.Entities
         public required string Password { get; set; }
 
         public required Person Person { get; set; }
-        public required List<UserRol> UserRols { get; set; }
+        public required List<UserRole> UserRoles { get; set; }
         public required List<Appointment> Appointments { get; set; }
     }
 }
