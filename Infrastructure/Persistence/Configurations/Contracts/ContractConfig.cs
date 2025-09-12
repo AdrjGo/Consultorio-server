@@ -27,8 +27,8 @@ namespace Infrastructure.Data
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(c => c.Patient)
-                   .WithOne(p => p.Contract)
-                   .HasForeignKey<Contract>(c => c.PatientId)
+                   .WithMany(p => p.Contract)
+                   .HasForeignKey(c => c.PatientId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

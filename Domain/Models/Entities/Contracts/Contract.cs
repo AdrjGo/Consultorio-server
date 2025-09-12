@@ -8,6 +8,6 @@ namespace Domain.Entities
 
         public required Submodule Submodule { get; set; }
         public required Patient Patient { get; set; }
-        public List<PaymentManager>? PaymentManager { get; set; }
+        public ICollection<PaymentManager> PaymentManagers { get; set; } = new List<PaymentManager>();
     }
 }

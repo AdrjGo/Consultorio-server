@@ -18,9 +18,9 @@ namespace Domain.Entities
         public PatientResponsible? PatientResponsible { get; set; }
         public List<Appointment>? Appointments { get; set; }
         public required TreatmentSummary TreatmentSummaryDetail { get; set; }
-        public required Contract Contract { get; set; }
+        public required List<Contract> Contract { get; set; }
         public required List<FormRes> FormResponse { get; set; } = new();
-        public required ClinicHistory ClinicHistory { get; set; }
-        public required GeneralHistory GeneralHistory { get; set; }
+        public required ICollection<ClinicHistory> ClinicHistories { get; set; } = new List<ClinicHistory>();
+        public required ICollection<GeneralHistory> GeneralHistories { get; set; } = new List<GeneralHistory>();
     }
 }

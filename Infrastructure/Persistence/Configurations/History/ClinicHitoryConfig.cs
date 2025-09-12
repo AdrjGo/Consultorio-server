@@ -21,8 +21,8 @@ namespace Infrastructure.Data
             builder.Property(ch => ch.State).HasColumnName("state").HasConversion<string>().IsRequired();
 
             builder.HasOne(ch => ch.Patient)
-                   .WithOne(p => p.ClinicHistory)
-                   .HasForeignKey<ClinicHistory>(ch => ch.PatientId)
+                   .WithMany(p => p.ClinicHistories)
+                   .HasForeignKey(ch => ch.PatientId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(ch => ch.Submodule)

@@ -5,7 +5,7 @@ namespace Domain.Entities
         public required Guid UserId { get; set; }
         public required Guid RoleId { get; set; }
 
-        public required User User { get; set; }
-        public required Role Role { get; set; }
+        public User? User { get; set; }
+        public Role? Role { get; set; }
     }
 }
