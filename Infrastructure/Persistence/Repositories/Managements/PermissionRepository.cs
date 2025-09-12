@@ -1,13 +1,14 @@
 using Domain.Entities;
+using Domain.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class PermissionRespository
+    public class PermissionRepository : IPermissionRepository
     {
         private readonly DBContext _context;
-        public PermissionRespository(DBContext context)
+        public PermissionRepository(DBContext context)
         {
             _context = context;
         }
