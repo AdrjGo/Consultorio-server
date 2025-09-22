@@ -6,10 +6,11 @@ public sealed class EmailAddress : ValueObject
 {
     public string Value { get; }
 
-    private EmailAddress(string value)
+    public EmailAddress(string value)
     {
         Value = value;
     }
+    protected EmailAddress() { }
 
     public static EmailAddress Create(string value)
     {

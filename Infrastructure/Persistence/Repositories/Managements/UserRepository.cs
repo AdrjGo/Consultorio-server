@@ -13,9 +13,19 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<User?> LoginUser(string email, string password)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Person.Email.Value == email && u.Password == password);
+        }
+
         public async Task<User?> GetUserById(Guid id)
         {
             return await _context.Users.FindAsync(id);
+        }
+
+        public async Task<User?> GetUserByCi(string ci)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Person.Ci == ci);
         }
 
         public async Task<IEnumerable<User>> GetAllUsers()

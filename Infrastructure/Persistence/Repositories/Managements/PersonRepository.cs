@@ -19,6 +19,16 @@ namespace Infrastructure.Repositories
             return await _context.Persons.ToListAsync();
         }
 
+        public async Task<Person?> GetPersonByName(string name)
+        {
+            return await _context.Persons.FirstOrDefaultAsync(p => p.Name == name);
+        }
+
+        public async Task<Person?> GetPersonByCi(string ci)
+        {
+            return await _context.Persons.FirstOrDefaultAsync(p => p.Ci == ci);
+        }
+
         public async Task<Person?> GetPersonById(Guid id)
         {
             return await _context.Persons.FindAsync(id);

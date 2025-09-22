@@ -6,10 +6,12 @@ namespace Domain.ValueObjects
     {
         public string Value { get; }
 
-        private PhoneNumber(string value)
+        public PhoneNumber(string value)
         {
             Value = value;
         }
+
+        protected PhoneNumber() { }
 
         public static PhoneNumber Create(string value)
         {

@@ -14,10 +14,10 @@ namespace Domain.Entities
         public required PhoneNumber Phone { get; set; }
         public string? Profession { get; set; }
 
-        public required Clinic Clinic { get; set; }
-        public required User User { get; set; }
-        public required Patient Patient { get; set; }
-        public required PatientResponsible PatientResponsible { get; set; }
-        public required PaymentManager PaymentManager { get; set; }
+        public Clinic? Clinic { get; set; }
+        public User? User { get; set; }
+        public Patient? Patient { get; set; }
+        public PatientResponsible? PatientResponsible { get; set; }
+        public PaymentManager? PaymentManager { get; set; }
     }
 }
