@@ -10,5 +10,6 @@ namespace Domain.Interfaces
         Task<User> CreateUser(User user);
         Task<User> UpdateUser(User user);
         Task<User> DeleteUser(Guid id);
+        Task<User?> GetByEmailAsync(string email);
     }
 }

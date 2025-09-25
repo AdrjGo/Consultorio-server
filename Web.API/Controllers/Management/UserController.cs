@@ -1,6 +1,7 @@
 using Application.Dto;
 using Application.Services;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers
@@ -15,6 +16,7 @@ namespace Web.API.Controllers
             _userService = userService;
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult<User>> CreateUser([FromBody] UserDto dto)
         {
@@ -22,9 +24,10 @@ namespace Web.API.Controllers
                 return BadRequest(ModelState);
 
             var user = await _userService.CreateUser(dto);
-            return Ok(user);
+            return Ok();
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -39,6 +42,7 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(Guid id)
         {

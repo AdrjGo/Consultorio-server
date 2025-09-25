@@ -4,8 +4,6 @@ using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
 using Domain.ValueObjects;
-using FluentValidation;
-using FluentValidation.Results;
 
 namespace Application.Services
 {
@@ -17,7 +15,7 @@ namespace Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<User> GetUser(Guid id)
+        public async Task<UserResponse> GetUser(Guid id)
         {
             if (id == Guid.Empty)
                 throw new ArgumentException("El id no puede estar vacío.");
@@ -27,12 +25,41 @@ namespace Application.Services
             if (user == null)
                 throw new KeyNotFoundException($"No se encontró ninguna persona con el id {id}");
 
-            return user;
+            var personResponse = user.Person != null ? new PersonResponse
+            {
+                Name = user.Person.Name,
+                LastName = user.Person.LastName,
+                BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
+                Sex = user.Person.Sex.ToString(),
+                Ci = user.Person.Ci,
+                Email = user.Person.Email?.Value,
+                Phone = user.Person.Phone?.Value,
+            } : null;
+
+            return new UserResponse
+            {
+                Id = user.Id,
+                Person = personResponse
+            };
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<UserResponse>> GetAllUsers()
         {
-            return await _userRepository.GetAllUsers();
+            var users = await _userRepository.GetAllUsers();
+            return users.Select(u => new UserResponse
+            {
+                Id = u.Id,
+                Person = new PersonResponse
+                {
+                    Name = u.Person.Name,
+                    LastName = u.Person.LastName,
+                    BirthDate = u.Person.BirthDate.ToString("dd/MM/yyyy"),
+                    Sex = u.Person.Sex.ToString(),
+                    Ci = u.Person.Ci,
+                    Email = u.Person.Email.Value,
+                    Phone = u.Person.Phone.Value,
+                }
+            });
         }
 
         public async Task<UserResponse> CreateUser(UserDto dto)
@@ -59,7 +86,7 @@ namespace Application.Services
                 State = States.ACTIVE,
                 CreatedBy = "System",
                 CreatedAt = DateTime.UtcNow,
-                Password = dto.Password,
+                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 Person = person,
                 UserRoles = new List<UserRole>(),
                 Appointments = new List<Appointment>()

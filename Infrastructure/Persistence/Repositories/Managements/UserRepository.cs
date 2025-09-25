@@ -20,7 +20,7 @@ namespace Infrastructure.Repositories
 
         public async Task<User?> GetUserById(Guid id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.Include(u => u.Person).FirstAsync(u => u.Id == id);
         }
 
         public async Task<User?> GetUserByCi(string ci)
@@ -30,7 +30,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<User>> GetAllUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(u => u.Person).ToListAsync();
         }
 
         public async Task<User> CreateUser(User user)
@@ -54,6 +54,11 @@ namespace Infrastructure.Repositories
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return user;
+        }
+
+        public async Task<User?> GetByEmailAsync(string email)
+        {
+            return await _context.Users.Include(u => u.Person).FirstOrDefaultAsync(u => u.Person.Email.Value == email);
         }
     }
 }

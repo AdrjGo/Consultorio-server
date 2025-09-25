@@ -12,7 +12,7 @@ namespace Infrastructure.Data
             builder.HasKey(u => u.Id).HasName("user_id");
             builder.Property(u => u.Id).HasColumnName("user_id").IsRequired();
             builder.Property(u => u.PersonId).HasColumnName("person_id").IsRequired();
-            builder.Property(u => u.Password).HasColumnName("password").HasMaxLength(16).IsRequired();
+            builder.Property(u => u.Password).HasColumnName("password").IsRequired();
 
             builder.Property(p => p.CreatedBy).HasColumnName("created_by").IsRequired();
             builder.Property(p => p.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
