@@ -2,7 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Application.Responses;
-using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +18,6 @@ namespace Application.Services
         {
             _configuration = configuration;
             _userRepository = userRepository;
-
         }
 
 
@@ -29,7 +27,7 @@ namespace Application.Services
             var user = await _userRepository.GetByEmailAsync(email);
 
             if (user == null)
-                return new AuthResponse { Success = false, ErrorMessage = "Usuario no encontrado." };
+                return new AuthResponse { Success = false, ErrorMessage = "Correo incorrecto." };
 
             var emailValue = user.Person?.Email?.Value;
 
@@ -52,8 +50,9 @@ namespace Application.Services
                 Subject = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.PrimarySid, user.Person.Id.ToString()),
                 new Claim(ClaimTypes.Email, emailValue),
-                new Claim(ClaimTypes.Name, user.Person.Name)
+                new Claim("name", user.Person.Name + " " + user.Person.LastName),
             }),
                 Expires = DateTime.UtcNow.AddHours(2),
                 Issuer = _configuration["JWT:Issuer"],

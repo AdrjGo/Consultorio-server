@@ -58,17 +58,18 @@ namespace Application.Services
                     Ci = u.Person.Ci,
                     Email = u.Person.Email.Value,
                     Phone = u.Person.Phone.Value,
+                    Profession = u.Person.Profession,
                 }
             });
         }
 
-        public async Task<UserResponse> CreateUser(UserDto dto)
+        public async Task<UserResponse> CreateUser(UserDto dto, string creatorName)
         {
             var person = new Person
             {
                 Id = Guid.CreateVersion7(),
                 State = States.ACTIVE,
-                CreatedBy = "System",
+                CreatedBy = creatorName,
                 CreatedAt = DateTime.UtcNow,
                 Name = dto.Person.Name,
                 LastName = dto.Person.LastName,
@@ -77,6 +78,7 @@ namespace Application.Services
                 Ci = dto.Person.Ci,
                 Email = new EmailAddress(dto.Person.Email),
                 Phone = new PhoneNumber(dto.Person.Phone),
+                Profession = dto.Person.Professional,
             };
 
             var user = new User
@@ -84,7 +86,7 @@ namespace Application.Services
                 Id = Guid.CreateVersion7(),
                 PersonId = person.Id,
                 State = States.ACTIVE,
-                CreatedBy = "System",
+                CreatedBy = creatorName,
                 CreatedAt = DateTime.UtcNow,
                 Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 Person = person,
@@ -98,6 +100,7 @@ namespace Application.Services
             return new UserResponse
             {
                 Id = user.Id,
+                State = user.State,
                 Person = new PersonResponse
                 {
                     Name = user.Person.Name,
@@ -107,17 +110,76 @@ namespace Application.Services
                     Ci = user.Person.Ci,
                     Email = user.Person.Email.Value,
                     Phone = user.Person.Phone.Value,
+                    Profession = user.Person.Profession,
                 }
             };
         }
 
-        public async Task<User> UpdateUser(User user)
+        public async Task<UserResponse> UpdateUser(Guid Id, PersonDto dto, string creatorName)
         {
-            var existing = await _userRepository.GetUserById(user.Id);
-            if (existing == null)
-                throw new KeyNotFoundException($"No se encontró la persona con id {user.Id}");
+            var user = await _userRepository.GetUserById(Id);
+            if (user == null)
+                throw new KeyNotFoundException($"No se encontró la persona con id {Id}");
 
-            return await _userRepository.UpdateUser(user);
+            user.Person.Name = dto.Name;
+            user.Person.LastName = dto.LastName;
+            user.Person.BirthDate = DateTime.SpecifyKind(DateTime.Parse(dto.BirthDate), DateTimeKind.Utc);
+            user.Person.Sex = Enum.Parse<Gender>(dto.Sex);
+            user.Person.Ci = dto.Ci;
+            user.Person.Email = new EmailAddress(dto.Email);
+            user.Person.Phone = new PhoneNumber(dto.Phone);
+            user.Person.Profession = dto.Professional;
+
+            user.Person.UpdatedAt = DateTime.UtcNow;
+            user.Person.UpdatedBy = creatorName;
+
+            await _userRepository.UpdateUser(user);
+
+            return new UserResponse
+            {
+                Id = user.Id,
+                State = user.State,
+                Person = new PersonResponse
+                {
+                    Name = user.Person.Name,
+                    LastName = user.Person.LastName,
+                    BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
+                    Sex = user.Person.Sex.ToString(),
+                    Ci = user.Person.Ci,
+                    Email = user.Person.Email.Value,
+                    Phone = user.Person.Phone.Value,
+                    Profession = user.Person.Profession,
+                }
+            };
+        }
+
+        public async Task<UserResponse> ChangeState(Guid id, UserChangeStateDto dto, string creatorName)
+        {
+            var user = await _userRepository.GetUserById(id);
+            if (user == null)
+                throw new KeyNotFoundException($"No se encontró la persona con id {id}");
+
+            user.State = dto.State;
+            user.UpdatedAt = DateTime.UtcNow;
+            user.UpdatedBy = creatorName;
+
+            await _userRepository.UpdateUser(user);
+            return new UserResponse
+            {
+                Id = user.Id,
+                State = user.State,
+                Person = new PersonResponse
+                {
+                    Name = user.Person.Name,
+                    LastName = user.Person.LastName,
+                    BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
+                    Sex = user.Person.Sex.ToString(),
+                    Ci = user.Person.Ci,
+                    Email = user.Person.Email.Value,
+                    Phone = user.Person.Phone.Value,
+                    Profession = user.Person.Profession,
+                }
+            };
         }
 
         public async Task DeleteUser(Guid id)

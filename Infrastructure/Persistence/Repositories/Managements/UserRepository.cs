@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enum;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,16 @@ namespace Infrastructure.Repositories
             return user;
         }
 
+        public async Task<User> ChangeState(Guid id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null) return null;
+            user.State = States.ACTIVE | States.INACTIVE;
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
+
         public async Task<User> DeleteUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -59,6 +70,11 @@ namespace Infrastructure.Repositories
         public async Task<User?> GetByEmailAsync(string email)
         {
             return await _context.Users.Include(u => u.Person).FirstOrDefaultAsync(u => u.Person.Email.Value == email);
+        }
+
+        public async Task<User> GetIsActive(Guid id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.State != States.ACTIVE);
         }
     }
 }

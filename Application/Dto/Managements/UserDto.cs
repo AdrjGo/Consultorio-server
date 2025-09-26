@@ -1,3 +1,4 @@
+using Domain.Enum;
 using FluentValidation;
 
 namespace Application.Dto
@@ -5,6 +6,7 @@ namespace Application.Dto
     public class UserDto
     {
         public string Password { get; set; }
+        public States State { get; set; }
 
         public PersonDto Person { get; set; }
     }
@@ -21,5 +23,10 @@ namespace Application.Dto
                 .NotNull().WithMessage("La persona asociada es obligatoria.")
                 .SetValidator(new PersonDtoValidator());
         }
+    }
+
+    public class UserChangeStateDto
+    {
+        public States State { get; set; }
     }
 }

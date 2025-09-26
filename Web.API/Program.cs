@@ -45,6 +45,7 @@ builder.Services.AddScoped<ITreatmentSumaryRepository, TreatmentSumaryRespositor
 builder.Services.AddScoped<IFormResRepository, FormResRespository>();
 
 // Services
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
 

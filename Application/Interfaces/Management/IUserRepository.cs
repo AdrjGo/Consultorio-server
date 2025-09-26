@@ -9,7 +9,9 @@ namespace Domain.Interfaces
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> CreateUser(User user);
         Task<User> UpdateUser(User user);
+        Task<User> ChangeState(Guid id);
         Task<User> DeleteUser(Guid id);
         Task<User?> GetByEmailAsync(string email);
+        Task<User> GetIsActive(Guid id);
     }
 }
