@@ -48,6 +48,7 @@ builder.Services.AddScoped<IFormResRepository, FormResRespository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ClinicService>();
 
 builder.Services.AddControllers();
 
