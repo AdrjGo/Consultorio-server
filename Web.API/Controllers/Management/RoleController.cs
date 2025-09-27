@@ -54,6 +54,25 @@ namespace Web.API.Controllers
         }
 
         [Authorize]
+        [HttpGet("{userId}/roles")]
+        public async Task<IActionResult> GetRolesByUserId(Guid userId)
+        {
+            try
+            {
+                var roles = await _roleService.GetRolesByUserId(userId);
+                return Ok(roles);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateRole([FromBody] RoleDto dto)
         {

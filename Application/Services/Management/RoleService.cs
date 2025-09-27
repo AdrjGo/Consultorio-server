@@ -43,6 +43,20 @@ namespace Application.Services
             };
         }
 
+        public async Task<IEnumerable<RoleResponse>> GetRolesByUserId(Guid userId)
+        {
+            var roles = await _roleRepository.GetRolesByUserId(userId);
+            if (roles == null)
+                throw new KeyNotFoundException($"No se encontró ningún rol");
+
+            return roles.Select(r => new RoleResponse
+            {
+                Id = r.Id,
+                Name = r.Name,
+                Description = r.Description,
+            });
+        }
+
         public async Task<RoleResponse> CreateRole(RoleDto dto, string creatorName)
         {
             var role = new Role
