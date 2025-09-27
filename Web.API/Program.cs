@@ -49,6 +49,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ClinicService>();
+builder.Services.AddScoped<RoleService>();
 
 builder.Services.AddControllers();
 
@@ -66,7 +67,7 @@ builder.Services.AddAuthentication("Bearer")
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(config["JWT:Key"])
+                Encoding.UTF8.GetBytes(config["JWT:Key"] ?? "")
             ),
             ValidateIssuer = true,
             ValidateAudience = true,

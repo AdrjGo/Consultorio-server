@@ -13,14 +13,14 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Role?> GetRoleById(Guid id)
+        public async Task<Role> GetRoleById(Guid id)
         {
-            return await _context.Roles.FindAsync(id);
+            return await _context.Roles.FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public async Task<Role?> GetRoleByName(string name)
+        public async Task<Role> GetRoleByName(string name)
         {
-            return await _context.Roles.FirstOrDefaultAsync(r => r.Name == name);
+            return await _context.Roles.FirstOrDefaultAsync(r => EF.Functions.ILike(r.Name, $"%{name}%"));
         }
 
         public async Task<IEnumerable<Role>> GetAllRoles()
