@@ -31,7 +31,7 @@ namespace Web.API.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -52,6 +52,25 @@ namespace Web.API.Controllers
             try
             {
                 var user = await _userService.GetUserByName(name);
+                return Ok(user);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}/data")]
+        public async Task<IActionResult> GetUserById(Guid id)
+        {
+            try
+            {
+                var user = await _userService.GetUserById(id);
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)

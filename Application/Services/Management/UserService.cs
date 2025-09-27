@@ -15,6 +15,30 @@ namespace Application.Services
             _userRepository = userRepository;
         }
 
+        public async Task<UserResponse> GetUserById(Guid id)
+        {
+            var user = await _userRepository.GetUserById(id);
+            if (user == null)
+                throw new KeyNotFoundException($"No se encontró al usuario: {id}");
+
+            var personResponse = user.Person != null ? new PersonResponse
+            {
+                Name = user.Person.Name,
+                LastName = user.Person.LastName,
+                BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
+                Sex = user.Person.Sex.ToString(),
+                Ci = user.Person.Ci,
+                Email = user.Person.Email?.Value,
+                Phone = user.Person.Phone?.Value,
+            } : null;
+
+            return new UserResponse
+            {
+                Id = user.Id,
+                Person = personResponse
+            };
+        }
+
         public async Task<UserResponse> GetUserByName(string name)
         {
             if (name == null)
@@ -186,7 +210,7 @@ namespace Application.Services
         {
             var user = await _userRepository.GetUserById(id);
             if (user == null)
-                throw new KeyNotFoundException($"No se encontró la persona con id {id}");
+                throw new KeyNotFoundException($"No se encontró la persona");
 
             await _userRepository.DeleteUser(id);
         }
