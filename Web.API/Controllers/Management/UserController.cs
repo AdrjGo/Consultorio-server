@@ -46,12 +46,12 @@ namespace Web.API.Controllers
         }
 
         [Authorize]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(Guid id)
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetUserByName(string name)
         {
             try
             {
-                var user = await _userService.GetUser(id);
+                var user = await _userService.GetUserByName(name);
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)

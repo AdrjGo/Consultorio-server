@@ -24,6 +24,11 @@ namespace Infrastructure.Repositories
             return await _context.Users.Include(u => u.Person).FirstAsync(u => u.Id == id);
         }
 
+        public async Task<User?> GetUserByName(string name)
+        {
+            return await _context.Users.Include(u => u.Person).FirstOrDefaultAsync(u => EF.Functions.ILike(u.Person.Name, $"%{name}%") | EF.Functions.ILike(u.Person.LastName, $"%{name}%"));
+        }
+
         public async Task<User?> GetUserByCi(string ci)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Person.Ci == ci);

@@ -15,15 +15,15 @@ namespace Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<UserResponse> GetUser(Guid id)
+        public async Task<UserResponse> GetUserByName(string name)
         {
-            if (id == Guid.Empty)
-                throw new ArgumentException("El id no puede estar vacío.");
+            if (name == null)
+                throw new ArgumentException("El nombre no puede estar vacío.");
 
-            var user = await _userRepository.GetUserById(id);
+            var user = await _userRepository.GetUserByName(name);
 
             if (user == null)
-                throw new KeyNotFoundException($"No se encontró ninguna persona con el id {id}");
+                throw new KeyNotFoundException($"No se encontró al usuario: {name}");
 
             var personResponse = user.Person != null ? new PersonResponse
             {
