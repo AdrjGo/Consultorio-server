@@ -49,8 +49,8 @@ namespace Application.Services
             {
                 Subject = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.PrimarySid, user.Person.Id.ToString()),
+                new Claim("userId", user.Id.ToString()),
+                new Claim("personId", user.Person.Id.ToString()),
                 new Claim(ClaimTypes.Email, emailValue),
                 new Claim("name", user.Person.Name + " " + user.Person.LastName),
             }),
