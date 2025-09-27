@@ -1,4 +1,5 @@
 using System.Text;
+using Application.Interfaces;
 using Application.Services;
 using Domain.Interfaces;
 using FluentValidation;
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IUserRepository, UserRespository>();
 builder.Services.AddScoped<IClinicRepository, ClinicRespository>();
 builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRespository>();
+builder.Services.AddScoped<IUserRoleRepository, UserRoleRespository>();
 builder.Services.AddScoped<ISubmoduleRepository, SubmoduleRespository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IMonitoringRepository, MonitoringRespository>();
@@ -50,6 +52,8 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ClinicService>();
 builder.Services.AddScoped<RoleService>();
+builder.Services.AddScoped<UserRoleService>();
+builder.Services.AddScoped<PermissionService>();
 
 builder.Services.AddControllers();
 
