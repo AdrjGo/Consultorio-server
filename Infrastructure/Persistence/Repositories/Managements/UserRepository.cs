@@ -16,7 +16,7 @@ namespace Infrastructure.Repositories
 
         public async Task<User?> LoginUser(string email, string password)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Person.Email.Value == email && u.Password == password);
+            return await _context.Users.FirstOrDefaultAsync(u => u.Person.Email == email && u.Password == password);
         }
 
         public async Task<User?> GetUserById(Guid id)
@@ -74,8 +74,13 @@ namespace Infrastructure.Repositories
 
         public async Task<User?> GetByEmailAsync(string email)
         {
-            return await _context.Users.Include(u => u.Person).FirstOrDefaultAsync(u => u.Person.Email.Value == email);
+            return await _context.Users
+                .Include(u => u.Person)
+                .Include(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
+                .FirstOrDefaultAsync(u => u.Person.Email == email);
         }
+
 
         public async Task<User> GetIsActive(Guid id)
         {

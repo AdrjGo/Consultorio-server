@@ -18,6 +18,11 @@ namespace Infrastructure.Repositories
             return await _context.Permissions.FindAsync(id);
         }
 
+        public async Task<Permission?> GetPermissionByName(string name)
+        {
+            return await _context.Permissions.FirstOrDefaultAsync(p => EF.Functions.ILike(p.Name, $"%{name}%"));
+        }
+
         public async Task<IEnumerable<Permission>> GetAllPermissions()
         {
             return await _context.Permissions.ToListAsync();
