@@ -1,6 +1,8 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Security;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers
@@ -17,6 +19,7 @@ namespace Web.API.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        [Authorize(Policy = Permissions.Clinic.Create)]
         [HttpPost("create")]
         public async Task<ActionResult<ClinicResponse>> CreateClinic([FromBody] ClinicDto dto)
         {
@@ -28,6 +31,7 @@ namespace Web.API.Controllers
             return Ok(await _clinicService.CraeteClinic(dto, creatorName));
         }
 
+        [Authorize(Policy = Permissions.Clinic.Read)]
         [HttpGet]
         public async Task<IActionResult> GetClinic()
         {
@@ -42,6 +46,7 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize(Policy = Permissions.Clinic.Update)]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateClinic(Guid id, [FromBody] ClinicDto dto)
         {

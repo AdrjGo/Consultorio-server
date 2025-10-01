@@ -13,8 +13,6 @@ namespace Application.Security
         public static class UserRole
         {
             public const string Create = "Create.RolePermission";
-            public const string Read = "Read.RolePermission";
-            public const string Update = "Update.RolePermission";
             public const string Delete = "Delete.RolePermission";
         }
 
@@ -29,8 +27,6 @@ namespace Application.Security
         public static class RolePermission
         {
             public const string Create = "Create.RolePermission";
-            public const string Read = "Read.RolePermission";
-            public const string Update = "Update.RolePermission";
             public const string Delete = "Delete.RolePermission";
         }
 
@@ -47,7 +43,6 @@ namespace Application.Security
             public const string Create = "Create.Clinic";
             public const string Read = "Read.Clinic";
             public const string Update = "Update.Clinic";
-            public const string Delete = "Delete.Clinic";
         }
     }
 }

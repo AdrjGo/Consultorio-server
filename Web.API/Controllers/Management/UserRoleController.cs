@@ -1,4 +1,5 @@
 using Application.Dto;
+using Application.Security;
 using Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace Web.API.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.UserRole.Create)]
         [HttpPost]
         public async Task<IActionResult> AssignRolesToUser([FromBody] IEnumerable<UserRoleDto> roleIds)
         {
@@ -38,7 +39,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.UserRole.Delete)]
         [HttpDelete]
         public async Task<IActionResult> RemoveRolesFromUser([FromBody] IEnumerable<Guid> roleIds)
         {

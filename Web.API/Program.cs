@@ -1,11 +1,15 @@
 using System.Text;
 using Application.Interfaces;
+using Application.Security;
+using Application.Security.Authorization;
 using Application.Services;
 using Domain.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -32,6 +36,7 @@ builder.Services.AddScoped<IClinicRepository, ClinicRespository>();
 builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRespository>();
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRespository>();
+builder.Services.AddScoped<IRolePermissionRepository, RolePermissionRespository>();
 builder.Services.AddScoped<ISubmoduleRepository, SubmoduleRespository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IMonitoringRepository, MonitoringRespository>();
@@ -54,6 +59,30 @@ builder.Services.AddScoped<ClinicService>();
 builder.Services.AddScoped<RoleService>();
 builder.Services.AddScoped<UserRoleService>();
 builder.Services.AddScoped<PermissionService>();
+builder.Services.AddScoped<RolePermissionService>();
+
+//Services de Autenticación
+builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
+
+// Configuración de permisos
+builder.Services.AddAuthorization(options =>
+{
+    var permissionFields = typeof(Permissions)
+        .GetNestedTypes()
+        .SelectMany(t => t.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static))
+        .ToList();
+
+    foreach (var field in permissionFields)
+    {
+        var permission = field.GetValue(null)?.ToString();
+        if (!string.IsNullOrEmpty(permission))
+        {
+            options.AddPolicy(permission, policy =>
+                policy.Requirements.Add(new PermissionRequirement(permission)));
+        }
+    }
+});
 
 builder.Services.AddControllers();
 

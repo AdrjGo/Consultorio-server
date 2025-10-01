@@ -1,4 +1,5 @@
 using Application.Dto;
+using Application.Security;
 using Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace Web.API.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Role.Read)]
         [HttpGet]
         public async Task<IActionResult> GetAllRoles()
         {
@@ -34,7 +35,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Role.Read)]
         [HttpGet("{name}")]
         public async Task<IActionResult> GetRoleByName(string name)
         {
@@ -53,7 +54,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Role.Read)]
         [HttpGet("{userId}/roles")]
         public async Task<IActionResult> GetRolesByUserId(Guid userId)
         {
@@ -72,7 +73,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Role.Create)]
         [HttpPost]
         public async Task<IActionResult> CreateRole([FromBody] RoleDto dto)
         {
@@ -92,7 +93,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Role.Update)]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateRole(Guid id, [FromBody] RoleDto dto)
         {
@@ -113,7 +114,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Role.Delete)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRole(Guid id)
         {

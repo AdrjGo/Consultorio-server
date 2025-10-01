@@ -1,4 +1,5 @@
 using Application.Dto;
+using Application.Security;
 using Application.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,7 @@ namespace Web.API.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.User.Create)]
         [HttpPost("create")]
         public async Task<ActionResult<User>> CreateUser([FromBody] UserDto dto)
         {
@@ -30,7 +31,7 @@ namespace Web.API.Controllers
             return Ok(await _userService.CreateUser(dto, creatorName));
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.User.Read)]
         [HttpGet("all")]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -45,7 +46,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.User.Read)]
         [HttpGet("{name}")]
         public async Task<IActionResult> GetUserByName(string name)
         {
@@ -64,7 +65,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.User.Read)]
         [HttpGet("{id}/data")]
         public async Task<IActionResult> GetUserById(Guid id)
         {
@@ -83,7 +84,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.User.Update)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, [FromBody] PersonDto dto)
         {
@@ -104,7 +105,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.User.Update)]
         [HttpPatch("{id}/state")]
         public async Task<IActionResult> ChangeState(Guid id, [FromBody] UserChangeStateDto dto)
         {
@@ -125,7 +126,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.User.Delete)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {

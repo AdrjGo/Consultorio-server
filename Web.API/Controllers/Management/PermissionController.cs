@@ -1,4 +1,5 @@
 using Application.Dto;
+using Application.Security;
 using Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace Web.API.Controllers
             _permissionService = permissionService;
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Permission.Read)]
         [HttpGet]
         public async Task<IActionResult> GetAllPermissions()
         {
@@ -31,7 +32,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Permission.Read)]
         [HttpGet("{name}")]
         public async Task<IActionResult> GetPermissionByName(string name)
         {
@@ -50,7 +51,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Permission.Create)]
         [HttpPost]
         public async Task<IActionResult> CreatePermission([FromBody] PermissionDto dto)
         {
@@ -70,7 +71,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Permission.Update)]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdatePermission(Guid id, [FromBody] PermissionDto dto)
         {
@@ -91,7 +92,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Permissions.Permission.Delete)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePermission(Guid id)
         {
