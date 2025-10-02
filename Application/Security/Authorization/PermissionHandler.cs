@@ -17,7 +17,7 @@ namespace Application.Security.Authorization
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
-            var userId = context.User.FindFirst("userId").Value;
+            var userId = context.User.FindFirstValue("userId");
             if (string.IsNullOrEmpty(userId)) return;
 
             var hasPermission = await _userPermissionService.UserHasPermissionAsync(Guid.Parse(userId), requirement.Permission);

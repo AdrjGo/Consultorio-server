@@ -17,10 +17,10 @@ namespace Domain.Entities
         public required Person Person { get; set; }
         public PatientResponsible? PatientResponsible { get; set; }
         public List<Appointment>? Appointments { get; set; }
-        public required TreatmentSummary TreatmentSummaryDetail { get; set; }
-        public required List<Contract> Contract { get; set; }
-        public required List<FormRes> FormResponse { get; set; } = new();
-        public required ICollection<ClinicHistory> ClinicHistories { get; set; } = new List<ClinicHistory>();
-        public required ICollection<GeneralHistory> GeneralHistories { get; set; } = new List<GeneralHistory>();
+        public TreatmentSummary? TreatmentSummaryDetail { get; set; }
+        public List<Contract>? Contract { get; set; }
+        public List<FormRes>? FormResponse { get; set; } = new();
+        public ICollection<ClinicHistory>? ClinicHistories { get; set; } = new List<ClinicHistory>();
+        public ICollection<GeneralHistory>? GeneralHistories { get; set; } = new List<GeneralHistory>();
     }
 }

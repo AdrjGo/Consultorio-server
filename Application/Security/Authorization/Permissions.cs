@@ -44,5 +44,14 @@ namespace Application.Security
             public const string Read = "Read.Clinic";
             public const string Update = "Update.Clinic";
         }
+
+
+        public static class Patient
+        {
+            public const string Create = "Create.Patient";
+            public const string Read = "Read.Patient";
+            public const string Update = "Update.Patient";
+            public const string Delete = "Delete.Patient";
+        }
     }
 }

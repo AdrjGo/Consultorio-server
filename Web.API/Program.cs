@@ -60,6 +60,7 @@ builder.Services.AddScoped<RoleService>();
 builder.Services.AddScoped<UserRoleService>();
 builder.Services.AddScoped<PermissionService>();
 builder.Services.AddScoped<RolePermissionService>();
+builder.Services.AddScoped<PatientsService>();
 
 //Services de Autenticación
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();
