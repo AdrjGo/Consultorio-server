@@ -102,7 +102,7 @@ namespace Application.Services
                 Ci = dto.Person.Ci,
                 Email = new EmailAddress(dto.Person.Email),
                 Phone = new PhoneNumber(dto.Person.Phone),
-                Profession = dto.Person.Professional,
+                Profession = dto.Person.Profession,
             };
 
             var user = new User
@@ -152,7 +152,7 @@ namespace Application.Services
             user.Person.Ci = dto.Ci;
             user.Person.Email = new EmailAddress(dto.Email);
             user.Person.Phone = new PhoneNumber(dto.Phone);
-            user.Person.Profession = dto.Professional;
+            user.Person.Profession = dto.Profession;
 
             user.Person.UpdatedAt = DateTime.UtcNow;
             user.Person.UpdatedBy = creatorName;
