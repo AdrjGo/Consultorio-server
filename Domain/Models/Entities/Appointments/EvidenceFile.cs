@@ -11,6 +11,6 @@ namespace Domain.Entities
         public FilePath? Reference { get; set; }
         public string? Description { get; set; }
 
-        public required Monitoring Monitoring { get; set; }
+        public Monitoring? Monitoring { get; set; }
     }
 }
