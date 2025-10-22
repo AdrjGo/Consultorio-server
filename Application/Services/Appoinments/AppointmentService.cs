@@ -135,6 +135,48 @@ namespace Application.Services
             });
         }
 
+        public async Task<IEnumerable<AppointmentResponse>> GetAppointmentsByPatientId(Guid patientId)
+        {
+            var appointments = await _appointmentRepository.GetAppointmentsByPatientId(patientId);
+            if (appointments == null)
+                throw new KeyNotFoundException($"No se encontró al paciente");
+
+            return appointments.Select(a => new AppointmentResponse
+            {
+                Id = a.Id,
+                PatientId = a.PatientId,
+                ProfessionalId = a.ProfessionalId,
+                StartDate = a.StartDate.ToString("dd-MM-yyyy HH:mm:ss"),
+                EndDate = a.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
+                Type = a.Type,
+                Status = a.Status,
+                Reason = a.Reason,
+                Observations = a.Observations,
+                Patient = new PatientResponse
+                {
+                    Id = a.Patient.Id,
+                    PatientPerson = new PersonResponse
+                    {
+                        Id = a.Patient.Person.Id,
+                        Name = a.Patient.Person.Name,
+                        LastName = a.Patient.Person.LastName,
+                        BirthDate = a.Patient.Person.BirthDate.ToString("dd/MM/yyyy"),
+                        Sex = a.Patient.Person.Sex.ToString(),
+                        Ci = a.Patient.Person.Ci,
+                        Email = a.Patient.Person.Email?.Value,
+                        Phone = a.Patient.Person.Phone?.Value,
+                    },
+                    Address = a.Patient.Address,
+                    Zone = a.Patient.Zone,
+                    City = a.Patient.City,
+                    HomePhone = a.Patient.HomePhone?.Value,
+                    Occupation = a.Patient.Occupation,
+                    PlaceOccupation = a.Patient.PlaceOccupation,
+                    Sender = a.Patient.Sender ?? "No hay remitente"
+                }
+            });
+        }
+
         public async Task<AppointmentCreatedResponse> CreateAppointment(AppointmentDto dto, string creatorName)
         {
             var appointment = new Appointment

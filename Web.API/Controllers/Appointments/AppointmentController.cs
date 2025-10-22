@@ -68,6 +68,25 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize(Policy = Permissions.Appointment.Read)]
+        [HttpGet("patient/{patientId}")]
+        public async Task<IActionResult> GetAppointmentsByPatientId(Guid patientId)
+        {
+            try
+            {
+                var appointments = await _appointmentService.GetAppointmentsByPatientId(patientId);
+                return Ok(appointments);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
         [Authorize(Policy = Permissions.Appointment.Create)]
         [HttpPost("create")]
         public async Task<IActionResult> CreateAppointment([FromBody] AppointmentDto dto)
