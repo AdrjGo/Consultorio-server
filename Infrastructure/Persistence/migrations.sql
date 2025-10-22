@@ -6,17 +6,35 @@
 INSERT INTO public.person 
 ("person_id", "person_name", "person_last_name", "birth_date", "sex", "ci", "email", "phone_number", "profession", "state", "created_at", "created_by")
 VALUES 
-('a4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 'Admin', 'Super', '2003-01-18', 0, '0000000', 'admin@super.com', '123123123', 'Admin', 0, NOW(), 'Seeds')
+('13a8cd23-5185-4f42-8335-9eaadfc17fae', 'Admin', 'Super', '2003-01-18', 0, '0000000', 'admin@super.com', '123123123', 'Admin', 0, NOW(), 'Seeds')
 ON CONFLICT ("person_id") DO NOTHING;
+
+-- Insertar persona dentista
+INSERT INTO public.person 
+("person_id", "person_name", "person_last_name", "birth_date", "sex", "ci", "email", "phone_number", "profession", "state", "created_at", "created_by")
+VALUES 
+('8832dc7d-710f-45da-b147-aaa8b3b2f977', 'Dentista', '1', '1968-06-23', 0, '1111111', 'dentista@email.com', '12411242', 'Odontólogo', 0, NOW(), 'Seeds')
+ON CONFLICT ("person_id") DO NOTHING;
+
 
 -- Insertar usuario asociado
 INSERT INTO public.user
 ("user_id", "person_id", "password", "state", "created_at", "created_by")
 VALUES
-('c4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 'a4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5',
+('c4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '13a8cd23-5185-4f42-8335-9eaadfc17fae',
 '$2a$16$JCCmzFrerVGNZLSaL9Cqf.ntKalIpWxtWj2SJISKGP/pgqC1IQrvC', -- Hash bcrypt de "123456"
-0, '2021-01-18', 'Seeds')
+0, '2025-01-01', 'Seeds')
 ON CONFLICT ("user_id") DO NOTHING;
+
+-- Insertar usuario dentista
+INSERT INTO public.user
+("user_id", "person_id", "password", "state", "created_at", "created_by")
+VALUES
+('01429580-7e2d-43b5-ae88-93229119c048', '8832dc7d-710f-45da-b147-aaa8b3b2f977',
+'$2a$16$JCCmzFrerVGNZLSaL9Cqf.ntKalIpWxtWj2SJISKGP/pgqC1IQrvC', -- Hash bcrypt de "123456"
+0, '2025-01-01', 'Seeds')
+ON CONFLICT ("user_id") DO NOTHING;
+
 
 -- Crear rol Admin si no existe
 INSERT INTO public.role ("role_id", "role_name", "role_description", "state", "created_at", "created_by")
@@ -27,6 +45,33 @@ ON CONFLICT ("role_id") DO NOTHING;
 INSERT INTO public.user_rol ("user_rol_id", "user_id", "role_id", "state", "created_at", "created_by")
 VALUES ('06bf85b1-08df-45a6-8607-5626a4045d7a', 'c4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 0, NOW(), 'Seeds')
 ON CONFLICT DO NOTHING;
+
+
+-- ===============================
+-- Insertar pacientes
+-- ===============================
+
+INSERT INTO public.person 
+("person_id", "person_name", "person_last_name", "birth_date", "sex", "ci", "email", "phone_number", "profession", "state", "created_at", "created_by")
+VALUES 
+('8c0c77a5-3ca1-482c-b078-750a9b82ad5e', 'Paciente', '1', '2000-01-01', 0, '2222222', 'paciente@email.com', '987878678', 'Estudiante', 0, NOW(), 'Seeds')
+ON CONFLICT ("person_id") DO NOTHING;
+
+INSERT INTO public.patient
+("patient_id", "person_id", "responsible_id", "address", "zone", "city", "home_phone", "occupation", "place_occupation", "sender","state", "created_by", "created_at")
+VALUES
+('aca377cb-7c24-41b1-acf5-6586093961c0', '8c0c77a5-3ca1-482c-b078-750a9b82ad5e', null, 'Calle 1', 'Zona 1', 'Ciudad 1', '12345678', 'Estudiante', 'Universidad', '', 0, 'Seeds', NOW())
+ON CONFLICT (patient_id) DO NOTHING;
+
+
+-- ===============================
+-- Insertar cita
+-- ===============================
+INSERT INTO public.appointment
+("appointment_id", "patient_id", "professional_id", "start_date", "end_date", "appointment_type", "Status", "reason", "observations", "state", "created_by", "created_at")
+VALUES
+('aca377cb-7c24-41b1-acf5-6586093961c0', 'aca377cb-7c24-41b1-acf5-6586093961c0', '01429580-7e2d-43b5-ae88-93229119c048', '2025-10-17T16:25:15.670Z', '2025-10-17T16:50:15.670Z', 0, 0, 'Scheduled Reason', 'Scheduled Observations', 0, 'Seeds', NOW())
+
 
 -- ===============================
 -- Insertar permisos
@@ -61,7 +106,12 @@ VALUES
     ('11111111-1111-1111-1111-111111111131', 'Create.Patient', 'Permite crear pacientes', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111132', 'Read.Patient', 'Permite leer pacientes', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111133', 'Update.Patient', 'Permite actualizar pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111134', 'Delete.Patient', 'Permite eliminar pacientes', 0, NOW(), 'Seeds');
+    ('11111111-1111-1111-1111-111111111134', 'Delete.Patient', 'Permite eliminar pacientes', 0, NOW(), 'Seeds'),
+
+    ('11111111-1111-1111-1111-111111111135', 'Create.Appointment', 'Permite crear pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111136', 'Read.Appointment', 'Permite leer pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111137', 'Update.Appointment', 'Permite actualizar pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111138', 'Delete.Appointment', 'Permite eliminar pacientes', 0, NOW(), 'Seeds');
 
 -- ===============================
 -- Asignar todos los permisos al rol Admin
@@ -91,4 +141,8 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111131', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111132', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111133', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111134', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111134', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111135', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111136', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111137', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111138', 0, NOW(), 'Seeds');
