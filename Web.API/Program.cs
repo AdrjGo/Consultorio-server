@@ -62,6 +62,8 @@ builder.Services.AddScoped<PermissionService>();
 builder.Services.AddScoped<RolePermissionService>();
 builder.Services.AddScoped<PatientsService>();
 builder.Services.AddScoped<AppointmentService>();
+builder.Services.AddScoped<EvidenceFileService>();
+builder.Services.AddScoped<MonitoringService>();
 
 //Services de Autenticación
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();

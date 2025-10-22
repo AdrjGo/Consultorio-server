@@ -61,5 +61,21 @@ namespace Application.Security
             public const string Update = "Update.Appointment";
             public const string Delete = "Delete.Appointment";
         }
+
+        public static class EvidenceFile
+        {
+            public const string Create = "Create.EvidenceFile";
+            public const string Read = "Read.EvidenceFile";
+            public const string Update = "Update.EvidenceFile";
+            public const string Delete = "Delete.EvidenceFile";
+        }
+
+        public static class Monitoring
+        {
+            public const string Create = "Create.Monitoring";
+            public const string Read = "Read.Monitoring";
+            public const string Update = "Update.Monitoring";
+            public const string Delete = "Delete.Monitoring";
+        }
     }
 }
