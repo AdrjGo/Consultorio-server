@@ -6,7 +6,7 @@ namespace Domain.Entities
         public required string Nomenclature { get; set; }
         public required string Treatment { get; set; }
 
-        public required Appointment Appointment { get; set; }
-        public required List<EvidenceFile> EvidenceFiles { get; set; }
+        public Appointment Appointment { get; set; }
+        public List<EvidenceFile> EvidenceFiles { get; set; }
     }
 }
