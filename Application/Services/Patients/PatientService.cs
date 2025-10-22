@@ -52,7 +52,7 @@ namespace Application.Services
             return new PatientResponse
             {
                 Id = patient.Id,
-                Patient = personResponse,
+                PatientPerson = personResponse,
                 Address = patient.Address,
                 Zone = patient.Zone,
                 City = patient.City,
@@ -100,7 +100,7 @@ namespace Application.Services
             return new PatientResponse
             {
                 Id = patient.Id,
-                Patient = personResponse,
+                PatientPerson = personResponse,
                 Address = patient.Address,
                 Zone = patient.Zone,
                 City = patient.City,
@@ -126,7 +126,7 @@ namespace Application.Services
                 return new PatientResponse
                 {
                     Id = p.Id,
-                    Patient = new PersonResponse
+                    PatientPerson = new PersonResponse
                     {
                         Id = p.Person.Id,
                         Name = p.Person.Name,
@@ -249,7 +249,7 @@ namespace Application.Services
             return new PatientResponse
             {
                 Id = patient.Id,
-                Patient = new PersonResponse
+                PatientPerson = new PersonResponse
                 {
                     Id = patient.Person.Id,
                     Name = patient.Person.Name,
@@ -259,6 +259,7 @@ namespace Application.Services
                     Ci = patient.Person.Ci,
                     Email = patient.Person.Email?.Value,
                     Phone = patient.Person.Phone?.Value,
+                    Profession = patient.Person.Profession,
                 },
                 Address = patient.Address,
                 Zone = patient.Zone,
@@ -273,6 +274,7 @@ namespace Application.Services
                     Name = responsible.Name,
                     LastName = responsible.LastName,
                     BirthDate = responsible.BirthDate.ToString("dd/MM/yyyy"),
+                    Sex = responsible.Sex.ToString(),
                     Ci = responsible.Ci,
                     Email = responsible.Email?.Value,
                     Phone = responsible.Phone?.Value,
@@ -371,7 +373,7 @@ namespace Application.Services
             return new PatientResponse
             {
                 Id = patient.Id,
-                Patient = new PersonResponse
+                PatientPerson = new PersonResponse
                 {
                     Id = patient.Person.Id,
                     Name = patient.Person.Name,

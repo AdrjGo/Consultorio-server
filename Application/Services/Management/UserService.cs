@@ -23,6 +23,7 @@ namespace Application.Services
 
             var personResponse = user.Person != null ? new PersonResponse
             {
+                Id = user.Person.Id,
                 Name = user.Person.Name,
                 LastName = user.Person.LastName,
                 BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
@@ -51,6 +52,7 @@ namespace Application.Services
 
             var personResponse = user.Person != null ? new PersonResponse
             {
+                Id = user.Person.Id,
                 Name = user.Person.Name,
                 LastName = user.Person.LastName,
                 BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
@@ -75,6 +77,7 @@ namespace Application.Services
                 Id = u.Id,
                 Person = new PersonResponse
                 {
+                    Id = u.Person.Id,
                     Name = u.Person.Name,
                     LastName = u.Person.LastName,
                     BirthDate = u.Person.BirthDate.ToString("dd/MM/yyyy"),
@@ -127,6 +130,7 @@ namespace Application.Services
                 State = user.State,
                 Person = new PersonResponse
                 {
+                    Id = user.Person.Id,
                     Name = user.Person.Name,
                     LastName = user.Person.LastName,
                     BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),

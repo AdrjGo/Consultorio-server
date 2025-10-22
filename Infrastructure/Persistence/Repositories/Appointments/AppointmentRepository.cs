@@ -15,17 +15,34 @@ namespace Infrastructure.Repositories
 
         public async Task<Appointment?> GetAppointmentById(Guid id)
         {
-            return await _context.Appointments.FindAsync(id);
+            return await _context.Appointments.Include(a => a.Patient).ThenInclude(a => a.Person).Include(a => a.Professional).FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<IEnumerable<Appointment>> GetAllAppointments()
         {
-            return await _context.Appointments.ToListAsync();
+            return await _context.Appointments.Include(a => a.Patient).ThenInclude(a => a.Person).Include(a => a.Professional).ToListAsync();
         }
 
         public async Task<IEnumerable<Appointment>> GetAppointmentsByDate(DateTime? initialDate, DateTime? finalDate)
         {
-            return await _context.Appointments.Where(x => x.StartDate >= initialDate && x.EndDate <= finalDate || x.StartDate >= initialDate && x.EndDate == null || x.StartDate == null && x.EndDate <= finalDate).ToListAsync();
+            var query = _context.Appointments
+                .Include(a => a.Patient).ThenInclude(a => a.Person)
+                .Include(a => a.Professional)
+                .AsQueryable();
+
+            if (initialDate.HasValue)
+                query = query.Where(a => a.StartDate >= initialDate.Value);
+
+            if (finalDate.HasValue)
+                query = query.Where(a => a.EndDate <= finalDate.Value);
+
+            return await query.ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByPatientId(Guid patientId)
+        {
+            return await _context.Appointments.Include(a => a.Patient).ThenInclude(a => a.Person).Include(a => a.Professional).Where(x => x.PatientId == patientId).ToListAsync();
         }
 
         public async Task<Appointment> CreateAppointment(Appointment appointment)

@@ -3,7 +3,7 @@ namespace Application.Responses
     public class PatientResponse
     {
         public Guid Id { get; set; }
-        public PersonResponse Responsible { get; set; }
+        public PersonResponse? Responsible { get; set; }
         public string Address { get; set; }
         public string Zone { get; set; }
         public string City { get; set; }
@@ -12,7 +12,7 @@ namespace Application.Responses
         public string PlaceOccupation { get; set; }
         public string Sender { get; set; }
 
-        public PersonResponse Patient { get; set; }
+        public PersonResponse PatientPerson { get; set; }
 
     }
 }

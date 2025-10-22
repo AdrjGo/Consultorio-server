@@ -53,5 +53,13 @@ namespace Application.Security
             public const string Update = "Update.Patient";
             public const string Delete = "Delete.Patient";
         }
+
+        public static class Appointment
+        {
+            public const string Create = "Create.Appointment";
+            public const string Read = "Read.Appointment";
+            public const string Update = "Update.Appointment";
+            public const string Delete = "Delete.Appointment";
+        }
     }
 }
