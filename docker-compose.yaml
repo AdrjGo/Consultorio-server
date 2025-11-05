@@ -1,0 +1,5 @@
+services:
+  api:
+    image: "adrjgo/serverv1"
+    ports:
+      - "5252:8080"
