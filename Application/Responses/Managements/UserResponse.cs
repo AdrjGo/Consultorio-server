@@ -7,6 +7,7 @@ namespace Application.Responses
         public Guid Id { get; set; }
         public States State { get; set; }
         public PersonResponse Person { get; set; }
+        public IEnumerable<RoleResponse> Roles { get; set; }
     }
 
     public class UserChangeStateResponse

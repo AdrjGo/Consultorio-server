@@ -36,7 +36,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<User>> GetAllUsers()
         {
-            return await _context.Users.Include(u => u.Person).ToListAsync();
+            return await _context.Users.Include(u => u.Person).Include(u => u.UserRoles).ThenInclude(ur => ur.Role).ToListAsync();
         }
 
         public async Task<User> CreateUser(User user)

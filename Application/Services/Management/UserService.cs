@@ -31,6 +31,7 @@ namespace Application.Services
                 Ci = user.Person.Ci,
                 Email = user.Person.Email?.Value,
                 Phone = user.Person.Phone?.Value,
+                Profession = user.Person.Profession,
             } : null;
 
             return new UserResponse
@@ -86,7 +87,14 @@ namespace Application.Services
                     Email = u.Person.Email.Value,
                     Phone = u.Person.Phone.Value,
                     Profession = u.Person.Profession,
-                }
+                },
+                Roles = u.UserRoles
+                    .Select(ur => new RoleResponse
+                    {
+                        Id = ur.Role.Id,
+                        Name = ur.Role.Name
+                    })
+                    .ToList()
             });
         }
 
@@ -100,7 +108,7 @@ namespace Application.Services
                 CreatedAt = DateTime.UtcNow,
                 Name = dto.Person.Name,
                 LastName = dto.Person.LastName,
-                BirthDate = DateTime.SpecifyKind(DateTime.Parse(dto.Person.BirthDate), DateTimeKind.Utc),
+                BirthDate = DateOnly.Parse(dto.Person.BirthDate),
                 Sex = Enum.Parse<Gender>(dto.Person.Sex),
                 Ci = dto.Person.Ci,
                 Email = new EmailAddress(dto.Person.Email),
@@ -151,7 +159,7 @@ namespace Application.Services
 
             user.Person.Name = dto.Name;
             user.Person.LastName = dto.LastName;
-            user.Person.BirthDate = DateTime.SpecifyKind(DateTime.Parse(dto.BirthDate), DateTimeKind.Utc);
+            user.Person.BirthDate = DateOnly.Parse(dto.BirthDate);
             user.Person.Sex = Enum.Parse<Gender>(dto.Sex);
             user.Person.Ci = dto.Ci;
             user.Person.Email = new EmailAddress(dto.Email);
