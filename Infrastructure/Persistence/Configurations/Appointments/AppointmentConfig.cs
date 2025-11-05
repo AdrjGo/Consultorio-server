@@ -13,9 +13,10 @@ namespace Infrastructure.Data
             builder.Property(a => a.Id).HasColumnName("appointment_id").IsRequired();
             builder.Property(a => a.PatientId).HasColumnName("patient_id").IsRequired();
             builder.Property(a => a.ProfessionalId).HasColumnName("professional_id").IsRequired();
-            builder.Property(a => a.StartDate).HasColumnName("start_date").IsRequired();
-            builder.Property(a => a.EndDate).HasColumnName("end_date").IsRequired();
+            builder.Property(a => a.StartDate).HasColumnName("start_date").HasColumnType("timestamp without time zone").IsRequired();
+            builder.Property(a => a.EndDate).HasColumnName("end_date").HasColumnType("timestamp without time zone").IsRequired();
             builder.Property(a => a.Type).HasConversion<string>().HasColumnName("appointment_type").IsRequired();
+            builder.Property(a => a.Status).HasConversion<string>().HasColumnName("status").IsRequired();
             builder.Property(a => a.Reason).HasColumnName("reason").HasMaxLength(100).IsRequired();
             builder.Property(a => a.Observations).HasColumnName("observations").HasMaxLength(1000).IsRequired();
 

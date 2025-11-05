@@ -2,13 +2,14 @@ namespace Domain.Enum
 {
     public enum AppointmentType
     {
-        InitialConsultation,
-        FollowUp,
-        Hygiene,
-        Treatment,
-        Emergency,
-        DeviceRemoval,
-        ProgressCheck
+        Consulta,
+        Reconsulta,
+        Seguimiento,
+        Limpieza,
+        Tratamiento,
+        Emergencia,
+        Eliminacion_de_aparatos,
+        Revision_de_progresos
     }
 
 }

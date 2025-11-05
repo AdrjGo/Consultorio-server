@@ -55,7 +55,7 @@ namespace Web.API.Controllers
 
         [Authorize(Policy = Permissions.Appointment.Read)]
         [HttpGet("date")]
-        public async Task<IActionResult> GetAppointmentsByDate([FromQuery] DateTime? initialDate, [FromQuery] DateTime? finalDate)
+        public async Task<IActionResult> GetAppointmentsByDate([FromQuery] string? initialDate, [FromQuery] string? finalDate)
         {
             try
             {

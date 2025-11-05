@@ -25,8 +25,8 @@ namespace Application.Services
                 ProfessionalId = a.ProfessionalId,
                 StartDate = a.StartDate.ToString("dd-MM-yyyy HH:mm:ss"),
                 EndDate = a.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
-                Type = a.Type,
-                Status = a.Status,
+                Type = a.Type.ToString(),
+                Status = a.Status.ToString(),
                 Reason = a.Reason,
                 Observations = a.Observations,
                 Patient = new PatientResponse
@@ -67,8 +67,8 @@ namespace Application.Services
                 ProfessionalId = appointment.ProfessionalId,
                 StartDate = appointment.StartDate.ToString("dd-MM-yyyy HH:mm:ss"),
                 EndDate = appointment.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
-                Type = appointment.Type,
-                Status = appointment.Status,
+                Type = appointment.Type.ToString(),
+                Status = appointment.Status.ToString(),
                 Reason = appointment.Reason,
                 Observations = appointment.Observations,
                 Patient = new PatientResponse
@@ -96,18 +96,18 @@ namespace Application.Services
             };
         }
 
-        public async Task<IEnumerable<AppointmentResponse>> GetAppointmentsByDate(DateTime? initialDate, DateTime? finalDate)
+        public async Task<IEnumerable<AppointmentResponse>> GetAppointmentsByDate(string? initialDate, string? finalDate)
         {
-            var appointments = await _appointmentRepository.GetAppointmentsByDate(initialDate, finalDate);
+            var appointments = await _appointmentRepository.GetAppointmentsByDate(DateTime.Parse(initialDate), DateTime.Parse(finalDate));
             return appointments.Select(a => new AppointmentResponse
             {
                 Id = a.Id,
                 PatientId = a.PatientId,
                 ProfessionalId = a.ProfessionalId,
-                StartDate = a.StartDate.ToString("dd-MM-yyyy HH:mm:ss"),
-                EndDate = a.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
-                Type = a.Type,
-                Status = a.Status,
+                StartDate = a.StartDate.ToString("o"),
+                EndDate = a.EndDate.ToString("o"),
+                Type = a.Type.ToString(),
+                Status = a.Status.ToString(),
                 Reason = a.Reason,
                 Observations = a.Observations,
                 Patient = new PatientResponse
@@ -148,8 +148,8 @@ namespace Application.Services
                 ProfessionalId = a.ProfessionalId,
                 StartDate = a.StartDate.ToString("dd-MM-yyyy HH:mm:ss"),
                 EndDate = a.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
-                Type = a.Type,
-                Status = a.Status,
+                Type = a.Type.ToString(),
+                Status = a.Status.ToString(),
                 Reason = a.Reason,
                 Observations = a.Observations,
                 Patient = new PatientResponse
@@ -184,8 +184,8 @@ namespace Application.Services
                 Id = Guid.CreateVersion7(),
                 PatientId = dto.PatientId,
                 ProfessionalId = dto.ProfessionalId,
-                StartDate = DateTime.SpecifyKind(dto.StartDate, DateTimeKind.Utc),
-                EndDate = DateTime.SpecifyKind(dto.EndDate, DateTimeKind.Utc),
+                StartDate = dto.StartDate,
+                EndDate = dto.EndDate,
                 Type = dto.Type,
                 Status = dto.Status,
                 Reason = dto.Reason,
