@@ -4,7 +4,7 @@ namespace Application.Dto
 {
     public class ResponsibleDto
     {
-        public PatientParentage Parentage { get; set; }
+        public string Parentage { get; set; }
 
         public PersonDto Person { get; set; }
     }

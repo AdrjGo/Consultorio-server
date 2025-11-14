@@ -12,6 +12,7 @@ namespace Domain.Entities
         public PhoneNumber? HomePhone { get; set; }
         public required string Occupation { get; set; }
         public required string PlaceOccupation { get; set; }
+        public string? Nit { get; set; }
         public string? Sender { get; set; }
 
         public required Person Person { get; set; }

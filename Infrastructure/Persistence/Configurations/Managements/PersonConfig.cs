@@ -11,10 +11,10 @@ namespace Infrastructure.Data
             builder.ToTable("person");
             builder.HasKey(p => p.Id).HasName("person_id");
             builder.Property(p => p.Id).HasColumnName("person_id").IsRequired();
-            builder.Property(p => p.Name).HasColumnName("person_name").HasMaxLength(15).IsRequired();
-            builder.Property(p => p.LastName).HasColumnName("person_last_name").HasMaxLength(15).IsRequired();
+            builder.Property(p => p.Name).HasColumnName("person_name").HasMaxLength(20).IsRequired();
+            builder.Property(p => p.LastName).HasColumnName("person_last_name").HasMaxLength(20).IsRequired();
             builder.Property(p => p.BirthDate).HasColumnName("birth_date").IsRequired();
-            builder.Property(p=>p.Sex).HasConversion<string>().HasColumnName("sex").IsRequired();
+            builder.Property(p => p.Sex).HasConversion<string>().HasColumnName("sex").IsRequired();
             builder.Property(p => p.Ci).HasColumnName("ci").HasMaxLength(9).IsRequired();
 
             builder.OwnsOne(p => p.Email, email =>

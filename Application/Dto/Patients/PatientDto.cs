@@ -1,3 +1,4 @@
+using Domain.Enum;
 using FluentValidation;
 
 namespace Application.Dto
@@ -11,6 +12,7 @@ namespace Application.Dto
         public required string Occupation { get; set; }
         public required string PlaceOccupation { get; set; }
         public string? Sender { get; set; }
+        public string? Nit { get; set; }
 
         public required PersonDto Person { get; set; }
         public ResponsibleDto? Responsible { get; set; }

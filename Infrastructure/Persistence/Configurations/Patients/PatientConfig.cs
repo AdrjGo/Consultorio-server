@@ -24,7 +24,8 @@ namespace Infrastructure.Data
 
             builder.Property(p => p.Occupation).HasColumnName("occupation").HasMaxLength(15).IsRequired();
             builder.Property(p => p.PlaceOccupation).HasColumnName("place_occupation").HasMaxLength(50).IsRequired();
-            builder.Property(p => p.Sender).HasColumnName("sender").HasMaxLength(20).IsRequired();
+            builder.Property(p => p.Nit).HasColumnName("nit").HasMaxLength(12);
+            builder.Property(p => p.Sender).HasColumnName("sender").HasMaxLength(0).IsRequired();
 
             builder.Property(p => p.CreatedBy).HasColumnName("created_by").IsRequired();
             builder.Property(p => p.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();

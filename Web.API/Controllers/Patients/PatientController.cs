@@ -35,6 +35,24 @@ namespace Web.API.Controllers
         }
 
         [Authorize(Policy = Permissions.Patient.Read)]
+        [HttpGet]
+        public async Task<IActionResult> GetPagedPatients([FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? search = null,
+            [FromQuery] string? state = null)
+        {
+            try
+            {
+                var patients = await _patientsService.GetPagedPatients(pageNumber, pageSize, search, state);
+                return Ok(patients);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Policy = Permissions.Patient.Read)]
         [HttpGet("{id}/data")]
         public async Task<IActionResult> GetPatientById(Guid id)
         {

@@ -1,4 +1,6 @@
+using Application.Common;
 using Application.Dto;
+using Application.Response;
 using Application.Responses;
 using Domain.Entities;
 using Domain.Enum;
@@ -23,23 +25,31 @@ namespace Application.Services
                 throw new KeyNotFoundException($"No se encontró al usuario");
 
             var birthDate = patient.Person.BirthDate;
-            var today = DateTime.UtcNow;
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
             var age = today.Year - birthDate.Year;
-            if (birthDate.Date > today.AddYears(-age)) age--;
+            if (birthDate > today.AddYears(-age)) age--;
 
-            var personResponsible = patient.ResponsibleId != null ? new PersonResponse
+            var personResponsible = patient.ResponsibleId != null ? new ResponsibleResponse
             {
                 Id = patient.PatientResponsible.Id,
-                BirthDate = patient.PatientResponsible.Person.BirthDate.ToString("dd/MM/yyyy"),
-                Ci = patient.PatientResponsible.Person.Ci,
-                Email = patient.PatientResponsible.Person.Email.Value,
-                Name = patient.PatientResponsible.Person.Name,
-                Phone = patient.PatientResponsible.Person.Phone.Value,
-                Profession = patient.PatientResponsible.Person.Profession,
+                Parentage = patient.PatientResponsible.Parentage.ToString(),
+                Person = new PersonResponse
+                {
+                    Id = patient.PatientResponsible.Person.Id,
+                    Name = patient.PatientResponsible.Person.Name,
+                    LastName = patient.PatientResponsible.Person.LastName,
+                    BirthDate = patient.PatientResponsible.Person.BirthDate.ToString("dd/MM/yyyy"),
+                    Sex = patient.PatientResponsible.Person.Sex.ToString(),
+                    Ci = patient.PatientResponsible.Person.Ci,
+                    Email = patient.PatientResponsible.Person.Email?.Value,
+                    Phone = patient.PatientResponsible.Person.Phone?.Value,
+                    Profession = patient.PatientResponsible.Person.Profession,
+                }
             } : null;
 
             var personResponse = patient.Person != null ? new PersonResponse
             {
+                Id = patient.Person.Id,
                 Name = patient.Person.Name,
                 LastName = patient.Person.LastName,
                 BirthDate = patient.Person.BirthDate.ToString("dd/MM/yyyy"),
@@ -47,6 +57,7 @@ namespace Application.Services
                 Ci = patient.Person.Ci,
                 Email = patient.Person.Email?.Value,
                 Phone = patient.Person.Phone?.Value,
+                Profession = patient.Person.Profession,
             } : null;
 
             return new PatientResponse
@@ -59,69 +70,153 @@ namespace Application.Services
                 HomePhone = patient.HomePhone?.Value,
                 Occupation = patient.Occupation,
                 PlaceOccupation = patient.PlaceOccupation,
+                Nit = patient.Nit ?? "Sin NIT",
                 Sender = patient.Sender ?? "No hay remitente",
+                State = patient.State.ToString(),
+                CreatedAt = patient.CreatedAt.ToString(),
+                UpdatedAt = patient?.UpdatedAt.ToString(),
+                CreatedBy = patient.CreatedBy,
+                UpdatedBy = patient.UpdatedBy,
                 Responsible = age > 18 ? null : personResponsible,
+
             };
         }
 
-        public async Task<PatientResponse> GetPatientByName(string name)
+        public async Task<IEnumerable<PatientResponse>> GetPatientByName(string name)
         {
-            var patient = await _patientRepository.GetPatientByName(name);
-            if (patient == null)
+            var patients = await _patientRepository.GetPatientsByName(name);
+            if (patients == null)
                 throw new KeyNotFoundException($"No se encontró al usuario: {name}");
 
-            var birthDate = patient.Person.BirthDate;
-            var today = DateTime.UtcNow;
-            var age = today.Year - birthDate.Year;
-            if (birthDate.Date > today.AddYears(-age)) age--;
-
-            var personResponsible = patient.ResponsibleId != null ? new PersonResponse
+            return patients.Select(patient =>
             {
-                Id = patient.PatientResponsible.Id,
-                BirthDate = patient.PatientResponsible.Person.BirthDate.ToString("dd/MM/yyyy"),
-                Ci = patient.PatientResponsible.Person.Ci,
-                Email = patient.PatientResponsible.Person.Email.Value,
-                Name = patient.PatientResponsible.Person.Name,
-                Phone = patient.PatientResponsible.Person.Phone.Value,
-                Profession = patient.PatientResponsible.Person.Profession,
-            } : null;
+                var birthDate = patient.Person?.BirthDate ?? DateOnly.MinValue;
+                var today = DateOnly.FromDateTime(DateTime.UtcNow);
+                var age = today.Year - birthDate.Year;
+                if (birthDate > today.AddYears(-age)) age--;
 
-            var personResponse = patient.Person != null ? new PersonResponse
-            {
-                Name = patient.Person.Name,
-                LastName = patient.Person.LastName,
-                BirthDate = patient.Person.BirthDate.ToString("dd/MM/yyyy"),
-                Sex = patient.Person.Sex.ToString(),
-                Ci = patient.Person.Ci,
-                Email = patient.Person.Email?.Value,
-                Phone = patient.Person.Phone?.Value,
-            } : null;
+                var personResponsible = patient.ResponsibleId != null ? new ResponsibleResponse
+                {
+                    Id = patient.PatientResponsible.Id,
+                    Parentage = patient.PatientResponsible.Parentage.ToString(),
+                    Person = new PersonResponse
+                    {
+                        Id = patient.PatientResponsible.Person.Id,
+                        Name = patient.PatientResponsible.Person.Name,
+                        LastName = patient.PatientResponsible.Person.LastName,
+                        BirthDate = patient.PatientResponsible.Person.BirthDate.ToString("dd/MM/yyyy"),
+                        Sex = patient.PatientResponsible.Person.Sex.ToString(),
+                        Ci = patient.PatientResponsible.Person.Ci,
+                        Email = patient.PatientResponsible.Person.Email?.Value,
+                        Phone = patient.PatientResponsible.Person.Phone?.Value,
+                        Profession = patient.PatientResponsible.Person.Profession,
+                    }
+                } : null;
 
-            return new PatientResponse
+                var personResponse = patient.Person != null ? new PersonResponse
+                {
+                    Name = patient.Person.Name,
+                    LastName = patient.Person.LastName,
+                    BirthDate = patient.Person.BirthDate.ToString("dd/MM/yyyy"),
+                    Sex = patient.Person.Sex.ToString(),
+                    Ci = patient.Person.Ci,
+                    Email = patient.Person.Email?.Value,
+                    Phone = patient.Person.Phone?.Value,
+                    Profession = patient.Person.Profession,
+                } : null;
+
+                return new PatientResponse
+                {
+                    Id = patient.Id,
+                    PatientPerson = personResponse,
+                    Address = patient.Address,
+                    Zone = patient.Zone,
+                    City = patient.City,
+                    HomePhone = patient.HomePhone?.Value,
+                    Occupation = patient.Occupation,
+                    PlaceOccupation = patient.PlaceOccupation,
+                    Nit = patient.Nit ?? "Sin NIT",
+                    Sender = patient.Sender ?? "No hay remitente",
+                    State = patient.State.ToString(),
+                    Responsible = age > 18 ? null : personResponsible,
+                };
+            });
+        }
+
+        public async Task<PagedResult<PatientResponse>> GetPagedPatients(int pageNumber, int pageSize, string? search = null, string? state = null)
+        {
+            var (patients, totalCount) = await _patientRepository.GetPatientsPagedAsync(pageNumber, pageSize, search, state);
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            var patientResponses = patients.Select(p =>
             {
-                Id = patient.Id,
-                PatientPerson = personResponse,
-                Address = patient.Address,
-                Zone = patient.Zone,
-                City = patient.City,
-                HomePhone = patient.HomePhone?.Value,
-                Occupation = patient.Occupation,
-                PlaceOccupation = patient.PlaceOccupation,
-                Sender = patient.Sender ?? "No hay remitente",
-                Responsible = age > 18 ? null : personResponsible,
+                var birthDate = p.Person.BirthDate;
+                var age = today.Year - birthDate.Year;
+                if (birthDate > today.AddYears(-age)) age--;
+
+                return new PatientResponse
+                {
+                    Id = p.Id,
+                    PatientPerson = new PersonResponse
+                    {
+                        Id = p.Person.Id,
+                        Name = p.Person.Name,
+                        LastName = p.Person.LastName,
+                        BirthDate = p.Person.BirthDate.ToString("dd/MM/yyyy"),
+                        Sex = p.Person.Sex.ToString(),
+                        Ci = p.Person.Ci,
+                        Email = p.Person.Email?.Value,
+                        Phone = p.Person.Phone?.Value,
+                        Profession = p.Person.Profession
+                    },
+                    Address = p.Address,
+                    Zone = p.Zone,
+                    City = p.City,
+                    HomePhone = p.HomePhone?.Value,
+                    Occupation = p.Occupation,
+                    PlaceOccupation = p.PlaceOccupation,
+                    Nit = p.Nit ?? "Sin NIT",
+                    Sender = p.Sender ?? "No hay remitente",
+                    State = p.State.ToString(),
+                    Responsible = (age < 18 && p.PatientResponsible != null) ? new ResponsibleResponse
+                    {
+                        Id = p.PatientResponsible.Id,
+                        Parentage = p.PatientResponsible.Parentage.ToString(),
+                        Person = new PersonResponse
+                        {
+                            Id = p.PatientResponsible.Person.Id,
+                            Name = p.PatientResponsible.Person.Name,
+                            LastName = p.PatientResponsible.Person.LastName,
+                            BirthDate = p.PatientResponsible.Person.BirthDate.ToString("dd/MM/yyyy"),
+                            Sex = p.PatientResponsible.Person.Sex.ToString(),
+                            Ci = p.PatientResponsible.Person.Ci,
+                            Email = p.PatientResponsible.Person.Email?.Value,
+                            Phone = p.PatientResponsible.Person.Phone?.Value,
+                            Profession = p.PatientResponsible.Person.Profession,
+                        }
+                    } : null
+                };
+            });
+
+            return new PagedResult<PatientResponse>
+            {
+                Items = patientResponses,
+                TotalCount = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize
             };
         }
 
         public async Task<IEnumerable<PatientResponse>> GetAllPatients()
         {
             var patients = await _patientRepository.GetAllPatients();
-            var today = DateTime.UtcNow;
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
 
             return patients.Select(p =>
             {
                 var birthDate = p.Person.BirthDate;
                 var age = today.Year - birthDate.Year;
-                if (birthDate.Date > today.AddYears(-age)) age--;
+                if (birthDate > today.AddYears(-age)) age--;
 
                 return new PatientResponse
                 {
@@ -145,23 +240,29 @@ namespace Application.Services
                     Occupation = p.Occupation,
                     PlaceOccupation = p.PlaceOccupation,
                     Sender = p.Sender ?? "No hay remitente",
-                    Responsible = (age < 18 && p.PatientResponsible != null) ? new PersonResponse
+                    Responsible = (age < 18 && p.PatientResponsible != null) ? new ResponsibleResponse
                     {
-                        Id = p.PatientResponsible.Person.Id,
-                        Name = p.PatientResponsible.Person.Name,
-                        LastName = p.PatientResponsible.Person.LastName,
-                        BirthDate = p.PatientResponsible.Person.BirthDate.ToString("dd/MM/yyyy"),
-                        Ci = p.PatientResponsible.Person.Ci,
-                        Email = p.PatientResponsible.Person.Email?.Value,
-                        Phone = p.PatientResponsible.Person.Phone?.Value,
-                        Profession = p.PatientResponsible.Person.Profession
+                        Id = p.PatientResponsible.Id,
+                        Parentage = p.PatientResponsible.Parentage.ToString(),
+                        Person = new PersonResponse
+                        {
+                            Id = p.PatientResponsible.Person.Id,
+                            Name = p.PatientResponsible.Person.Name,
+                            LastName = p.PatientResponsible.Person.LastName,
+                            BirthDate = p.PatientResponsible.Person.BirthDate.ToString("dd/MM/yyyy"),
+                            Sex = p.PatientResponsible.Person.Sex.ToString(),
+                            Ci = p.PatientResponsible.Person.Ci,
+                            Email = p.PatientResponsible.Person.Email?.Value,
+                            Phone = p.PatientResponsible.Person.Phone?.Value,
+                            Profession = p.PatientResponsible.Person.Profession,
+                        }
                     } : null
+
                 };
             });
         }
 
-
-        public async Task<PatientResponse> CreatePatient(PatientDto dto, string creatorName)
+        public async Task<PatientMessageResponse> CreatePatient(PatientDto dto, string creatorName)
         {
             var existingPatient = await _patientRepository.GetPatientByCi(dto.Person.Ci);
             if (existingPatient != null)
@@ -173,7 +274,7 @@ namespace Application.Services
                 State = States.ACTIVE,
                 Name = dto.Person.Name,
                 LastName = dto.Person.LastName,
-                BirthDate = DateTime.SpecifyKind(DateTime.Parse(dto.Person.BirthDate), DateTimeKind.Utc),
+                BirthDate = DateOnly.Parse(dto.Person.BirthDate),
                 Sex = Enum.Parse<Gender>(dto.Person.Sex),
                 Ci = dto.Person.Ci,
                 Email = new EmailAddress(dto.Person.Email),
@@ -194,19 +295,23 @@ namespace Application.Services
                 HomePhone = new PhoneNumber(dto.HomePhone ?? ""),
                 Occupation = dto.Occupation,
                 PlaceOccupation = dto.PlaceOccupation,
+                Nit = dto.Nit,
                 Sender = dto.Sender,
                 Person = patientPerson,
                 CreatedBy = creatorName,
                 CreatedAt = DateTime.UtcNow,
             };
 
-            var birthDate = patientPerson.BirthDate;
-            var today = DateTime.UtcNow;
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            var birthDate = patient.Person.BirthDate;
             var age = today.Year - birthDate.Year;
-            if (birthDate.Date > today.AddYears(-age)) age--;
+            if (birthDate > today.AddYears(-age)) age--;
+
 
             Person? responsible = null;
             PatientResponsible? patientResponsible = null;
+            Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Edad calculada: {age} - Fecha de nacimiento: {birthDate}");
+
 
             if (age < 18 && dto.Responsible != null)
             {
@@ -218,7 +323,7 @@ namespace Application.Services
                     State = States.ACTIVE,
                     Name = responsibleDto.Person.Name,
                     LastName = responsibleDto.Person.LastName,
-                    BirthDate = DateTime.SpecifyKind(DateTime.Parse(responsibleDto.Person.BirthDate), DateTimeKind.Utc),
+                    BirthDate = DateOnly.Parse(dto.Responsible.Person.BirthDate),
                     Sex = Enum.Parse<Gender>(responsibleDto.Person.Sex),
                     Ci = responsibleDto.Person.Ci,
                     Email = new EmailAddress(responsibleDto.Person.Email),
@@ -232,7 +337,7 @@ namespace Application.Services
                 {
                     Id = Guid.CreateVersion7(),
                     PersonId = responsible.Id,
-                    Parentage = responsibleDto.Parentage,
+                    Parentage = Enum.Parse<PatientParentage>(responsibleDto.Parentage),
                     Person = responsible,
                     Patient = patient,
                     State = States.ACTIVE,
@@ -246,44 +351,14 @@ namespace Application.Services
 
             await _patientRepository.CreatePatient(patient);
 
-            return new PatientResponse
+            return new PatientMessageResponse
             {
                 Id = patient.Id,
-                PatientPerson = new PersonResponse
-                {
-                    Id = patient.Person.Id,
-                    Name = patient.Person.Name,
-                    LastName = patient.Person.LastName,
-                    BirthDate = patient.Person.BirthDate.ToString("dd/MM/yyyy"),
-                    Sex = patient.Person.Sex.ToString(),
-                    Ci = patient.Person.Ci,
-                    Email = patient.Person.Email?.Value,
-                    Phone = patient.Person.Phone?.Value,
-                    Profession = patient.Person.Profession,
-                },
-                Address = patient.Address,
-                Zone = patient.Zone,
-                City = patient.City,
-                HomePhone = patient.HomePhone?.Value,
-                Occupation = patient.Occupation,
-                PlaceOccupation = patient.PlaceOccupation,
-                Sender = patient.Sender ?? "No hay remitente",
-                Responsible = responsible != null ? new PersonResponse
-                {
-                    Id = responsible.Id,
-                    Name = responsible.Name,
-                    LastName = responsible.LastName,
-                    BirthDate = responsible.BirthDate.ToString("dd/MM/yyyy"),
-                    Sex = responsible.Sex.ToString(),
-                    Ci = responsible.Ci,
-                    Email = responsible.Email?.Value,
-                    Phone = responsible.Phone?.Value,
-                    Profession = responsible.Profession,
-                } : null
+                Message = "Paciente creado correctamente"
             };
         }
 
-        public async Task<PatientResponse> UpdatePatient(Guid id, PatientDto dto, string creatorName)
+        public async Task<PatientMessageResponse> UpdatePatient(Guid id, PatientDto dto, string creatorName)
         {
             var patient = await _patientRepository.GetPatientById(id);
             if (patient == null)
@@ -292,7 +367,7 @@ namespace Application.Services
             // Actualizar datos del paciente
             patient.Person.Name = dto.Person.Name;
             patient.Person.LastName = dto.Person.LastName;
-            patient.Person.BirthDate = DateTime.SpecifyKind(DateTime.Parse(dto.Person.BirthDate), DateTimeKind.Utc);
+            patient.Person.BirthDate = DateOnly.Parse(dto.Person.BirthDate);
             patient.Person.Sex = Enum.Parse<Gender>(dto.Person.Sex);
             patient.Person.Ci = dto.Person.Ci;
             patient.Person.Email = new EmailAddress(dto.Person.Email);
@@ -305,14 +380,15 @@ namespace Application.Services
             patient.Occupation = dto.Occupation;
             patient.PlaceOccupation = dto.PlaceOccupation;
             patient.Sender = dto.Sender;
+            patient.Nit = dto.Nit;
             patient.Person.UpdatedAt = DateTime.UtcNow;
             patient.Person.UpdatedBy = creatorName;
 
             // Calcular edad
             var birthDate = patient.Person.BirthDate;
-            var today = DateTime.UtcNow;
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
             var age = today.Year - birthDate.Year;
-            if (birthDate.Date > today.AddYears(-age)) age--;
+            if (birthDate > today.AddYears(-age)) age--;
 
             if (age < 18 && dto.Responsible != null)
             {
@@ -321,25 +397,26 @@ namespace Application.Services
                 {
                     patient.PatientResponsible.Person.Name = dto.Responsible.Person.Name;
                     patient.PatientResponsible.Person.LastName = dto.Responsible.Person.LastName;
-                    patient.PatientResponsible.Person.BirthDate = DateTime.SpecifyKind(DateTime.Parse(dto.Responsible.Person.BirthDate), DateTimeKind.Utc);
+                    patient.PatientResponsible.Person.BirthDate = DateOnly.Parse(dto.Responsible.Person.BirthDate);
                     patient.PatientResponsible.Person.Sex = Enum.Parse<Gender>(dto.Responsible.Person.Sex);
                     patient.PatientResponsible.Person.Ci = dto.Responsible.Person.Ci;
                     patient.PatientResponsible.Person.Email = new EmailAddress(dto.Responsible.Person.Email);
                     patient.PatientResponsible.Person.Phone = new PhoneNumber(dto.Responsible.Person.Phone);
                     patient.PatientResponsible.Person.Profession = dto.Responsible.Person.Profession;
-                    patient.PatientResponsible.Parentage = dto.Responsible.Parentage;
+                    patient.PatientResponsible.Parentage = Enum.Parse<PatientParentage>(dto.Responsible.Parentage);
                     patient.PatientResponsible.Person.UpdatedAt = DateTime.UtcNow;
                     patient.PatientResponsible.Person.UpdatedBy = creatorName;
                 }
                 else
                 {
                     var responsible = new Person
+
                     {
                         Id = Guid.CreateVersion7(),
                         State = States.ACTIVE,
                         Name = dto.Responsible.Person.Name,
                         LastName = dto.Responsible.Person.LastName,
-                        BirthDate = DateTime.SpecifyKind(DateTime.Parse(dto.Responsible.Person.BirthDate), DateTimeKind.Utc),
+                        BirthDate = DateOnly.Parse(dto.Responsible.Person.BirthDate),
                         Sex = Enum.Parse<Gender>(dto.Responsible.Person.Sex),
                         Ci = dto.Responsible.Person.Ci,
                         Email = new EmailAddress(dto.Responsible.Person.Email),
@@ -355,7 +432,7 @@ namespace Application.Services
                         PersonId = responsible.Id,
                         Person = responsible,
                         Patient = patient,
-                        Parentage = dto.Responsible.Parentage,
+                        Parentage = Enum.Parse<PatientParentage>(dto.Responsible.Parentage),
                         State = States.ACTIVE,
                         CreatedBy = creatorName,
                         CreatedAt = DateTime.UtcNow
@@ -370,38 +447,10 @@ namespace Application.Services
 
             await _patientRepository.UpdatePatient(patient);
 
-            return new PatientResponse
+            return new PatientMessageResponse
             {
                 Id = patient.Id,
-                PatientPerson = new PersonResponse
-                {
-                    Id = patient.Person.Id,
-                    Name = patient.Person.Name,
-                    LastName = patient.Person.LastName,
-                    BirthDate = patient.Person.BirthDate.ToString("dd/MM/yyyy"),
-                    Sex = patient.Person.Sex.ToString(),
-                    Ci = patient.Person.Ci,
-                    Email = patient.Person.Email?.Value,
-                    Phone = patient.Person.Phone?.Value,
-                },
-                Address = patient.Address,
-                Zone = patient.Zone,
-                City = patient.City,
-                HomePhone = patient.HomePhone?.Value,
-                Occupation = patient.Occupation,
-                PlaceOccupation = patient.PlaceOccupation,
-                Sender = patient.Sender ?? "No hay remitente",
-                Responsible = patient.PatientResponsible != null ? new PersonResponse
-                {
-                    Id = patient.PatientResponsible.Person.Id,
-                    Name = patient.PatientResponsible.Person.Name,
-                    LastName = patient.PatientResponsible.Person.LastName,
-                    BirthDate = patient.PatientResponsible.Person.BirthDate.ToString("dd/MM/yyyy"),
-                    Ci = patient.PatientResponsible.Person.Ci,
-                    Email = patient.PatientResponsible.Person.Email?.Value,
-                    Phone = patient.PatientResponsible.Person.Phone?.Value,
-                    Profession = patient.PatientResponsible.Person.Profession
-                } : null
+                Message = "Paciente actualizado correctamente"
             };
         }
 

@@ -7,7 +7,7 @@ namespace Domain.Entities
     {
         public required string Name { get; set; }
         public required string LastName { get; set; }
-        public required DateTime BirthDate { get; set; }
+        public required DateOnly BirthDate { get; set; }
         public required Gender Sex { get; set; }
         public required string Ci { get; set; }
         public EmailAddress? Email { get; set; }
