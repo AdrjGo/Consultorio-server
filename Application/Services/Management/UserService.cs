@@ -41,6 +41,40 @@ namespace Application.Services
             };
         }
 
+        public async Task<IEnumerable<UserResponse>> GetUsers(string? search = null, string? state = null, string? role = null)
+        {
+            var users = await _userRepository.GetUsers(search, state, role);
+            return users.Select(u => new UserResponse
+            {
+                Id = u.Id,
+                Person = new PersonResponse
+                {
+                    Id = u.Person.Id,
+                    Name = u.Person.Name,
+                    LastName = u.Person.LastName,
+                    BirthDate = u.Person.BirthDate.ToString("dd/MM/yyyy"),
+                    Sex = u.Person.Sex.ToString(),
+                    Ci = u.Person.Ci,
+                    Email = u.Person.Email?.Value,
+                    Phone = u.Person.Phone?.Value,
+                    Profession = u.Person.Profession,
+                },
+                Roles = u.UserRoles
+                    .Select(ur => new RoleResponse
+                    {
+                        Id = ur.Role.Id,
+                        Name = ur.Role.Name,
+                        Description = ur.Role.Description,
+                    })
+                    .ToList(),
+                State = u.State.ToString(),
+                CreatedAt = u.CreatedAt.ToString(),
+                UpdatedAt = u.UpdatedAt?.ToString(),
+                CreatedBy = u.CreatedBy,
+                UpdatedBy = u.UpdatedBy,
+            });
+        }
+
         public async Task<UserResponse> GetUserByName(string name)
         {
             if (name == null)
@@ -92,9 +126,12 @@ namespace Application.Services
                     .Select(ur => new RoleResponse
                     {
                         Id = ur.Role.Id,
-                        Name = ur.Role.Name
+                        Name = ur.Role.Name,
+                        Description = ur.Role.Description,
+
                     })
-                    .ToList()
+                    .ToList(),
+                State = u.State.ToString(),
             });
         }
 
@@ -135,7 +172,7 @@ namespace Application.Services
             return new UserResponse
             {
                 Id = user.Id,
-                State = user.State,
+                State = user.State.ToString(),
                 Person = new PersonResponse
                 {
                     Id = user.Person.Id,
@@ -174,7 +211,7 @@ namespace Application.Services
             return new UserResponse
             {
                 Id = user.Id,
-                State = user.State,
+                State = user.State.ToString(),
                 Person = new PersonResponse
                 {
                     Name = user.Person.Name,
@@ -203,7 +240,7 @@ namespace Application.Services
             return new UserResponse
             {
                 Id = user.Id,
-                State = user.State,
+                State = user.State.ToString(),
                 Person = new PersonResponse
                 {
                     Name = user.Person.Name,

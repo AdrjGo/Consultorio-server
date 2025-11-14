@@ -32,6 +32,21 @@ namespace Web.API.Controllers
         }
 
         [Authorize(Policy = Permissions.User.Read)]
+        [HttpGet]
+        public async Task<IActionResult> GetUsers([FromQuery] string? search = null, [FromQuery] string? state = null, [FromQuery] string? role = null)
+        {
+            try
+            {
+                var users = await _userService.GetUsers(search, state, role);
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Policy = Permissions.User.Read)]
         [HttpGet("all")]
         public async Task<IActionResult> GetAllUsers()
         {

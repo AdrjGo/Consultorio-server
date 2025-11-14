@@ -7,6 +7,7 @@ namespace Domain.Interfaces
         Task<User> GetUserById(Guid id);
         Task<User?> GetUserByName(string name);
         Task<User?> LoginUser(string email, string password);
+        Task<IEnumerable<User>> GetUsers(string? search = null, string? state = null, string? role = null);
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> CreateUser(User user);
         Task<User> UpdateUser(User user);
