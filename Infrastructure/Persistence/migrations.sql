@@ -46,6 +46,20 @@ INSERT INTO public.user_rol ("user_rol_id", "user_id", "role_id", "state", "crea
 VALUES ('06bf85b1-08df-45a6-8607-5626a4045d7a', 'c4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 0, NOW(), 'Seeds')
 ON CONFLICT DO NOTHING;
 
+-- Crear rol Dentista si no existe
+INSERT INTO public.role ("role_id", "role_name", "role_description", "state", "created_at", "created_by")
+VALUES ('a4b1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 'Dentista', 'Rol dentista', 0, NOW(), 'Seeds')
+ON CONFLICT ("role_id") DO NOTHING;
+
+-- Asignar rol al usuario
+INSERT INTO public.user_rol ("user_rol_id", "user_id", "role_id", "state", "created_at", "created_by")
+VALUES ('53bf85b1-08df-45a6-8607-5626a4045d7a', 'c4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 'a4b1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 0, NOW(), 'Seeds')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO public.user_rol ("user_rol_id", "user_id", "role_id", "state", "created_at", "created_by")
+VALUES ('54bf85b1-08df-45a6-8607-5626a4045d7a', '01429580-7e2d-43b5-ae88-93229119c048', 'a4b1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', 0, NOW(), 'Seeds')
+ON CONFLICT DO NOTHING;
+
 
 -- ===============================
 -- Insertar pacientes
@@ -58,9 +72,9 @@ VALUES
 ON CONFLICT ("person_id") DO NOTHING;
 
 INSERT INTO public.patient
-("patient_id", "person_id", "responsible_id", "address", "zone", "city", "home_phone", "occupation", "place_occupation", "sender","state", "created_by", "created_at")
+("patient_id", "person_id", "responsible_id", "address", "zone", "city", "home_phone", "occupation", "place_occupation","nit", "sender","state", "created_by", "created_at")
 VALUES
-('aca377cb-7c24-41b1-acf5-6586093961c0', '8c0c77a5-3ca1-482c-b078-750a9b82ad5e', null, 'Calle 1', 'Zona 1', 'Ciudad 1', '12345678', 'Estudiante', 'Universidad', '', 0, 'Seeds', NOW())
+('aca377cb-7c24-41b1-acf5-6586093961c0', '8c0c77a5-3ca1-482c-b078-750a9b82ad5e', null, 'Calle 1', 'Zona 1', 'Ciudad 1', '12345678', 'Estudiante', 'Universidad', '000001020', '', 0, 'Seeds', NOW())
 ON CONFLICT (patient_id) DO NOTHING;
 
 
@@ -68,9 +82,9 @@ ON CONFLICT (patient_id) DO NOTHING;
 -- Insertar cita
 -- ===============================
 INSERT INTO public.appointment
-("appointment_id", "patient_id", "professional_id", "start_date", "end_date", "appointment_type", "Status", "reason", "observations", "state", "created_by", "created_at")
+("appointment_id", "patient_id", "professional_id", "start_date", "end_date", "appointment_type", "status", "reason", "observations", "state", "created_by", "created_at")
 VALUES
-('aca377cb-7c24-41b1-acf5-6586093961c0', 'aca377cb-7c24-41b1-acf5-6586093961c0', '01429580-7e2d-43b5-ae88-93229119c048', '2025-10-17T16:25:15.670Z', '2025-10-17T16:50:15.670Z', 0, 0, 'Scheduled Reason', 'Scheduled Observations', 0, 'Seeds', NOW())
+('eca377cb-7c24-41b1-acf5-6586093961c0', 'aca377cb-7c24-41b1-acf5-6586093961c0', '01429580-7e2d-43b5-ae88-93229119c048', '2025-10-29T12:25:00', '2025-10-29T12:50:00', 'Emergencia', 'Confirmado', 'Ejemplo de razón', 'Ejemplo de observación...', 0, 'Seeds', NOW());
 
 
 -- ===============================
@@ -111,12 +125,12 @@ VALUES
     ('11111111-1111-1111-1111-111111111135', 'Create.Appointment', 'Permite crear pacientes', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111136', 'Read.Appointment', 'Permite leer pacientes', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111137', 'Update.Appointment', 'Permite actualizar pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111138', 'Delete.Appointment', 'Permite eliminar pacientes', 0, NOW(), 'Seeds');
+    ('11111111-1111-1111-1111-111111111138', 'Delete.Appointment', 'Permite eliminar pacientes', 0, NOW(), 'Seeds'),
 
     ('11111111-1111-1111-1111-111111111139', 'Create.EvidenceFile', 'Permite crear archivos', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111140', 'Read.EvidenceFile', 'Permite leer archivos', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111141', 'Update.EvidenceFile', 'Permite actualizar archivos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111142', 'Delete.EvidenceFile', 'Permite eliminar archivos', 0, NOW(), 'Seeds');
+    ('11111111-1111-1111-1111-111111111142', 'Delete.EvidenceFile', 'Permite eliminar archivos', 0, NOW(), 'Seeds'),
 
     ('11111111-1111-1111-1111-111111111143', 'Create.Monitoring', 'Permite crear seguimientos', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111144', 'Read.Monitoring', 'Permite leer seguimientos', 0, NOW(), 'Seeds'),
@@ -155,11 +169,11 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111135', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111136', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111137', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111138', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111138', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111139', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111140', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111141', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111142', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111142', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111143', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111144', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111145', 0, NOW(), 'Seeds'), 
