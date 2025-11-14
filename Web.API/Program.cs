@@ -147,8 +147,21 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+// -------------------- CORS policy --------------------
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // frontend
+                 .AllowAnyHeader()
+                 .AllowAnyMethod();
+    });
+});
+
 // -------------------- App pipeline --------------------
-var app = builder.Build();
+    var app = builder.Build();
+
+app.UseCors("AllowAllOrigins");
 
 // Middleware
 app.UseSwagger();
