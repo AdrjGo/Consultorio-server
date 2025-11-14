@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -98,7 +99,9 @@ namespace Application.Services
 
         public async Task<IEnumerable<AppointmentResponse>> GetAppointmentsByDate(string? initialDate, string? finalDate)
         {
-            var appointments = await _appointmentRepository.GetAppointmentsByDate(DateTime.Parse(initialDate), DateTime.Parse(finalDate));
+            var appointments = await _appointmentRepository.GetAppointmentsByDate(LocalDateTime.ParseBoliviaTime(initialDate), LocalDateTime.ParseBoliviaTime(finalDate));
+            // Console.WriteLine("-------------------------------------------------------------------" + LocalDateTime.ParseBoliviaTime(initialDate));
+            // Console.WriteLine("-------------------------------------------------------------------" + LocalDateTime.ParseBoliviaTime(finalDate));
             return appointments.Select(a => new AppointmentResponse
             {
                 Id = a.Id,
