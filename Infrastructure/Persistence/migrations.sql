@@ -6,14 +6,14 @@
 INSERT INTO public.person 
 ("person_id", "person_name", "person_last_name", "birth_date", "sex", "ci", "email", "phone_number", "profession", "state", "created_at", "created_by")
 VALUES 
-('13a8cd23-5185-4f42-8335-9eaadfc17fae', 'Admin', 'Super', '2003-01-18', 0, '0000000', 'admin@super.com', '123123123', 'Admin', 0, NOW(), 'Seeds')
+('13a8cd23-5185-4f42-8335-9eaadfc17fae', 'Admin', 'Super', '2003-01-18', 0, '0000000', 'admin@super.com', '123123123', 'Admin', "ACTIVE", NOW(), 'Seeds')
 ON CONFLICT ("person_id") DO NOTHING;
 
 -- Insertar persona dentista
 INSERT INTO public.person 
 ("person_id", "person_name", "person_last_name", "birth_date", "sex", "ci", "email", "phone_number", "profession", "state", "created_at", "created_by")
 VALUES 
-('8832dc7d-710f-45da-b147-aaa8b3b2f977', 'Dentista', '1', '1968-06-23', 0, '1111111', 'dentista@email.com', '12411242', 'Odontólogo', 0, NOW(), 'Seeds')
+('8832dc7d-710f-45da-b147-aaa8b3b2f977', 'Dentista', '1', '1968-06-23', 0, '1111111', 'dentista@email.com', '12411242', 'Odontólogo', "ACTIVE", NOW(), 'Seeds')
 ON CONFLICT ("person_id") DO NOTHING;
 
 
@@ -74,7 +74,7 @@ ON CONFLICT ("person_id") DO NOTHING;
 INSERT INTO public.patient
 ("patient_id", "person_id", "responsible_id", "address", "zone", "city", "home_phone", "occupation", "place_occupation","nit", "sender","state", "created_by", "created_at")
 VALUES
-('aca377cb-7c24-41b1-acf5-6586093961c0', '8c0c77a5-3ca1-482c-b078-750a9b82ad5e', null, 'Calle 1', 'Zona 1', 'Ciudad 1', '12345678', 'Estudiante', 'Universidad', '000001020', '', 0, 'Seeds', NOW())
+('aca377cb-7c24-41b1-acf5-6586093961c0', '8c0c77a5-3ca1-482c-b078-750a9b82ad5e', null, 'Calle 1', 'Zona 1', 'Ciudad 1', '12345678', 'Estudiante', 'Universidad', '000001020', '', "ACTIVE", 'Seeds', NOW())
 ON CONFLICT (patient_id) DO NOTHING;
 
 
@@ -137,6 +137,11 @@ VALUES
     ('11111111-1111-1111-1111-111111111145', 'Update.Monitoring', 'Permite actualizar seguimientos', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111146', 'Delete.Monitoring', 'Permite eliminar seguimientos', 0, NOW(), 'Seeds');
 
+    ('11111111-1111-1111-1111-111111111147', 'Create.UserRole', 'Permite crear roles de usuario', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111148', 'Read.UserRole', 'Permite leer roles de usuario', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111149', 'Update.UserRole', 'Permite actualizar roles de usuario', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111150', 'Delete.UserRole', 'Permite eliminar roles de usuario', 0, NOW(), 'Seeds');
+
 -- ===============================
 -- Asignar todos los permisos al rol Admin
 -- ===============================
@@ -178,3 +183,7 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111144', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111145', 0, NOW(), 'Seeds'), 
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111146', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111147', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111148', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111149', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111150', 0, NOW(), 'Seeds');
