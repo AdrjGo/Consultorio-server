@@ -9,11 +9,11 @@ namespace Web.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClnicController : ControllerBase
+    public class ClinicController : ControllerBase
     {
         private readonly ClinicService _clinicService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public ClnicController(ClinicService clinicService, IHttpContextAccessor httpContextAccessor)
+        public ClinicController(ClinicService clinicService, IHttpContextAccessor httpContextAccessor)
         {
             _clinicService = clinicService;
             _httpContextAccessor = httpContextAccessor;

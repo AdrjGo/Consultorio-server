@@ -159,7 +159,7 @@ builder.Services.AddCors(options =>
 });
 
 // -------------------- App pipeline --------------------
-    var app = builder.Build();
+var app = builder.Build();
 
 app.UseCors("AllowAllOrigins");
 

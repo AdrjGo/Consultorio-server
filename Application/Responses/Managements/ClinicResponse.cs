@@ -12,4 +12,10 @@ namespace Application.Responses
         public string LogoUrl { get; set; }
         public Guid ManagerId { get; set; }
     }
+
+    public class ClinicMessageResponse
+    {
+        public Guid Id { get; set; }
+        public string Message { get; set; }
+    }
 }

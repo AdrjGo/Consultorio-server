@@ -35,7 +35,7 @@ namespace Application.Services
             };
         }
 
-        public async Task<ClinicResponse> CraeteClinic(ClinicDto dto, string creatorName)
+        public async Task<ClinicMessageResponse> CraeteClinic(ClinicDto dto, string creatorName)
         {
 
             var manager = await _userRepository.GetUserById(dto.ManagerId);
@@ -56,26 +56,19 @@ namespace Application.Services
                 State = States.ACTIVE,
                 CreatedBy = creatorName,
                 CreatedAt = DateTime.UtcNow,
-                Manager = manager.Person
+                Manager = manager
             };
 
             await _clinicRepository.CreateClinic(clinic);
 
-            return new ClinicResponse
+            return new ClinicMessageResponse
             {
                 Id = clinic.Id,
-                Name = clinic.ClinicName,
-                Address = clinic.ClinicAddress,
-                Phone = new PhoneNumber(clinic.ClinicPhone.Value).ToString(),
-                CellPhone = new PhoneNumber(clinic.ClinicCellPhone.Value).ToString(),
-                Email = new EmailAddress(clinic.ClinicEmail.Value).ToString(),
-                LogoRef = clinic.LogoRef,
-                LogoUrl = clinic.LogoUrl,
-                ManagerId = clinic.ManagerId,
+                Message = "Datos guardados correctamente"
             };
         }
 
-        public async Task<ClinicResponse> UpdateClinic(Guid Id, ClinicDto dto, string creatorName)
+        public async Task<ClinicMessageResponse> UpdateClinic(Guid Id, ClinicDto dto, string creatorName)
         {
             var clinic = await _clinicRepository.GetClinicById(Id);
             if (clinic == null)
@@ -91,25 +84,18 @@ namespace Application.Services
             clinic.ClinicEmail = new EmailAddress(dto.Email);
             clinic.LogoRef = dto.LogoRef;
             clinic.LogoUrl = dto.LogoUrl;
-            clinic.ManagerId = user.Person.Id;
-            clinic.Manager = user.Person;
+            clinic.ManagerId = user.Id;
+            clinic.Manager = user;
 
             clinic.UpdatedAt = DateTime.UtcNow;
             clinic.UpdatedBy = creatorName;
 
             await _clinicRepository.UpdateClinic(clinic);
 
-            return new ClinicResponse
+            return new ClinicMessageResponse
             {
                 Id = clinic.Id,
-                Name = clinic.ClinicName,
-                Address = clinic.ClinicAddress,
-                Phone = new PhoneNumber(clinic.ClinicPhone.Value).ToString(),
-                CellPhone = new PhoneNumber(clinic.ClinicCellPhone.Value).ToString(),
-                Email = new EmailAddress(clinic.ClinicEmail.Value).ToString(),
-                LogoRef = clinic.LogoRef,
-                LogoUrl = clinic.LogoUrl,
-                ManagerId = clinic.ManagerId,
+                Message = "Datos actualizados correctamente"
             };
         }
 
