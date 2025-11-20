@@ -14,7 +14,6 @@ namespace Domain.Entities
         public required PhoneNumber Phone { get; set; }
         public string? Profession { get; set; }
 
-        public Clinic? Clinic { get; set; }
         public User? User { get; set; }
         public Patient? Patient { get; set; }
         public PatientResponsible? PatientResponsible { get; set; }

@@ -13,6 +13,6 @@ namespace Domain.Entities
         public string? LogoUrl { get; set; }
         public required Guid ManagerId { get; set; }
 
-        public required Person Manager { get; set; }
+        public required User Manager { get; set; }
     }
 }
