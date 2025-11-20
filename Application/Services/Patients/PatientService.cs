@@ -381,6 +381,7 @@ namespace Application.Services
             patient.PlaceOccupation = dto.PlaceOccupation;
             patient.Sender = dto.Sender;
             patient.Nit = dto.Nit;
+            patient.State = Enum.Parse<States>(dto.State);
             patient.Person.UpdatedAt = DateTime.UtcNow;
             patient.Person.UpdatedBy = creatorName;
 
@@ -453,7 +454,6 @@ namespace Application.Services
                 Message = "Paciente actualizado correctamente"
             };
         }
-
 
         public async Task DeletePatient(Guid id)
         {

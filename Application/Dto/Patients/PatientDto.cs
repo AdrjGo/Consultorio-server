@@ -13,6 +13,7 @@ namespace Application.Dto
         public required string PlaceOccupation { get; set; }
         public string? Sender { get; set; }
         public string? Nit { get; set; }
+        public string? State { get; set; }
 
         public required PersonDto Person { get; set; }
         public ResponsibleDto? Responsible { get; set; }
