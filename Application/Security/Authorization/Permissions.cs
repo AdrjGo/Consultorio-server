@@ -12,8 +12,10 @@ namespace Application.Security
 
         public static class UserRole
         {
-            public const string Create = "Create.RolePermission";
-            public const string Delete = "Delete.RolePermission";
+            public const string Create = "Create.UserRole";
+            public const string Read = "Read.UserRole";
+            public const string Update = "Update.UserRole";
+            public const string Delete = "Delete.UserRole";
         }
 
         public static class Role
