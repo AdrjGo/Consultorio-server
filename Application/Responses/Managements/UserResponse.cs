@@ -6,6 +6,7 @@ namespace Application.Responses
     {
         public Guid Id { get; set; }
         public string State { get; set; }
+        public string? Password { get; set; }
         public PersonResponse Person { get; set; }
         public IEnumerable<RoleResponse> Roles { get; set; }
         public string CreatedAt { get; set; }
@@ -18,5 +19,11 @@ namespace Application.Responses
     {
         public Guid Id { get; set; }
         public States State { get; set; }
+    }
+
+    public class UserMessageResponse
+    {
+        public Guid Id { get; set; }
+        public string Message { get; set; }
     }
 }

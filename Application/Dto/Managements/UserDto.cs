@@ -6,7 +6,6 @@ namespace Application.Dto
     public class UserDto
     {
         public string Password { get; set; }
-        public States State { get; set; }
 
         public PersonDto Person { get; set; }
     }
@@ -25,8 +24,13 @@ namespace Application.Dto
         }
     }
 
+    public class UserWithOutPasswordDto
+    {
+        public PersonDto Person { get; set; }
+    }
+
     public class UserChangeStateDto
     {
-        public States State { get; set; }
+        public string State { get; set; }
     }
 }

@@ -20,24 +20,33 @@ namespace Application.Services
             var user = await _userRepository.GetUserById(id);
             if (user == null)
                 throw new KeyNotFoundException($"No se encontró al usuario: {id}");
-
-            var personResponse = user.Person != null ? new PersonResponse
-            {
-                Id = user.Person.Id,
-                Name = user.Person.Name,
-                LastName = user.Person.LastName,
-                BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
-                Sex = user.Person.Sex.ToString(),
-                Ci = user.Person.Ci,
-                Email = user.Person.Email?.Value,
-                Phone = user.Person.Phone?.Value,
-                Profession = user.Person.Profession,
-            } : null;
-
             return new UserResponse
             {
                 Id = user.Id,
-                Person = personResponse
+                Person = new PersonResponse
+                {
+                    Id = user.Person.Id,
+                    Name = user.Person.Name,
+                    LastName = user.Person.LastName,
+                    BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
+                    Sex = user.Person.Sex.ToString(),
+                    Ci = user.Person.Ci,
+                    Email = user.Person.Email?.Value,
+                    Phone = user.Person.Phone?.Value,
+                    Profession = user.Person.Profession,
+                },
+                Roles = user.UserRoles
+                        .Select(ur => new RoleResponse
+                        {
+                            Id = ur.Role.Id,
+                            Name = ur.Role.Name,
+                            Description = ur.Role.Description,
+                        }).ToList(),
+                State = user.State.ToString(),
+                CreatedAt = user.CreatedAt.ToString(),
+                UpdatedAt = user.UpdatedAt?.ToString(),
+                CreatedBy = user.CreatedBy,
+                UpdatedBy = user.UpdatedBy,
             };
         }
 
@@ -135,7 +144,7 @@ namespace Application.Services
             });
         }
 
-        public async Task<UserResponse> CreateUser(UserDto dto, string creatorName)
+        public async Task<UserMessageResponse> CreateUser(UserDto dto, string creatorName)
         {
             var person = new Person
             {
@@ -168,90 +177,55 @@ namespace Application.Services
 
             await _userRepository.CreateUser(user);
 
-
-            return new UserResponse
+            return new UserMessageResponse
             {
                 Id = user.Id,
-                State = user.State.ToString(),
-                Person = new PersonResponse
-                {
-                    Id = user.Person.Id,
-                    Name = user.Person.Name,
-                    LastName = user.Person.LastName,
-                    BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
-                    Sex = user.Person.Sex.ToString(),
-                    Ci = user.Person.Ci,
-                    Email = user.Person.Email.Value,
-                    Phone = user.Person.Phone.Value,
-                    Profession = user.Person.Profession,
-                }
+                Message = "Usuario creado correctamente"
             };
         }
 
-        public async Task<UserResponse> UpdateUser(Guid Id, PersonDto dto, string creatorName)
+        public async Task<UserMessageResponse> UpdateUser(Guid Id, UserWithOutPasswordDto dto, string creatorName)
         {
             var user = await _userRepository.GetUserById(Id);
             if (user == null)
                 throw new KeyNotFoundException($"No se encontró la persona con id {Id}");
 
-            user.Person.Name = dto.Name;
-            user.Person.LastName = dto.LastName;
-            user.Person.BirthDate = DateOnly.Parse(dto.BirthDate);
-            user.Person.Sex = Enum.Parse<Gender>(dto.Sex);
-            user.Person.Ci = dto.Ci;
-            user.Person.Email = new EmailAddress(dto.Email);
-            user.Person.Phone = new PhoneNumber(dto.Phone);
-            user.Person.Profession = dto.Profession;
+            user.Person.Name = dto.Person.Name;
+            user.Person.LastName = dto.Person.LastName;
+            user.Person.BirthDate = DateOnly.Parse(dto.Person.BirthDate);
+            user.Person.Sex = Enum.Parse<Gender>(dto.Person.Sex);
+            user.Person.Ci = dto.Person.Ci;
+            user.Person.Email = new EmailAddress(dto.Person.Email);
+            user.Person.Phone = new PhoneNumber(dto.Person.Phone);
+            user.Person.Profession = dto.Person.Profession;
 
-            user.Person.UpdatedAt = DateTime.UtcNow;
-            user.Person.UpdatedBy = creatorName;
+            user.UpdatedAt = DateTime.UtcNow;
+            user.UpdatedBy = creatorName;
 
             await _userRepository.UpdateUser(user);
 
-            return new UserResponse
+            return new UserMessageResponse
             {
                 Id = user.Id,
-                State = user.State.ToString(),
-                Person = new PersonResponse
-                {
-                    Name = user.Person.Name,
-                    LastName = user.Person.LastName,
-                    BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
-                    Sex = user.Person.Sex.ToString(),
-                    Ci = user.Person.Ci,
-                    Email = user.Person.Email.Value,
-                    Phone = user.Person.Phone.Value,
-                    Profession = user.Person.Profession,
-                }
+                Message = "Usuario actualizado correctamente"
             };
         }
 
-        public async Task<UserResponse> ChangeState(Guid id, UserChangeStateDto dto, string creatorName)
+        public async Task<UserMessageResponse> ChangeState(Guid id, UserChangeStateDto dto, string creatorName)
         {
             var user = await _userRepository.GetUserById(id);
             if (user == null)
                 throw new KeyNotFoundException($"No se encontró la persona con id {id}");
 
-            user.State = dto.State;
+            user.State = Enum.Parse<States>(dto.State);
             user.UpdatedAt = DateTime.UtcNow;
             user.UpdatedBy = creatorName;
 
             await _userRepository.UpdateUser(user);
-            return new UserResponse
+            return new UserMessageResponse
             {
                 Id = user.Id,
-                State = user.State.ToString(),
-                Person = new PersonResponse
-                {
-                    Name = user.Person.Name,
-                    LastName = user.Person.LastName,
-                    BirthDate = user.Person.BirthDate.ToString("dd/MM/yyyy"),
-                    Sex = user.Person.Sex.ToString(),
-                    Ci = user.Person.Ci,
-                    Email = user.Person.Email.Value,
-                    Phone = user.Person.Phone.Value,
-                    Profession = user.Person.Profession,
-                }
+                Message = "Estado actualizado correctamente"
             };
         }
 

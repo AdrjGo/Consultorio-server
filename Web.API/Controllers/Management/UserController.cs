@@ -46,39 +46,39 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize(Policy = Permissions.User.Read)]
-        [HttpGet("all")]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            try
-            {
-                var users = await _userService.GetAllUsers();
-                return Ok(users);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = ex.Message });
-            }
-        }
+        // [Authorize(Policy = Permissions.User.Read)]
+        // [HttpGet("all")]
+        // public async Task<IActionResult> GetAllUsers()
+        // {
+        //     try
+        //     {
+        //         var users = await _userService.GetAllUsers();
+        //         return Ok(users);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, new { message = ex.Message });
+        //     }
+        // }
 
-        [Authorize(Policy = Permissions.User.Read)]
-        [HttpGet("{name}")]
-        public async Task<IActionResult> GetUserByName(string name)
-        {
-            try
-            {
-                var user = await _userService.GetUserByName(name);
-                return Ok(user);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(new { message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = ex.Message });
-            }
-        }
+        // [Authorize(Policy = Permissions.User.Read)]
+        // [HttpGet("{name}")]
+        // public async Task<IActionResult> GetUserByName(string name)
+        // {
+        //     try
+        //     {
+        //         var user = await _userService.GetUserByName(name);
+        //         return Ok(user);
+        //     }
+        //     catch (KeyNotFoundException ex)
+        //     {
+        //         return NotFound(new { message = ex.Message });
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, new { message = ex.Message });
+        //     }
+        // }
 
         [Authorize(Policy = Permissions.User.Read)]
         [HttpGet("{id}/data")]
@@ -100,8 +100,8 @@ namespace Web.API.Controllers
         }
 
         [Authorize(Policy = Permissions.User.Update)]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] PersonDto dto)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UserWithOutPasswordDto dto)
         {
             var creatorName = _httpContextAccessor.HttpContext.User.FindFirst("name")?.Value;
 

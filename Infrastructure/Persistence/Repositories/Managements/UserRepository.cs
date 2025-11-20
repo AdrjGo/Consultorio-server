@@ -27,7 +27,7 @@ namespace Infrastructure.Repositories
                 query = query.Where(u => u.State.ToString().ToLower() == state.ToLower());
 
             if (!string.IsNullOrEmpty(role))
-                query = query.Where(u => u.UserRoles.Any(ur => ur.Role.Name == role));
+                query = query.Where(u => u.UserRoles.Any(ur => ur.Role.Name.ToLower() == role.ToLower()));
 
             if (!string.IsNullOrEmpty(search))
                 query = query.Where(u =>
@@ -39,7 +39,7 @@ namespace Infrastructure.Repositories
 
         public async Task<User?> GetUserById(Guid id)
         {
-            return await _context.Users.Include(u => u.Person).FirstAsync(u => u.Id == id);
+            return await _context.Users.Include(u => u.Person).Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstAsync(u => u.Id == id);
         }
 
         public async Task<User?> GetUserByName(string name)

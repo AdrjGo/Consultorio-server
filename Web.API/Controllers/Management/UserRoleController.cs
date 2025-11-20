@@ -19,6 +19,58 @@ namespace Web.API.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        // [Authorize(Policy = Permissions.UserRole.Read)]
+        // [HttpGet]
+        // public async Task<IActionResult> GetUserRolesByIds([FromBody] IEnumerable<Guid> ids)
+        // {
+        //     if (!ModelState.IsValid)
+        //         return BadRequest(ModelState);
+
+        //     try
+        //     {
+        //         var userRoles = await _userRoleService.GetUserRolesByIds(ids);
+        //         return Ok(userRoles);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, new { message = ex.Message });
+        //     }
+        // }
+
+        [Authorize(Policy = Permissions.UserRole.Read)]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserRolesByUserId(Guid id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var userRoles = await _userRoleService.GetUserRolesByUserId(id);
+                return Ok(userRoles);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Policy = Permissions.UserRole.Update)]
+        [HttpPatch]
+        public async Task<IActionResult> UpdateUserRoles(
+        [FromBody] IEnumerable<UserRoleDto> rolesDto)
+        {
+            if (rolesDto == null || !rolesDto.Any())
+                return BadRequest("Debe enviar al menos un rol.");
+
+            var creatorName = User.Identity?.Name ?? "System";
+
+            var result = await _userRoleService.UpdateUserRoles(rolesDto, creatorName);
+
+            return Ok(result);
+        }
+
+
         [Authorize(Policy = Permissions.UserRole.Create)]
         [HttpPost]
         public async Task<IActionResult> AssignRolesToUser([FromBody] IEnumerable<UserRoleDto> roleIds)

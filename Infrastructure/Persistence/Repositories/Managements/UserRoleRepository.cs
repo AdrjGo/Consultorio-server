@@ -20,6 +20,20 @@ namespace Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<UserRole>> GetUserRolesByUserId(Guid userId)
+        {
+            return await _context.UserRoles
+                .Where(ur => ur.UserId == userId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<UserRole>> UpdateUserRoles(IEnumerable<UserRole> userRoles)
+        {
+            _context.UserRoles.UpdateRange(userRoles);
+            await _context.SaveChangesAsync();
+            return userRoles;
+        }
+
         public async Task AssignRoleToUser(IEnumerable<UserRole> userRoles)
         {
             _context.UserRoles.AddRange(userRoles);
