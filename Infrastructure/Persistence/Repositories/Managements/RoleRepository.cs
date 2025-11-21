@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Role>> GetAllRoles()
         {
-            return await _context.Roles.ToListAsync();
+            return await _context.Roles.Include(r => r.UserRoles).ToListAsync();
         }
 
         public async Task<IEnumerable<Role>> GetRolesByUserId(Guid userId)

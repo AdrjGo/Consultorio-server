@@ -25,6 +25,7 @@ namespace Application.Services
                 Id = r.Id,
                 Name = r.Name,
                 Description = r.Description,
+                UsersUsingRole = r.UserRoles.Count.ToString(),
             });
         }
 
