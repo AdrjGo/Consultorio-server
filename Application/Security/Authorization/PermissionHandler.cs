@@ -20,7 +20,7 @@ namespace Application.Security.Authorization
             var userId = context.User.FindFirstValue("userId");
             if (string.IsNullOrEmpty(userId)) return;
 
-            var hasPermission = await _userPermissionService.UserHasPermissionAsync(Guid.Parse(userId), requirement.Permission);
+            var hasPermission = await _userPermissionService.UserHasPermissionAsync(Guid.Parse(userId), requirement.PermissionId);
             if (hasPermission) context.Succeed(requirement);
         }
     }

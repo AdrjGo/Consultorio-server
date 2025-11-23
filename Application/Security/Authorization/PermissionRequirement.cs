@@ -8,11 +8,11 @@ namespace Application.Security.Authorization
     // Requisito genérico para validar un permiso.
     public class PermissionRequirement : IAuthorizationRequirement
     {
-        public string Permission { get; }
+        public string PermissionId { get; }
 
-        public PermissionRequirement(string permission)
+        public PermissionRequirement(string permissionId)
         {
-            Permission = permission;
+            PermissionId = permissionId;
         }
     }
 }

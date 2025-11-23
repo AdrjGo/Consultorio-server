@@ -23,8 +23,7 @@ namespace Infrastructure.Services
                    _context.RolePermissions
                        .Any(rp => rp.RoleId == ur.RoleId &&
                                   _context.Permissions.Any(p =>
-                                      p.Id == rp.PermissionId &&
-                                      p.Name == permission)));
+                                      p.Id == rp.PermissionId)));
         }
     }
 }
