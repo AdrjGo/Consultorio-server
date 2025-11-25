@@ -93,6 +93,26 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize(Policy = Permissions.Role.Create)]
+        [HttpPost("createWithPermissions")]
+        public async Task<IActionResult> CreateRoleWithPermissions([FromBody] RoleWithPermissionsDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var creatorName = _httpContextAccessor?.HttpContext?.User.FindFirst("name")?.Value;
+
+            try
+            {
+                var role = await _roleService.CreateRoleWithPermissions(dto, creatorName);
+                return Ok(role);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
         [Authorize(Policy = Permissions.Role.Update)]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateRole(Guid id, [FromBody] RoleDto dto)

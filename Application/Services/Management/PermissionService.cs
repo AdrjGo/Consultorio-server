@@ -15,18 +15,25 @@ namespace Application.Services
             _permissionRepository = permissionRepository;
         }
 
-        public async Task<IEnumerable<PermissionResponse>> GetAllPermissions()
+        public async Task<IEnumerable<RolePermissionResponse>> GetAllPermissions()
         {
             var permissions = await _permissionRepository.GetAllPermissions();
             if (permissions == null)
                 throw new KeyNotFoundException($"No se encontró ningún permiso");
 
-            return permissions.Select(p => new PermissionResponse
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Description = p.Description,
-            });
+            return permissions.GroupBy(rp => rp.Key)
+                    .Select(g => new RolePermissionResponse
+                    {
+                        // Id = Guid.NewGuid(),
+                        Key = g.Key,
+                        Permissions = g.Select(rp => new PermissionResponse
+                        {
+                            Id = rp.Id,
+                            Name = rp.Name,
+                            Description = rp.Description
+                        }).ToList()
+                    })
+                    .ToList();
         }
 
         public async Task<PermissionResponse> GetPermissionByName(string name)
@@ -39,16 +46,18 @@ namespace Application.Services
             return new PermissionResponse
             {
                 Id = permission.Id,
+                Key = permission.Key,
                 Name = permission.Name,
                 Description = permission.Description,
             };
         }
 
-        public async Task<PermissionResponse> CreatePermission(PermissionDto dto, string creatorName)
+        public async Task<PermissionMessageResponse> CreatePermission(PermissionDto dto, string creatorName)
         {
             var permission = new Permission
             {
                 Id = Guid.CreateVersion7(),
+                Key = dto.Key,
                 Name = dto.Name,
                 Description = dto.Description ?? "",
                 State = States.ACTIVE,
@@ -58,15 +67,13 @@ namespace Application.Services
 
             await _permissionRepository.CreatePermission(permission);
 
-            return new PermissionResponse
+            return new PermissionMessageResponse
             {
-                Id = permission.Id,
-                Name = permission.Name,
-                Description = permission.Description,
+                Message = "Permiso creado correctamente",
             };
         }
 
-        public async Task<PermissionResponse> UpdatePermission(Guid id, PermissionDto dto, string creatorName)
+        public async Task<PermissionMessageResponse> UpdatePermission(Guid id, PermissionDto dto, string creatorName)
         {
             var permission = await _permissionRepository.GetPermissionById(id);
             if (permission == null)
@@ -79,11 +86,9 @@ namespace Application.Services
 
             await _permissionRepository.UpdatePermission(permission);
 
-            return new PermissionResponse
+            return new PermissionMessageResponse
             {
-                Id = permission.Id,
-                Name = permission.Name,
-                Description = permission.Description,
+                Message = "Permiso actualizado correctamente",
             };
         }
 

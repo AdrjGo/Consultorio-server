@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Permission>> GetAllPermissions()
         {
-            return await _context.Permissions.ToListAsync();
+            return await _context.Permissions.Include(p => p.RolePermissions).ThenInclude(rp => rp.Role).ToListAsync();
         }
 
         public async Task<Permission> CreatePermission(Permission permission)

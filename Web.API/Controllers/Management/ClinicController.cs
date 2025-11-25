@@ -31,7 +31,7 @@ namespace Web.API.Controllers
             return Ok(await _clinicService.CraeteClinic(dto, creatorName));
         }
 
-        [Authorize(Policy = Permissions.Clinic.Read)]
+        // [Authorize(Policy = Permissions.Clinic.Read)]
         [HttpGet]
         public async Task<IActionResult> GetClinic()
         {

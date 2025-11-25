@@ -26,6 +26,7 @@ namespace Application.Services
                 Name = r.Name,
                 Description = r.Description,
                 UsersUsingRole = r.UserRoles.Count.ToString(),
+                PermissionsOnRole = r.RolePermissions.Count.ToString(),
             });
         }
 
@@ -60,6 +61,10 @@ namespace Application.Services
 
         public async Task<RoleResponse> CreateRole(RoleDto dto, string creatorName)
         {
+            var roleByname = await _roleRepository.GetRoleByName(dto.Name);
+            if (roleByname != null)
+                throw new KeyNotFoundException($"Ya existe un rol con nombre: {dto.Name}");
+
             var role = new Role
             {
                 Id = Guid.CreateVersion7(),
@@ -79,6 +84,55 @@ namespace Application.Services
                 Description = role.Description,
             };
         }
+
+        public async Task<RoleMessageResponse> CreateRoleWithPermissions(RoleWithPermissionsDto dto, string creatorName)
+        {
+            var roleByname = await _roleRepository.GetRoleByName(dto.Role.Name);
+            if (roleByname != null)
+                throw new KeyNotFoundException($"Ya existe un rol con nombre: {dto.Role.Name}");
+
+            var role = new Role
+            {
+                Id = Guid.CreateVersion7(),
+                Name = dto.Role.Name,
+                Description = dto.Role.Description ?? "",
+                State = States.ACTIVE,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = creatorName,
+            };
+
+            var rolePermissions = dto.Permissions.Select(permissionId => new RolePermission
+            {
+                Id = Guid.CreateVersion7(),
+                RoleId = role.Id,
+                PermissionId = permissionId,
+                State = States.ACTIVE,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = creatorName
+            }).ToList();
+
+            await _roleRepository.CreateRoleWithPermissions(role, rolePermissions);
+
+            return new RoleMessageResponse
+            {
+                Message = "Rol creado y permisos asignados correctamente",
+            };
+        }
+
+        // public async Task AssignPermissionsToRole(IEnumerable<RolePermissionDto> rolePermissions, string creatorName)
+        // {
+        //     var rolePermission = rolePermissions.Select(rp => new RolePermission
+        //     {
+        //         Id = Guid.CreateVersion7(),
+        //         RoleId = rp.RoleId,
+        //         PermissionId = rp.PermissionId,
+        //         State = States.ACTIVE,
+        //         CreatedAt = DateTime.UtcNow,
+        //         CreatedBy = creatorName,
+        //     }).ToList();
+
+        //     await _rolePermissionRepository.AssignPermissionToRole(rolePermission);
+        // }
 
         public async Task<RoleResponse> UpdateRole(Guid id, RoleDto dto, string creatorName)
         {

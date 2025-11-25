@@ -9,6 +9,7 @@ namespace Domain.Interfaces
         Task<IEnumerable<Role>> GetAllRoles();
         Task<IEnumerable<Role>> GetRolesByUserId(Guid userId);
         Task<Role> CreateRole(Role role);
+        Task<Role> CreateRoleWithPermissions(Role role, IEnumerable<RolePermission> rolePermissions);
         Task<Role> UpdateRole(Role role);
         Task DeleteRole(Guid id);
     }

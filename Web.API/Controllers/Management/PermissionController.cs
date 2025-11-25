@@ -17,7 +17,7 @@ namespace Web.API.Controllers
             _permissionService = permissionService;
         }
 
-        [Authorize(Policy = Permissions.Permission.Read)]
+        // [Authorize(Policy = Permissions.Permission.Read)]
         [HttpGet]
         public async Task<IActionResult> GetAllPermissions()
         {
@@ -32,7 +32,7 @@ namespace Web.API.Controllers
             }
         }
 
-        [Authorize(Policy = Permissions.Permission.Read)]
+        // [Authorize(Policy = Permissions.Permission.Read)]
         [HttpGet("{name}")]
         public async Task<IActionResult> GetPermissionByName(string name)
         {

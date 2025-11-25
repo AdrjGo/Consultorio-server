@@ -11,7 +11,8 @@ namespace Infrastructure.Data
             builder.ToTable("permission");
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).HasColumnName("permission_id").IsRequired();
-            builder.Property(p => p.Name).HasColumnName("permission_name").HasMaxLength(25).IsRequired();
+            builder.Property(p => p.Key).HasColumnName("permission_key").HasMaxLength(35).IsRequired();
+            builder.Property(p => p.Name).HasColumnName("permission_name").HasMaxLength(35).IsRequired();
             builder.Property(p => p.Description).HasColumnName("permission_description").HasMaxLength(100);
 
             builder.Property(p => p.CreatedBy).HasColumnName("created_by").IsRequired();

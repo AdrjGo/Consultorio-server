@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Role>> GetAllRoles()
         {
-            return await _context.Roles.Include(r => r.UserRoles).ToListAsync();
+            return await _context.Roles.Include(r => r.UserRoles).Include(r => r.RolePermissions).ToListAsync();
         }
 
         public async Task<IEnumerable<Role>> GetRolesByUserId(Guid userId)
@@ -35,6 +35,14 @@ namespace Infrastructure.Repositories
         public async Task<Role> CreateRole(Role role)
         {
             _context.Roles.Add(role);
+            await _context.SaveChangesAsync();
+            return role;
+        }
+
+        public async Task<Role> CreateRoleWithPermissions(Role role, IEnumerable<RolePermission> rolePermissions)
+        {
+            _context.Roles.Add(role);
+            _context.RolePermissions.AddRange(rolePermissions);
             await _context.SaveChangesAsync();
             return role;
         }
