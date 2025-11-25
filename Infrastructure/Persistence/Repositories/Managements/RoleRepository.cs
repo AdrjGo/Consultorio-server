@@ -15,7 +15,12 @@ namespace Infrastructure.Repositories
 
         public async Task<Role> GetRoleById(Guid id)
         {
-            return await _context.Roles.FirstOrDefaultAsync(r => r.Id == id);
+            return await _context.Roles.Include(r => r.RolePermissions).FirstOrDefaultAsync(r => r.Id == id);
+        }
+
+        public async Task<Role> GetRoleWithPermissionsById(Guid id)
+        {
+            return await _context.Roles.Include(r => r.RolePermissions).FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<Role> GetRoleByName(string name)
@@ -54,6 +59,15 @@ namespace Infrastructure.Repositories
             return role;
         }
 
+        public async Task<Role> UpdateRoleWithPermissions(Role role, IEnumerable<RolePermission> rolePermissions)
+        {
+            _context.Roles.Update(role);
+            _context.RolePermissions.RemoveRange(role.RolePermissions);
+            _context.RolePermissions.AddRange(rolePermissions);
+            await _context.SaveChangesAsync();
+            return role;
+        }
+
         public async Task DeleteRole(Guid id)
         {
             var role = await _context.Roles.FindAsync(id);
@@ -61,5 +75,6 @@ namespace Infrastructure.Repositories
             _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
         }
+
     }
 }

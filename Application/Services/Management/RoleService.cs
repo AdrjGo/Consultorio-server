@@ -59,6 +59,22 @@ namespace Application.Services
             });
         }
 
+        public async Task<RoleWithPermissionsResponse> GetRoleWithPermissionsById(Guid id)
+        {
+            var role = await _roleRepository.GetRoleWithPermissionsById(id);
+
+            if (role == null)
+                throw new KeyNotFoundException($"No se encontró el rol con id {id}");
+
+            return new RoleWithPermissionsResponse
+            {
+                Id = role.Id,
+                Name = role.Name,
+                Description = role.Description,
+                Permissions = role.RolePermissions.Select(rp => rp.PermissionId).ToList(),
+            };
+        }
+
         public async Task<RoleResponse> CreateRole(RoleDto dto, string creatorName)
         {
             var roleByname = await _roleRepository.GetRoleByName(dto.Name);
@@ -119,21 +135,6 @@ namespace Application.Services
             };
         }
 
-        // public async Task AssignPermissionsToRole(IEnumerable<RolePermissionDto> rolePermissions, string creatorName)
-        // {
-        //     var rolePermission = rolePermissions.Select(rp => new RolePermission
-        //     {
-        //         Id = Guid.CreateVersion7(),
-        //         RoleId = rp.RoleId,
-        //         PermissionId = rp.PermissionId,
-        //         State = States.ACTIVE,
-        //         CreatedAt = DateTime.UtcNow,
-        //         CreatedBy = creatorName,
-        //     }).ToList();
-
-        //     await _rolePermissionRepository.AssignPermissionToRole(rolePermission);
-        // }
-
         public async Task<RoleResponse> UpdateRole(Guid id, RoleDto dto, string creatorName)
         {
             var role = await _roleRepository.GetRoleById(id);
@@ -152,6 +153,30 @@ namespace Application.Services
                 Id = role.Id,
                 Name = role.Name,
                 Description = role.Description,
+            };
+        }
+
+        public async Task<RoleMessageResponse> UpdateRoleWithPermissions(Guid id, RoleWithPermissionsDto dto, string creatorName)
+        {
+            var role = await _roleRepository.GetRoleById(id);
+            if (role == null)
+                throw new KeyNotFoundException($"No se encontró el rol con id {id}");
+
+            var rolePermissions = dto.Permissions.Select(permissionId => new RolePermission
+            {
+                Id = Guid.CreateVersion7(),
+                RoleId = role.Id,
+                PermissionId = permissionId,
+                State = States.ACTIVE,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = creatorName
+            }).ToList();
+
+            await _roleRepository.UpdateRoleWithPermissions(role, rolePermissions);
+
+            return new RoleMessageResponse
+            {
+                Message = "Rol actualizado y permisos asignados correctamente",
             };
         }
 

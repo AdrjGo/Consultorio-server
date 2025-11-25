@@ -73,6 +73,25 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize(Policy = Permissions.Role.Read)]
+        [HttpGet("{id}/permissions")]
+        public async Task<IActionResult> GetRoleWithPermissionsById(Guid id)
+        {
+            try
+            {
+                var role = await _roleService.GetRoleWithPermissionsById(id);
+                return Ok(role);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
         [Authorize(Policy = Permissions.Role.Create)]
         [HttpPost]
         public async Task<IActionResult> CreateRole([FromBody] RoleDto dto)
@@ -122,6 +141,27 @@ namespace Web.API.Controllers
             try
             {
                 var role = await _roleService.UpdateRole(id, dto, creatorName);
+                return Ok(role);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Policy = Permissions.Role.Update)]
+        [HttpPatch("{id}/updateWithPermissions")]
+        public async Task<IActionResult> UpdateRoleWithPermissions(Guid id, [FromBody] RoleWithPermissionsDto dto)
+        {
+            var creatorName = _httpContextAccessor.HttpContext.User.FindFirst("name")?.Value;
+
+            try
+            {
+                var role = await _roleService.UpdateRoleWithPermissions(id, dto, creatorName);
                 return Ok(role);
             }
             catch (KeyNotFoundException ex)
