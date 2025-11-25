@@ -6,14 +6,14 @@
 INSERT INTO public.person 
 ("person_id", "person_name", "person_last_name", "birth_date", "sex", "ci", "email", "phone_number", "profession", "state", "created_at", "created_by")
 VALUES 
-('13a8cd23-5185-4f42-8335-9eaadfc17fae', 'Admin', 'Super', '2003-01-18', 0, '0000000', 'admin@super.com', '123123123', 'Admin', "ACTIVE", NOW(), 'Seeds')
+('13a8cd23-5185-4f42-8335-9eaadfc17fae', 'Admin', 'Super', '2003-01-18', 0, '0000000', 'admin@super.com', '123123123', 'Admin', 'ACTIVE', NOW(), 'Seeds')
 ON CONFLICT ("person_id") DO NOTHING;
 
 -- Insertar persona dentista
 INSERT INTO public.person 
 ("person_id", "person_name", "person_last_name", "birth_date", "sex", "ci", "email", "phone_number", "profession", "state", "created_at", "created_by")
 VALUES 
-('8832dc7d-710f-45da-b147-aaa8b3b2f977', 'Dentista', '1', '1968-06-23', 0, '1111111', 'dentista@email.com', '12411242', 'Odontólogo', "ACTIVE", NOW(), 'Seeds')
+('8832dc7d-710f-45da-b147-aaa8b3b2f977', 'Dentista', '1', '1968-06-23', 0, '1111111', 'dentista@email.com', '12411242', 'Odontólogo', 'ACTIVE', NOW(), 'Seeds')
 ON CONFLICT ("person_id") DO NOTHING;
 
 
@@ -74,7 +74,7 @@ ON CONFLICT ("person_id") DO NOTHING;
 INSERT INTO public.patient
 ("patient_id", "person_id", "responsible_id", "address", "zone", "city", "home_phone", "occupation", "place_occupation","nit", "sender","state", "created_by", "created_at")
 VALUES
-('aca377cb-7c24-41b1-acf5-6586093961c0', '8c0c77a5-3ca1-482c-b078-750a9b82ad5e', null, 'Calle 1', 'Zona 1', 'Ciudad 1', '12345678', 'Estudiante', 'Universidad', '000001020', '', "ACTIVE", 'Seeds', NOW())
+('aca377cb-7c24-41b1-acf5-6586093961c0', '8c0c77a5-3ca1-482c-b078-750a9b82ad5e', null, 'Calle 1', 'Zona 1', 'Ciudad 1', '12345678', 'Estudiante', 'Universidad', '000001020', '', 'ACTIVE', 'Seeds', NOW())
 ON CONFLICT (patient_id) DO NOTHING;
 
 
@@ -90,57 +90,67 @@ VALUES
 -- ===============================
 -- Insertar permisos
 -- ===============================
-INSERT INTO public.permission ("permission_id", "permission_name", "permission_description", "state", "created_at", "created_by")
+INSERT INTO public.permission ("permission_id", "permission_key", "permission_name", "permission_description", "state", "created_at", "created_by")
 VALUES
-    ('11111111-1111-1111-1111-111111111111', 'Create.User', 'Permite crear usuarios', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111112', 'Read.User', 'Permite leer usuarios', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111113', 'Update.User', 'Permite actualizar usuarios', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111114', 'Delete.User', 'Permite eliminar usuarios', 0, NOW(), 'Seeds'),
+    --User
+    ('11111111-1111-1111-1111-111111111111', 'Administración', 'Crear Usuario', 'Permite crear usuarios', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111112', 'Administración', 'Leer Usuario', 'Permite leer usuarios', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111113', 'Administración', 'Actualizar Usuario', 'Permite actualizar usuarios', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111114', 'Administración', 'Eliminar Usuario', 'Permite eliminar usuarios', 0, NOW(), 'Seeds'),
 
-    ('11111111-1111-1111-1111-111111111115', 'Create.Role', 'Permite crear roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111116', 'Read.Role', 'Permite leer roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111117', 'Update.Role', 'Permite actualizar roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111118', 'Delete.Role', 'Permite eliminar roles', 0, NOW(), 'Seeds'),
+    --Role
+    ('11111111-1111-1111-1111-111111111115', 'Administración', 'Crear Rol', 'Permite crear roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111116', 'Administración', 'Leer Rol', 'Permite leer roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111117', 'Administración', 'Actualizar Rol', 'Permite actualizar roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111118', 'Administración', 'Eliminar Rol', 'Permite eliminar roles', 0, NOW(), 'Seeds'),
 
-    ('11111111-1111-1111-1111-111111111119', 'Create.Permission', 'Permite crear permisos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111120', 'Read.Permission', 'Permite leer permisos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111121', 'Update.Permission', 'Permite actualizar permisos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111122', 'Delete.Permission', 'Permite eliminar permisos', 0, NOW(), 'Seeds'),
+    --Permission
+    -- ('11111111-1111-1111-1111-111111111119', 'Administración', 'Crear Permiso', 'Permite crear permisos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111120', 'Administración', 'Leer Permiso', 'Permite leer permisos', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111121', 'Administración', 'Actualizar Permiso', 'Permite actualizar permisos', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111122', 'Administración', 'Eliminar Permiso', 'Permite eliminar permisos', 0, NOW(), 'Seeds'),
 
-    ('11111111-1111-1111-1111-111111111123', 'Create.RolePermission', 'Permite crear permisos de roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111124', 'Read.RolePermission', 'Permite leer permisos de roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111125', 'Update.RolePermission', 'Permite actualizar permisos de roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111126', 'Delete.RolePermission', 'Permite eliminar permisos de roles', 0, NOW(), 'Seeds'),
+    --RolePermission
+    ('11111111-1111-1111-1111-111111111123', 'Administración', 'Asignar Permiso a Rol', 'Permite asignar permisos a los roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111124', 'Administración', 'Leer Permiso de Rol', 'Permite leer permisos de roles', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111125', 'Actualizar Permiso de Rol', 'Permite actualizar permisos de roles', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111126', 'Eliminar Permiso de Rol', 'Permite eliminar permisos de roles', 0, NOW(), 'Seeds'),
 
-    ('11111111-1111-1111-1111-111111111127', 'Create.Clinic', 'Permite crear clinicas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111128', 'Read.Clinic', 'Permite leer clinicas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111129', 'Update.Clinic', 'Permite actualizar clinicas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111130', 'Delete.Clinic', 'Permite eliminar clinicas', 0, NOW(), 'Seeds'),
+    --Consultorio
+    ('11111111-1111-1111-1111-111111111127', 'Consultorio', 'Asignar Datos de Consultorio', 'Permite asigna datos al consultorio', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111128', 'Read.Clinic', 'Permite leer clinicas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111129', 'Consultorio', 'Actualizar Datos de Consultorio', 'Permite actualizar datos del consultorio', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111130', 'Eliminar Datos de Consultorio', 'Permite eliminar datos del consultorio', 0, NOW(), 'Seeds'),
 
-    ('11111111-1111-1111-1111-111111111131', 'Create.Patient', 'Permite crear pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111132', 'Read.Patient', 'Permite leer pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111133', 'Update.Patient', 'Permite actualizar pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111134', 'Delete.Patient', 'Permite eliminar pacientes', 0, NOW(), 'Seeds'),
+    --Paciente
+    ('11111111-1111-1111-1111-111111111131', 'Pacientes', 'Crear Paciente', 'Permite crear pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111132', 'Pacientes', 'Leer Paciente', 'Permite leer pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111133', 'Pacientes', 'Actualizar Paciente', 'Permite actualizar pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111134', 'Pacientes', 'Eliminar Paciente', 'Permite eliminar pacientes', 0, NOW(), 'Seeds'),
 
-    ('11111111-1111-1111-1111-111111111135', 'Create.Appointment', 'Permite crear pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111136', 'Read.Appointment', 'Permite leer pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111137', 'Update.Appointment', 'Permite actualizar pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111138', 'Delete.Appointment', 'Permite eliminar pacientes', 0, NOW(), 'Seeds'),
+    --Cita
+    ('11111111-1111-1111-1111-111111111135', 'Citas', 'Crear Cita', 'Permite crear citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111136', 'Citas', 'Leer Cita', 'Permite leer citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111137',  'Citas', 'Actualizar Cita', 'Permite actualizar citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111138', 'Citas', 'Eliminar Cita', 'Permite eliminar citas', 0, NOW(), 'Seeds'),
 
-    ('11111111-1111-1111-1111-111111111139', 'Create.EvidenceFile', 'Permite crear archivos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111140', 'Read.EvidenceFile', 'Permite leer archivos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111141', 'Update.EvidenceFile', 'Permite actualizar archivos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111142', 'Delete.EvidenceFile', 'Permite eliminar archivos', 0, NOW(), 'Seeds'),
+    --Archivo de Evidencia
+    ('11111111-1111-1111-1111-111111111139', 'Evidencia', 'Asignar Archivo de Evidencia', 'Permite asignar archivos de evidencia', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111140', 'Evidencia', 'Leer Archivo de Evidencia', 'Permite leer archivos de evidencia', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111141', 'Evidencia', 'Actualizar Archivo de Evidencia', 'Permite actualizar archivos de evidencia', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111142', 'Evidencia', 'Eliminar Archivo de Evidencia', 'Permite eliminar archivos de evidencia', 0, NOW(), 'Seeds'),
 
-    ('11111111-1111-1111-1111-111111111143', 'Create.Monitoring', 'Permite crear seguimientos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111144', 'Read.Monitoring', 'Permite leer seguimientos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111145', 'Update.Monitoring', 'Permite actualizar seguimientos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111146', 'Delete.Monitoring', 'Permite eliminar seguimientos', 0, NOW(), 'Seeds');
+    --Seguimiento
+    ('11111111-1111-1111-1111-111111111143', 'Seguimiento de citas', 'Añadir Seguimiento', 'Permite añadir seguimientos a las citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111144', 'Seguimiento de citas', 'Leer Seguimiento', 'Permite leer seguimientos de citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111145', 'Seguimiento de citas', 'Actualizar Seguimiento', 'Permite actualizar seguimientos de citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111146', 'Seguimiento de citas', 'Eliminar Seguimiento', 'Permite eliminar seguimientos de citas', 0, NOW(), 'Seeds'),
 
-    ('11111111-1111-1111-1111-111111111147', 'Create.UserRole', 'Permite crear roles de usuario', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111148', 'Read.UserRole', 'Permite leer roles de usuario', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111149', 'Update.UserRole', 'Permite actualizar roles de usuario', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111150', 'Delete.UserRole', 'Permite eliminar roles de usuario', 0, NOW(), 'Seeds');
+    --Asignar Roles
+    ('11111111-1111-1111-1111-111111111147', 'Administración',  'Asignar Roles', 'Permite asignar roles a un usuario', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111148', 'Administración',  'Leer Roles', 'Permite leer roles de usuario', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111149', 'Administración',  'Actualizar Roles', 'Permite actualizar roles de usuario', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111150', 'Administración',  'Eliminar Roles', 'Permite eliminar roles de usuario', 0, NOW(), 'Seeds');
 
 -- ===============================
 -- Asignar todos los permisos al rol Admin
@@ -155,18 +165,18 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111116', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111117', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111118', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111119', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111119', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111120', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111121', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111122', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111121', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111122', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111123', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111124', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111125', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111126', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111125', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111126', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111127', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111128', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111128', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111129', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111130', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111130', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111131', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111132', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111133', 0, NOW(), 'Seeds'),
@@ -182,8 +192,20 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111143', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111144', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111145', 0, NOW(), 'Seeds'), 
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111146', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111146', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111147', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111148', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111149', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111150', 0, NOW(), 'Seeds');
+
+
+-- ===============================
+-- Asignar algunos permisos al rol Dentista
+-- ===============================
+
+INSERT INTO public.role_permission ("role_permission_id", "role_id", "permission_id", "state", "created_at", "created_by")
+VALUES
+    (gen_random_uuid(), 'a4b1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111111', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'a4b1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111112', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'a4b1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111113', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'a4b1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111114', 0, NOW(), 'Seeds');
