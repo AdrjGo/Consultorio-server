@@ -20,14 +20,30 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Patient?>> GetPatientsByName(string name)
         {
+            var nameLower = name?.ToLower() ?? string.Empty;
             return await _context.Patients
                 .Include(u => u.Person)
                 .Include(pa => pa.PatientResponsible)
                 .ThenInclude(pr => pr.Person)
-                .Where(u => EF.Functions.ILike(u.Person.Name, $"%{name}%")
-                            || EF.Functions.ILike(u.Person.LastName, $"%{name}%"))
+                .Where(u => EF.Functions.ILike(u.Person.Name, $"%{nameLower}%")
+                            || EF.Functions.ILike(u.Person.LastName, $"%{nameLower}%"))
                 .ToListAsync();
         }
+
+        //For testing
+        //public async Task<IEnumerable<Patient?>> GetPatientsByName(string name)
+        //{
+        //    // Use a provider-agnostic case-insensitive comparison that translates for relational providers
+        //    // and works with the InMemory provider used in tests.
+        //    var lowerName = name?.ToLower() ?? string.Empty;
+        //    return await _context.Patients
+        //        .Include(u => u.Person)
+        //        .Include(pa => pa.PatientResponsible)
+        //        .ThenInclude(pr => pr.Person)
+        //        .Where(u => u.Person.Name.ToLower().Contains(lowerName)
+        //                    || u.Person.LastName.ToLower().Contains(lowerName))
+        //        .ToListAsync();
+        //}
 
         public async Task<IEnumerable<Patient>> GetAllPatients()
         {

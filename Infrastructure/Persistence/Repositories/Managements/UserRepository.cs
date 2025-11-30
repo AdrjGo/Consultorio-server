@@ -37,6 +37,25 @@ namespace Infrastructure.Repositories
             return await query.ToListAsync();
         }
 
+        // For testing
+        //public async Task<IEnumerable<User>> GetUsers(string? search = null, string? state = null, string? role = null)
+        //{
+        //    var query = _context.Users.Include(u => u.Person).Include(u => u.UserRoles).ThenInclude(ur => ur.Role).AsQueryable();
+
+        //    if (!string.IsNullOrEmpty(state))
+        //        query = query.Where(u => u.State.ToString().ToLower() == state.ToLower());
+
+        //    if (!string.IsNullOrEmpty(role))
+        //        query = query.Where(u => u.UserRoles.Any(ur => ur.Role.Name.ToLower() == role.ToLower()));
+
+        //    if (!string.IsNullOrEmpty(search))
+        //        query = query.Where(u =>
+        //            u.Person.Name.ToLower().Contains(search) ||
+        //            u.Person.LastName.ToLower().Contains(search));
+
+        //    return await query.ToListAsync();
+        //}
+
         public async Task<User?> GetUserById(Guid id)
         {
             return await _context.Users.Include(u => u.Person).Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstAsync(u => u.Id == id);
