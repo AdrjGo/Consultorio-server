@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,7 +14,13 @@ namespace Infrastructure.Data
             builder.Property(fv => fv.Id).HasColumnName("form_version_id").IsRequired();
             builder.Property(fv => fv.FormId).HasColumnName("form_id").IsRequired();
             builder.Property(fv => fv.NumberVersion).HasColumnName("number_version").IsRequired();
-            builder.Property(fv => fv.JsonSchema).HasColumnName("json_schema").HasColumnType("jsonb").IsRequired();
+            builder.Property(fv => fv.JsonSchema)
+                .HasColumnName("json_schema")
+                .HasColumnType("jsonb")
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                    v => JsonSerializer.Deserialize<object>(v, (JsonSerializerOptions?)null)!)
+                .IsRequired();
 
             builder.Property(fv => fv.CreatedBy).HasColumnName("created_by").IsRequired();
             builder.Property(fv => fv.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();

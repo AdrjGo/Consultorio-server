@@ -50,6 +50,7 @@ builder.Services.AddScoped<ITreatmentProgressRepository, TreatmentProgressRespos
 builder.Services.AddScoped<IFormVersionRepository, FormVersionRespository>();
 builder.Services.AddScoped<ITreatmentSumaryRepository, TreatmentSumaryRespository>();
 builder.Services.AddScoped<IFormResRepository, FormResRespository>();
+builder.Services.AddScoped<IFormRepository, FormRepository>();
 
 // Services
 builder.Services.AddHttpContextAccessor();
@@ -64,6 +65,7 @@ builder.Services.AddScoped<PatientsService>();
 builder.Services.AddScoped<AppointmentService>();
 builder.Services.AddScoped<EvidenceFileService>();
 builder.Services.AddScoped<MonitoringService>();
+builder.Services.AddScoped<FormService>();
 
 //Services de Autenticación
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();

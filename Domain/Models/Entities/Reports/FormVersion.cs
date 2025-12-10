@@ -7,10 +7,10 @@ namespace Domain.Entities
         public required int SubmodID { get; set; }
         public required Guid FormId { get; set; }
         public required int NumberVersion { get; set; }
-        public required string JsonSchema { get; set; }
+        public required object JsonSchema { get; set; }
 
-        public required Form Form { get; set; }
-        public required Submodule Submodule { get; set; }
-        public required List<FormRes> FormResponse { get; set; } = new();
+        public Form? Form { get; set; }
+        public Submodule? Submodule { get; set; }
+        public List<FormRes>? FormResponse { get; set; } = new();
     }
 }
