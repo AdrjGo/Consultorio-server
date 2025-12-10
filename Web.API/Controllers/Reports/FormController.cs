@@ -1,5 +1,7 @@
 using Application.Dto;
+using Application.Security;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers
@@ -17,6 +19,7 @@ namespace Web.API.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        [Authorize(policy: Permissions.DynamicForm.Read)]
         [HttpGet("by/id/{id}")]
         public async Task<ActionResult> GetFormVersionById(Guid id)
         {
@@ -35,6 +38,7 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize(policy: Permissions.DynamicForm.Read)]
         [HttpGet("by/name/{name}")]
         public async Task<ActionResult> GetFormByName(string name)
         {
@@ -53,6 +57,7 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize(policy: Permissions.DynamicForm.Read)]
         [HttpGet("{formName}/all")]
         public async Task<ActionResult> GetAllFormVersionsByFormName(string formName)
         {
@@ -71,6 +76,7 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize(policy: Permissions.DynamicForm.Read)]
         [HttpGet("all")]
         public async Task<ActionResult> GetAllForms()
         {
@@ -85,6 +91,7 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize(policy: Permissions.DynamicForm.Create)]
         [HttpPost]
         public async Task<ActionResult> CreateFormVersion([FromBody] FormVersionDto dto)
         {
