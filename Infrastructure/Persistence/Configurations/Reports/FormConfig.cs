@@ -11,7 +11,7 @@ namespace Infrastructure.Data
             builder.ToTable("form");
             builder.HasKey(f => f.Id);
             builder.Property(f => f.Id).HasColumnName("form_id").IsRequired();
-            builder.Property(f => f.Name).HasColumnName("form_name").HasMaxLength(20).IsRequired();
+            builder.Property(f => f.Name).HasColumnName("form_name").HasMaxLength(30).IsRequired();
             builder.Property(f => f.Description).HasColumnName("form_description").HasMaxLength(100).IsRequired();
 
             builder.Property(f => f.CreatedBy).HasColumnName("created_by").IsRequired();

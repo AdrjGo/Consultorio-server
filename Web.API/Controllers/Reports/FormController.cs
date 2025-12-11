@@ -20,7 +20,7 @@ namespace Web.API.Controllers
         }
 
         [Authorize(policy: Permissions.DynamicForm.Read)]
-        [HttpGet("by/id/{id}")]
+        [HttpGet("{id}/id")]
         public async Task<ActionResult> GetFormVersionById(Guid id)
         {
             try
@@ -39,7 +39,7 @@ namespace Web.API.Controllers
         }
 
         [Authorize(policy: Permissions.DynamicForm.Read)]
-        [HttpGet("by/name/{name}")]
+        [HttpGet("{name}/name")]
         public async Task<ActionResult> GetFormByName(string name)
         {
             try
@@ -113,25 +113,30 @@ namespace Web.API.Controllers
             }
         }
 
-        // [HttpPatch("{id}")]
-        // public async Task<ActionResult> UpdateFormVersion(Guid id, [FromBody] FormVersionDto dto)
-        // {
-        //     var creatorName = _httpContextAccessor.HttpContext.User.FindFirst("name")?.Value;
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateFormVersion(Guid id, [FromBody] FormVersionDto dto)
+        {
+            var creatorName = _httpContextAccessor.HttpContext.User.FindFirst("name")?.Value;
 
-        //     try
-        //     {
-        //         var message = await _formService.(id, dto, creatorName);
-        //         return Ok(message);
-        //     }
-        //     catch (KeyNotFoundException ex)
-        //     {
-        //         return NotFound(ex.Message);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, ex.Message);
-        //     }
-        // }
+            try
+            {
+                var message = await _formService.UpdateFormVersion(id, dto, creatorName);
+                return Ok(new { message = message.Message });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
 
 
     }

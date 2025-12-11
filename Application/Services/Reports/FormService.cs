@@ -100,9 +100,9 @@ namespace Application.Services
 
         public async Task<FormVersionMessageResponse> CreateFormVersion(FormVersionDto dto, string creatorName)
         {
-            var existForm = await _formRepository.GetFormByName(dto.Form.Name);
+            var existForm = await _formRepository.GetFormBySubmodId(dto.SubmodId);
             if (existForm != null)
-                throw new KeyNotFoundException($"Ya existe un formulario con el nombre {dto.Form.Name}");
+                throw new KeyNotFoundException($"Ya existe un formulario en este submodulo");
 
             var formHeader = new Form
             {
@@ -134,6 +134,35 @@ namespace Application.Services
             };
         }
 
+        public async Task<FormVersionMessageResponse> UpdateFormVersion(Guid id, FormVersionDto dto, string creatorName)
+        {
+            var formVersion = await _formRepository.GetFormVersionById(id);
+
+            if (formVersion == null)
+            {
+                throw new KeyNotFoundException($"Formulario {id} no encontrado");
+            }
+
+            formVersion.SubmodID = dto.SubmodId;
+            formVersion.NumberVersion = dto.NumberVersion;
+            formVersion.Form.Name = dto.Form.Name;
+            formVersion.Form.Description = dto.Form.Description;
+
+            if (formVersion.JsonSchema == dto.JsonSchema && formVersion.NumberVersion == dto.NumberVersion)
+            {
+                throw new KeyNotFoundException($"Esta versión ya existe");
+            }
+            formVersion.JsonSchema = dto.JsonSchema;
+            formVersion.Form.UpdatedAt = DateTime.UtcNow;
+            formVersion.Form.UpdatedBy = creatorName;
+
+            await _formRepository.UpdateFormVersion(formVersion);
+            return new FormVersionMessageResponse
+            {
+                Message = "Formulario actualizado correctamente",
+            };
+
+        }
 
     }
 }

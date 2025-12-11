@@ -6,6 +6,7 @@ namespace Domain.Interfaces
     {
         Task<FormVersion> GetFormVersionById(Guid id);
         Task<FormVersion> GetFormByName(string name);
+        Task<FormVersion> GetFormBySubmodId(int submodId);
         Task<IEnumerable<FormVersion>> GetAllFormVersionsByFormName(string formName);
         Task<IEnumerable<FormVersion>> GetAllFormVersionsByVersion();
         Task<FormVersion> CreateFormVersion(FormVersion formVersion);
