@@ -13,7 +13,7 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Submodule?> GetSubmoduleById(Guid id)
+        public async Task<Submodule?> GetSubmoduleById(int id)
         {
             return await _context.Submodules.FindAsync(id);
         }
@@ -37,7 +37,7 @@ namespace Infrastructure.Repositories
             return submodule;
         }
 
-        public async Task DeleteSubmodule(Guid id)
+        public async Task DeleteSubmodule(int id)
         {
             var submodule = await _context.Submodules.FindAsync(id);
             if (submodule == null) return;

@@ -13,10 +13,10 @@ namespace Domain.Entities
         public required DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        public required TreatmentSummary TreatmentSummary { get; set; }
-        public required Contract Contract { get; set; }
-        public required List<FormVersion> FormVersions { get; set; } = new();
-        public required ClinicHistory ClinicHistory { get; set; }
-        public required GeneralHistory GeneralHistory { get; set; }
+        public TreatmentSummary? TreatmentSummary { get; set; }
+        public Contract? Contract { get; set; }
+        public List<FormVersion>? FormVersions { get; set; } = new();
+        public ClinicHistory? ClinicHistory { get; set; }
+        public GeneralHistory? GeneralHistory { get; set; }
     }
 }

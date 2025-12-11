@@ -4,10 +4,10 @@ namespace Domain.Interfaces
 {
     public interface ISubmoduleRepository
     {
-        Task<Submodule> GetSubmoduleById(Guid id);
+        Task<Submodule> GetSubmoduleById(int id);
         Task<IEnumerable<Submodule>> GetAllSubmodules();
         Task<Submodule> CreateSubmodule(Submodule submodule);
         Task<Submodule> UpdateSubmodule(Submodule submodule);
-        Task DeleteSubmodule(Guid id);
+        Task DeleteSubmodule(int id);
     }
 }
