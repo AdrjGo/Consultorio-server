@@ -88,6 +88,18 @@ VALUES
 
 
 -- ===============================
+-- Crear Submodulos
+-- ===============================
+INSERT INTO public.submodule
+("submodule_id", "submodule_name", "state", "created_at", "created_by")
+VALUES
+('1', 'Historial General', 'ACTIVE', NOW(), 'Seeds'),
+('2', 'Contratos', 'ACTIVE', NOW(), 'Seeds'),
+('3', 'Resumen Tratamiento', 'ACTIVE', NOW(), 'Seeds'),
+('4', 'Historia Clínica', 'ACTIVE', NOW(), 'Seeds');
+
+
+-- ===============================
 -- Insertar permisos
 -- ===============================
 INSERT INTO public.permission ("permission_id", "permission_key", "permission_name", "permission_description", "state", "created_at", "created_by")
@@ -98,59 +110,71 @@ VALUES
     ('11111111-1111-1111-1111-111111111113', 'Administración', 'Actualizar Usuario', 'Permite actualizar usuarios', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111114', 'Administración', 'Eliminar Usuario', 'Permite eliminar usuarios', 0, NOW(), 'Seeds'),
 
+    --UserRole (Asignar Roles)
+    ('11111111-1111-1111-1111-111111111115', 'Administración',  'Asignar Roles', 'Permite asignar roles a un usuario', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111116', 'Administración',  'Leer Roles', 'Permite leer roles de usuario', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111117', 'Administración',  'Actualizar Roles', 'Permite actualizar roles de usuario', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111118', 'Administración',  'Eliminar Roles', 'Permite eliminar roles de usuario', 0, NOW(), 'Seeds'),
+
     --Role
-    ('11111111-1111-1111-1111-111111111115', 'Administración', 'Crear Rol', 'Permite crear roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111116', 'Administración', 'Leer Rol', 'Permite leer roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111117', 'Administración', 'Actualizar Rol', 'Permite actualizar roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111118', 'Administración', 'Eliminar Rol', 'Permite eliminar roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111119', 'Administración', 'Crear Rol', 'Permite crear roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111120', 'Administración', 'Leer Rol', 'Permite leer roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111121', 'Administración', 'Actualizar Rol', 'Permite actualizar roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111122', 'Administración', 'Eliminar Rol', 'Permite eliminar roles', 0, NOW(), 'Seeds'),
 
     --Permission
-    -- ('11111111-1111-1111-1111-111111111119', 'Administración', 'Crear Permiso', 'Permite crear permisos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111120', 'Administración', 'Leer Permiso', 'Permite leer permisos', 0, NOW(), 'Seeds'),
-    -- ('11111111-1111-1111-1111-111111111121', 'Administración', 'Actualizar Permiso', 'Permite actualizar permisos', 0, NOW(), 'Seeds'),
-    -- ('11111111-1111-1111-1111-111111111122', 'Administración', 'Eliminar Permiso', 'Permite eliminar permisos', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111123', 'Administración', 'Crear Permiso', 'Permite crear permisos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111124', 'Administración', 'Leer Permiso', 'Permite leer permisos', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111125', 'Administración', 'Actualizar Permiso', 'Permite actualizar permisos', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111126', 'Administración', 'Eliminar Permiso', 'Permite eliminar permisos', 0, NOW(), 'Seeds'),
 
     --RolePermission
-    ('11111111-1111-1111-1111-111111111123', 'Administración', 'Asignar Permiso a Rol', 'Permite asignar permisos a los roles', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111124', 'Administración', 'Leer Permiso de Rol', 'Permite leer permisos de roles', 0, NOW(), 'Seeds'),
-    -- ('11111111-1111-1111-1111-111111111125', 'Actualizar Permiso de Rol', 'Permite actualizar permisos de roles', 0, NOW(), 'Seeds'),
-    -- ('11111111-1111-1111-1111-111111111126', 'Eliminar Permiso de Rol', 'Permite eliminar permisos de roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111127', 'Administración', 'Asignar Permiso a Rol', 'Permite asignar permisos a los roles', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111128', 'Administración', 'Leer Permiso de Rol', 'Permite leer permisos de roles', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111129', 'Actualizar Permiso de Rol', 'Permite actualizar permisos de roles', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111130', 'Eliminar Permiso de Rol', 'Permite eliminar permisos de roles', 0, NOW(), 'Seeds'),
 
     --Consultorio
-    ('11111111-1111-1111-1111-111111111127', 'Consultorio', 'Asignar Datos de Consultorio', 'Permite asigna datos al consultorio', 0, NOW(), 'Seeds'),
-    -- ('11111111-1111-1111-1111-111111111128', 'Read.Clinic', 'Permite leer clinicas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111129', 'Consultorio', 'Actualizar Datos de Consultorio', 'Permite actualizar datos del consultorio', 0, NOW(), 'Seeds'),
-    -- ('11111111-1111-1111-1111-111111111130', 'Eliminar Datos de Consultorio', 'Permite eliminar datos del consultorio', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111131', 'Consultorio', 'Asignar Datos de Consultorio', 'Permite asigna datos al consultorio', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111132', 'Read.Clinic', 'Permite leer clinicas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111133', 'Consultorio', 'Actualizar Datos de Consultorio', 'Permite actualizar datos del consultorio', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111134', 'Eliminar Datos de Consultorio', 'Permite eliminar datos del consultorio', 0, NOW(), 'Seeds'),
 
     --Paciente
-    ('11111111-1111-1111-1111-111111111131', 'Pacientes', 'Crear Paciente', 'Permite crear pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111132', 'Pacientes', 'Leer Paciente', 'Permite leer pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111133', 'Pacientes', 'Actualizar Paciente', 'Permite actualizar pacientes', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111134', 'Pacientes', 'Eliminar Paciente', 'Permite eliminar pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111135', 'Pacientes', 'Crear Paciente', 'Permite crear pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111136', 'Pacientes', 'Leer Paciente', 'Permite leer pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111137', 'Pacientes', 'Actualizar Paciente', 'Permite actualizar pacientes', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111138', 'Pacientes', 'Eliminar Paciente', 'Permite eliminar pacientes', 0, NOW(), 'Seeds'),
 
     --Cita
-    ('11111111-1111-1111-1111-111111111135', 'Citas', 'Crear Cita', 'Permite crear citas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111136', 'Citas', 'Leer Cita', 'Permite leer citas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111137',  'Citas', 'Actualizar Cita', 'Permite actualizar citas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111138', 'Citas', 'Eliminar Cita', 'Permite eliminar citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111139', 'Citas', 'Crear Cita', 'Permite crear citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111140', 'Citas', 'Leer Cita', 'Permite leer citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111141',  'Citas', 'Actualizar Cita', 'Permite actualizar citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111142', 'Citas', 'Eliminar Cita', 'Permite eliminar citas', 0, NOW(), 'Seeds'),
 
     --Archivo de Evidencia
-    ('11111111-1111-1111-1111-111111111139', 'Evidencia', 'Asignar Archivo de Evidencia', 'Permite asignar archivos de evidencia', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111140', 'Evidencia', 'Leer Archivo de Evidencia', 'Permite leer archivos de evidencia', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111141', 'Evidencia', 'Actualizar Archivo de Evidencia', 'Permite actualizar archivos de evidencia', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111142', 'Evidencia', 'Eliminar Archivo de Evidencia', 'Permite eliminar archivos de evidencia', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111143', 'Evidencia', 'Asignar Archivo de Evidencia', 'Permite asignar archivos de evidencia', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111144', 'Evidencia', 'Leer Archivo de Evidencia', 'Permite leer archivos de evidencia', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111145', 'Evidencia', 'Actualizar Archivo de Evidencia', 'Permite actualizar archivos de evidencia', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111146', 'Evidencia', 'Eliminar Archivo de Evidencia', 'Permite eliminar archivos de evidencia', 0, NOW(), 'Seeds'),
 
-    --Seguimiento
-    ('11111111-1111-1111-1111-111111111143', 'Seguimiento de citas', 'Añadir Seguimiento', 'Permite añadir seguimientos a las citas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111144', 'Seguimiento de citas', 'Leer Seguimiento', 'Permite leer seguimientos de citas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111145', 'Seguimiento de citas', 'Actualizar Seguimiento', 'Permite actualizar seguimientos de citas', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111146', 'Seguimiento de citas', 'Eliminar Seguimiento', 'Permite eliminar seguimientos de citas', 0, NOW(), 'Seeds'),
+    --Monitoring (Seguimiento)
+    ('11111111-1111-1111-1111-111111111147', 'Seguimiento de citas', 'Añadir Seguimiento', 'Permite añadir seguimientos a las citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111148', 'Seguimiento de citas', 'Leer Seguimiento', 'Permite leer seguimientos de citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111149', 'Seguimiento de citas', 'Actualizar Seguimiento', 'Permite actualizar seguimientos de citas', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111150', 'Seguimiento de citas', 'Eliminar Seguimiento', 'Permite eliminar seguimientos de citas', 0, NOW(), 'Seeds'),
 
-    --Asignar Roles
-    ('11111111-1111-1111-1111-111111111147', 'Administración',  'Asignar Roles', 'Permite asignar roles a un usuario', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111148', 'Administración',  'Leer Roles', 'Permite leer roles de usuario', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111149', 'Administración',  'Actualizar Roles', 'Permite actualizar roles de usuario', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111150', 'Administración',  'Eliminar Roles', 'Permite eliminar roles de usuario', 0, NOW(), 'Seeds');
+    --DynamicForm
+    ('11111111-1111-1111-1111-111111111151', 'Consultorio', 'Crear Formularios Dinámicos', 'Permite crear formularios dinámicos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111152', 'Consultorio', 'Leer Formularios Dinámicos', 'Permite leer formularios dinámicos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111153', 'Consultorio', 'Actualizar Formularios Dinámicos', 'Permite actualizar formularios dinámicos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111154', 'Consultorio', 'Eliminar Formularios Dinámicos', 'Permite eliminar formularios dinámicos', 0, NOW(), 'Seeds'),
+
+    --Submodule
+    ('11111111-1111-1111-1111-111111111155', 'Consultorio', 'Crear Submódulos', 'Permite crear submódulos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111156', 'Consultorio', 'Leer Submódulos', 'Permite leer submódulos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111157', 'Consultorio', 'Actualizar Submódulos', 'Permite actualizar submódulos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111158', 'Consultorio', 'Eliminar Submódulos', 'Permite eliminar submódulos', 0, NOW(), 'Seeds');
 
 -- ===============================
 -- Asignar todos los permisos al rol Admin
@@ -165,22 +189,22 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111116', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111117', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111118', 0, NOW(), 'Seeds'),
-    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111119', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111119', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111120', 0, NOW(), 'Seeds'),
-    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111121', 0, NOW(), 'Seeds'),
-    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111122', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111123', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111121', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111122', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111123', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111124', 0, NOW(), 'Seeds'),
     -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111125', 0, NOW(), 'Seeds'),
     -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111126', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111127', 0, NOW(), 'Seeds'),
-    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111128', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111129', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111128', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111129', 0, NOW(), 'Seeds'),
     -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111130', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111131', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111132', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111132', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111133', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111134', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111134', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111135', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111136', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111137', 0, NOW(), 'Seeds'),
@@ -196,7 +220,11 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111147', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111148', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111149', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111150', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111150', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111151', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111152', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111153', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111154', 0, NOW(), 'Seeds');
 
 
 -- ===============================
