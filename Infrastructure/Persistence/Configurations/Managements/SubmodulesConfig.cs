@@ -11,7 +11,7 @@ namespace Infrastructure.Data
             builder.ToTable("submodule");
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Id).HasColumnName("submodule_id").IsRequired();
-            builder.Property(s => s.Name).HasColumnName("submodule_name").HasMaxLength(20).IsRequired();
+            builder.Property(s => s.Name).HasColumnName("submodule_name").HasMaxLength(30).IsRequired();
 
             builder.Property(s => s.CreatedBy).HasColumnName("created_by").IsRequired();
             builder.Property(s => s.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
