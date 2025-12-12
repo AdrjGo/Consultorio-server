@@ -93,11 +93,13 @@ VALUES
 INSERT INTO public.submodule
 ("submodule_id", "submodule_name", "state", "created_at", "created_by")
 VALUES
-('1', 'Historial General', 'ACTIVE', NOW(), 'Seeds'),
-('2', 'Contratos', 'ACTIVE', NOW(), 'Seeds'),
-('3', 'Resumen Tratamiento', 'ACTIVE', NOW(), 'Seeds'),
-('4', 'Historia Clínica', 'ACTIVE', NOW(), 'Seeds');
-
+('1', 'Historia de Salud General', 'ACTIVE', NOW(), 'Seeds'),
+('2', 'Historia Clínica', 'ACTIVE', NOW(), 'Seeds'),
+('3', 'Resumen de Tratamiento', 'ACTIVE', NOW(), 'Seeds'),
+('4', 'Presupuesto Ortodoncia', 'ACTIVE', NOW(), 'Seeds'),
+('5', 'Presupuesto Ortopedia', 'ACTIVE', NOW(), 'Seeds'),
+('6', 'Control de Cuotas', 'ACTIVE', NOW(), 'Seeds'),
+('7', 'Presupuesto Dental', 'ACTIVE', NOW(), 'Seeds');
 
 -- ===============================
 -- Insertar permisos
