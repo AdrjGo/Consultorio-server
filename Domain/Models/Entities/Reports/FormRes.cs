@@ -4,10 +4,10 @@ namespace Domain.Entities
     {
         public required Guid FormVersionId { get; set; }
         public required Guid PatientId { get; set; }
-        public required string JsonResponse { get; set; }
+        public required object JsonResponse { get; set; }
 
-        public required FormVersion FormVersion { get; set; }
-        public required Patient Patient { get; set; }
+        public FormVersion? FormVersion { get; set; }
+        public Patient? Patient { get; set; }
 
     }
 }

@@ -77,6 +77,21 @@ namespace Web.API.Controllers
         }
 
         [Authorize(policy: Permissions.DynamicForm.Read)]
+        [HttpGet("submodule/{submoduleId}/{patientId}")]
+        public async Task<ActionResult> GetFormBySubmodId(int submoduleId, Guid patientId)
+        {
+            try
+            {
+                var formVersion = await _formService.GetFormBySubmodId(submoduleId, patientId);
+                return Ok(formVersion);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [Authorize(policy: Permissions.DynamicForm.Read)]
         [HttpGet("all")]
         public async Task<ActionResult> GetAllForms()
         {

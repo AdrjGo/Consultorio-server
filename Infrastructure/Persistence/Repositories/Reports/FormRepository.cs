@@ -30,7 +30,7 @@ namespace Infrastructure.Repositories
 
         public async Task<FormVersion> GetFormBySubmodId(int submodId)
         {
-            return await _context.FormVersions.Include(fv => fv.Form).Where(fv => fv.SubmodID == submodId).FirstOrDefaultAsync();
+            return await _context.FormVersions.Include(fv => fv.Form).Include(f => f.FormResponse).Where(fv => fv.SubmodID == submodId).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<FormVersion>> GetAllFormVersionsByVersion()

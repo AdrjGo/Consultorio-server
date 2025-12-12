@@ -18,10 +18,10 @@ namespace Infrastructure.Repositories
             return await _context.FormRes.FindAsync(id);
         }
 
-        public async Task<IEnumerable<FormRes>> GetAllFormResByPatientId(Guid id)
-        {
-            return await _context.FormRes.Include(fr => fr.Patient).Where(fr => fr.Patient.Id == id).ToListAsync();
-        }
+        // public async Task<IEnumerable<FormRes>> GetAllFormResByPatientId(Guid id)
+        // {
+        //     return await _context.FormRes.Include(fr => fr.Patient).Where(fr => fr.Patient.Id == id).ToListAsync();
+        // }
 
         public async Task<FormRes> CreateFormRes(FormRes formRes)
         {

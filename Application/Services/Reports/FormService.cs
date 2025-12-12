@@ -98,6 +98,38 @@ namespace Application.Services
             });
         }
 
+        public async Task<FormVersionResponse> GetFormBySubmodId(int submoduleId, Guid patientId)
+        {
+            var form = await _formRepository.GetFormBySubmodId(submoduleId);
+            if (form == null)
+                throw new KeyNotFoundException("No se encontró ningún formulario");
+
+            var respuestaPaciente = form.FormResponse.FirstOrDefault(r => r.PatientId == patientId);
+
+            return new FormVersionResponse
+            {
+                Id = form.Id,
+                SubmodId = form.SubmodID.ToString(),
+                NumberVersion = form.NumberVersion,
+                JsonSchema = form.JsonSchema,
+                Form = new FormResponses
+                {
+                    Id = form.Form.Id,
+                    Name = form.Form.Name,
+                    Description = form.Form.Description,
+                },
+                Response = respuestaPaciente != null
+                    ? new FormResResponse
+                    {
+                        Id = respuestaPaciente.Id,
+                        FormversionId = form.Id,
+                        PatientId = respuestaPaciente.PatientId,
+                        JsonResponse = respuestaPaciente.JsonResponse
+                    }
+                    : null
+            };
+        }
+
         public async Task<FormVersionMessageResponse> CreateFormVersion(FormVersionDto dto, string creatorName)
         {
             var existForm = await _formRepository.GetFormBySubmodId(dto.SubmodId);

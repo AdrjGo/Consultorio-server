@@ -8,6 +8,8 @@ namespace Application.Responses
         public object JsonSchema { get; set; }
 
         public FormResponses Form { get; set; }
+
+        public FormResResponse? Response { get; set; }
     }
 
     public class FormVersionMessageResponse

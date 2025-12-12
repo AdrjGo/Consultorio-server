@@ -67,6 +67,7 @@ builder.Services.AddScoped<EvidenceFileService>();
 builder.Services.AddScoped<MonitoringService>();
 builder.Services.AddScoped<FormService>();
 builder.Services.AddScoped<SubmoduleService>();
+builder.Services.AddScoped<FormResService>();
 
 //Services de Autenticación
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();
