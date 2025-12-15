@@ -167,16 +167,22 @@ VALUES
     ('11111111-1111-1111-1111-111111111150', 'Seguimiento de citas', 'Eliminar Seguimiento', 'Permite eliminar seguimientos de citas', 0, NOW(), 'Seeds'),
 
     --DynamicForm
-    ('11111111-1111-1111-1111-111111111151', 'Consultorio', 'Crear Formularios Dinámicos', 'Permite crear formularios dinámicos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111152', 'Consultorio', 'Leer Formularios Dinámicos', 'Permite leer formularios dinámicos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111153', 'Consultorio', 'Actualizar Formularios Dinámicos', 'Permite actualizar formularios dinámicos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111154', 'Consultorio', 'Eliminar Formularios Dinámicos', 'Permite eliminar formularios dinámicos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111151', 'Configuración', 'Crear Formularios Dinámicos', 'Permite crear formularios dinámicos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111152', 'Configuración', 'Leer Formularios Dinámicos', 'Permite leer formularios dinámicos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111153', 'Configuración', 'Actualizar Formularios Dinámicos', 'Permite actualizar formularios dinámicos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111154', 'Configuración', 'Eliminar Formularios Dinámicos', 'Permite eliminar formularios dinámicos', 0, NOW(), 'Seeds'),
 
     --Submodule
-    ('11111111-1111-1111-1111-111111111155', 'Consultorio', 'Crear Submódulos', 'Permite crear submódulos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111156', 'Consultorio', 'Leer Submódulos', 'Permite leer submódulos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111157', 'Consultorio', 'Actualizar Submódulos', 'Permite actualizar submódulos', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111158', 'Consultorio', 'Eliminar Submódulos', 'Permite eliminar submódulos', 0, NOW(), 'Seeds');
+    ('11111111-1111-1111-1111-111111111155', 'Configuración', 'Crear Submódulos', 'Permite crear submódulos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111156', 'Configuración', 'Leer Submódulos', 'Permite leer submódulos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111157', 'Configuración', 'Actualizar Submódulos', 'Permite actualizar submódulos', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111158', 'Configuración', 'Eliminar Submódulos', 'Permite eliminar submódulos', 0, NOW(), 'Seeds'),
+
+    --Pretreatment Exam
+    ('11111111-1111-1111-1111-111111111159', 'Paciente', 'Crear Examen de tratamiento', 'Permite crear examen de tratamiento', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111160', 'Paciente', 'Leer Examen de tratamiento', 'Permite leer examen de tratamiento', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111161', 'Paciente', 'Actualizar Examen de tratamiento', 'Permite actualizar examen de tratamiento', 0, NOW(), 'Seeds');
+    -- ('11111111-1111-1111-1111-111111111162', 'Paciente', 'Eliminar Examen de tratamiento', 'Permite eliminar examen de tratamiento', 0, NOW(), 'Seeds');
 
 -- ===============================
 -- Asignar todos los permisos al rol Admin
@@ -226,7 +232,16 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111151', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111152', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111153', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111154', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111154', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111155', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111156', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111157', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111158', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111159', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111160', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111161', 0, NOW(), 'Seeds');
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111162', 0, NOW(), 'Seeds');
+
 
 
 -- ===============================
