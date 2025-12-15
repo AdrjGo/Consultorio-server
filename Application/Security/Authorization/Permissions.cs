@@ -98,5 +98,13 @@ namespace Application.Security
             public const string Update = "11111111-1111-1111-1111-111111111157";
             public const string Delete = "11111111-1111-1111-1111-111111111158";
         }
+
+        public static class PretreatmentExam
+        {
+            public const string Create = "11111111-1111-1111-1111-111111111159";
+            public const string Read = "11111111-1111-1111-1111-111111111160";
+            public const string Update = "11111111-1111-1111-1111-111111111161";
+            public const string Delete = "11111111-1111-1111-1111-111111111162";
+        }
     }
 }

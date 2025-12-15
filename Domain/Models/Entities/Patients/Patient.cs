@@ -23,5 +23,6 @@ namespace Domain.Entities
         public List<FormRes>? FormResponse { get; set; } = new();
         public ICollection<ClinicHistory>? ClinicHistories { get; set; } = new List<ClinicHistory>();
         public ICollection<GeneralHistory>? GeneralHistories { get; set; } = new List<GeneralHistory>();
+        public List<PretreatmentExam>? PretreatmentExams { get; set; }
     }
 }

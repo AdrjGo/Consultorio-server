@@ -20,7 +20,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<PretreatmentExam>> GetAllPretreatmentExamsByPatientId(Guid id)
         {
-            return await _context.PretreatmentExams.Include(x => x.GeneralHistory).Where(x => x.GeneralHistory.PatientId == id).ToListAsync();
+            return await _context.PretreatmentExams.Include(x => x.Patient).Where(x => x.Patient.Id == id).ToListAsync();
         }
 
         public async Task<PretreatmentExam> CreatePretreatmentExam(PretreatmentExam pretreatmentExam)
