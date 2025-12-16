@@ -181,8 +181,14 @@ VALUES
     --Pretreatment Exam
     ('11111111-1111-1111-1111-111111111159', 'Paciente', 'Crear Examen de tratamiento', 'Permite crear examen de tratamiento', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111160', 'Paciente', 'Leer Examen de tratamiento', 'Permite leer examen de tratamiento', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111161', 'Paciente', 'Actualizar Examen de tratamiento', 'Permite actualizar examen de tratamiento', 0, NOW(), 'Seeds');
+    ('11111111-1111-1111-1111-111111111161', 'Paciente', 'Actualizar Examen de tratamiento', 'Permite actualizar examen de tratamiento', 0, NOW(), 'Seeds'),
     -- ('11111111-1111-1111-1111-111111111162', 'Paciente', 'Eliminar Examen de tratamiento', 'Permite eliminar examen de tratamiento', 0, NOW(), 'Seeds');
+
+    -- Treatment Progress
+    ('11111111-1111-1111-1111-111111111163', 'Paciente', 'Crear Avance de tratamiento', 'Permite crear avance de tratamiento (pago)', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111164', 'Paciente', 'Leer Avance de tratamiento', 'Permite leer avance de tratamiento (pago)', 0, NOW(), 'Seeds'),
+    -- ('11111111-1111-1111-1111-111111111165', 'Paciente', 'Actualizar Avance de tratamiento', 'Permite actualizar avance de tratamiento', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111166', 'Paciente', 'Eliminar Avance de tratamiento', 'Permite eliminar avance de tratamiento (pago)', 0, NOW(), 'Seeds');
 
 -- ===============================
 -- Asignar todos los permisos al rol Admin
@@ -239,8 +245,12 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111158', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111159', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111160', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111161', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111161', 0, NOW(), 'Seeds'),
     -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111162', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111163', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111164', 0, NOW(), 'Seeds'),
+    -- (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111165', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111166', 0, NOW(), 'Seeds');
 
 
 
