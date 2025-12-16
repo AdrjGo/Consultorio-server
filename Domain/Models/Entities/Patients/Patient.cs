@@ -24,5 +24,7 @@ namespace Domain.Entities
         public ICollection<ClinicHistory>? ClinicHistories { get; set; } = new List<ClinicHistory>();
         public ICollection<GeneralHistory>? GeneralHistories { get; set; } = new List<GeneralHistory>();
         public List<PretreatmentExam>? PretreatmentExams { get; set; }
+        public List<TreatmentProgress>? TreatmentProgresses { get; set; }
+
     }
 }

@@ -19,7 +19,9 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<TreatmentProgress>> GetAllTreatmentProgressByPatientId(Guid id)
         {
-            return await _context.TreatmentProgress.Include(x => x.PretreatmentExam).Where(x => x.PretreatmentExam.Patient.Id == id).ToListAsync();
+            return await _context.TreatmentProgress
+                .Where(tp => tp.PatientId == id)
+                .ToListAsync();
         }
 
         public async Task<TreatmentProgress> CreateTreatmentProgress(TreatmentProgress treatmentProgress)

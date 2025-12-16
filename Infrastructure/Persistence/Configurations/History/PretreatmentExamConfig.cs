@@ -36,10 +36,10 @@ namespace Infrastructure.Data
             //        .HasForeignKey<PretreatmentExam>(pe => pe.HistoryId)
             //        .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany(pe => pe.TreatmentProgress)
-                   .WithOne(tp => tp.PretreatmentExam)
-                   .HasForeignKey(tp => tp.ExamId)
-                   .OnDelete(DeleteBehavior.Restrict);
+            // builder.HasMany(pe => pe.TreatmentProgress)
+            //        .WithOne(tp => tp.PretreatmentExam)
+            //        .HasForeignKey(tp => tp.ExamId)
+            //        .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

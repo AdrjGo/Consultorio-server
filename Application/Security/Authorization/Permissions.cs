@@ -106,5 +106,13 @@ namespace Application.Security
             public const string Update = "11111111-1111-1111-1111-111111111161";
             public const string Delete = "11111111-1111-1111-1111-111111111162";
         }
+
+        public static class TreatmentProgress
+        {
+            public const string Create = "11111111-1111-1111-1111-111111111163";
+            public const string Read = "11111111-1111-1111-1111-111111111164";
+            public const string Update = "11111111-1111-1111-1111-111111111165";
+            public const string Delete = "11111111-1111-1111-1111-111111111166";
+        }
     }
 }

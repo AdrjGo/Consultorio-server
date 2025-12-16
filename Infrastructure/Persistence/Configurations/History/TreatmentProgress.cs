@@ -11,7 +11,7 @@ namespace Infrastructure.Data
             builder.ToTable("treatment_progress");
             builder.HasKey(tp => tp.Id);
             builder.Property(tp => tp.Id).HasColumnName("treatment_progress_id").IsRequired();
-            builder.Property(tp => tp.ExamId).HasColumnName("exam_id").IsRequired();
+            builder.Property(tp => tp.PatientId).HasColumnName("patient_id").IsRequired();
             builder.Property(tp => tp.Payment).HasColumnName("payment").IsRequired();
             builder.Property(tp => tp.Debt).HasColumnName("debt").IsRequired();
 
@@ -20,6 +20,11 @@ namespace Infrastructure.Data
             builder.Property(tp => tp.UpdatedBy).HasColumnName("updated_by");
             builder.Property(tp => tp.UpdatedAt).HasColumnName("updated_at");
             builder.Property(tp => tp.State).HasColumnName("state").HasConversion<string>().IsRequired();
+
+            builder.HasOne(pe => pe.Patient)
+                   .WithMany(pt => pt.TreatmentProgresses)
+                   .HasForeignKey(pe => pe.PatientId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

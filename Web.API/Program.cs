@@ -69,6 +69,7 @@ builder.Services.AddScoped<FormService>();
 builder.Services.AddScoped<SubmoduleService>();
 builder.Services.AddScoped<FormResService>();
 builder.Services.AddScoped<PretreatmentExamService>();
+builder.Services.AddScoped<TreatmentProgressService>();
 
 //Services de Autenticación
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();
