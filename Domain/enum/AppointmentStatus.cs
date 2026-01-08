@@ -7,6 +7,7 @@ namespace Domain.Enum
         Programado,
         Reprogramado,
         Pendiente,
-        Cancelado
+        Cancelado,
+        Completado
     }
 }

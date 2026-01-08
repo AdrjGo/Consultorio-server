@@ -19,7 +19,7 @@ namespace Infrastructure.Data
 
             builder.OwnsOne(p => p.Email, email =>
             {
-                email.Property(p => p.Value).HasColumnName("email").HasMaxLength(25).IsRequired();
+                email.Property(p => p.Value).HasColumnName("email").HasMaxLength(50).IsRequired();
             });
 
             builder.OwnsOne(p => p.Phone, phone =>
@@ -27,7 +27,7 @@ namespace Infrastructure.Data
                 phone.Property(p => p.Value).HasColumnName("phone_number").HasMaxLength(10).IsRequired();
             });
 
-            builder.Property(p => p.Profession).HasMaxLength(15).HasColumnName("profession");
+            builder.Property(p => p.Profession).HasMaxLength(30).HasColumnName("profession");
             builder.Property(p => p.CreatedBy).HasColumnName("created_by").IsRequired();
             builder.Property(p => p.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
             builder.Property(p => p.UpdatedBy).HasColumnName("updated_by");

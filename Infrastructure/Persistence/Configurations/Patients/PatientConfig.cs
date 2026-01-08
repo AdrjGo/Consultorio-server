@@ -22,7 +22,7 @@ namespace Infrastructure.Data
                 homePhone.Property(p => p.Value).HasColumnName("home_phone").HasMaxLength(10).IsRequired();
             });
 
-            builder.Property(p => p.Occupation).HasColumnName("occupation").HasMaxLength(15).IsRequired();
+            builder.Property(p => p.Occupation).HasColumnName("occupation").HasMaxLength(30).IsRequired();
             builder.Property(p => p.PlaceOccupation).HasColumnName("place_occupation").HasMaxLength(50).IsRequired();
             builder.Property(p => p.Nit).HasColumnName("nit").HasMaxLength(12);
             builder.Property(p => p.Sender).HasColumnName("sender").HasMaxLength(0).IsRequired();
