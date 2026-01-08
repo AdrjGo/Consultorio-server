@@ -35,8 +35,10 @@ namespace Application.Services
             return monitorings.Select(m => new MonitoringResponse
             {
                 Id = m.Id,
+                Date = m.CreatedAt.ToString("dd/MM/yyyy"),
                 Nomenclature = m.Nomenclature,
-                Treatment = m.Treatment
+                Treatment = m.Treatment,
+                Files = m.EvidenceFiles.Count.ToString()
             });
         }
 

@@ -20,7 +20,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Monitoring?>> GetAllMonitoringsByPatientId(Guid id)
         {
-            return await _context.Monitorings.Include(m => m.Appointment).Where(m => m.Appointment.PatientId == id).ToListAsync();
+            return await _context.Monitorings.Include(m => m.Appointment).ThenInclude(a => a.Patient).Include(m => m.EvidenceFiles).Where(m => m.Appointment.PatientId == id).ToListAsync();
         }
 
         public async Task<Monitoring> CreateMonitoring(Monitoring monitoring)
