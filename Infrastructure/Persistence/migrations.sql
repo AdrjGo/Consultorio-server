@@ -68,13 +68,34 @@ ON CONFLICT DO NOTHING;
 INSERT INTO public.person 
 ("person_id", "person_name", "person_last_name", "birth_date", "sex", "ci", "email", "phone_number", "profession", "state", "created_at", "created_by")
 VALUES 
-('8c0c77a5-3ca1-482c-b078-750a9b82ad5e', 'Paciente', '1', '2000-01-01', 0, '2222222', 'paciente@email.com', '987878678', 'Estudiante', 0, NOW(), 'Seeds')
+('8c0c77a5-3ca1-482c-b078-750a9b82ad5e', 'Paciente', '1', '2000-01-01', 0, '2222222', 'paciente@email.com', '987878678', 'Estudiante', 0, NOW(), 'Seeds'),
+('9a1a77a5-0001-0001-b078-750a9b82aaa1', 'Carlos Andrés', 'García López', '1990-05-10', 1, '2222223', 'carlos.garcia@email.com', '700000001', 'Docente', 0, NOW(), 'Seeds'),
+('9a1a77a5-0002-0002-b078-750a9b82aaa2', 'María Fernanda', 'Ramírez Pérez', '1985-03-15', 0, '2222224', 'maria.ramirez@email.com', '700000002', 'Abogada', 0, NOW(), 'Seeds'),
+('9a1a77a5-0003-0003-b078-750a9b82aaa3', 'Luis Alberto', 'Sánchez Morales', '1992-11-23', 1, '2222225', 'luis.sanchez@email.com', '700000003', 'Ingeniero Civil', 0, NOW(), 'Seeds'),
+('9a1a77a5-0004-0004-b078-750a9b82aaa4', 'Ana Paula', 'Vargas Medina', '1998-08-19', 0, '2222226', 'ana.vargas@email.com', '700000004', 'Diseñadora Gráfica', 0, NOW(), 'Seeds'),
+('9a1a77a5-0005-0005-b078-750a9b82aaa5', 'Diego', 'Torres Ríos', '2001-02-28', 1, '2222227', 'diego.torres@email.com', '700000005', 'Estudiante', 0, NOW(), 'Seeds'),
+('9a1a77a5-0006-0006-b078-750a9b82aaa6', 'Valentina', 'Castillo Herrera', '1995-06-30', 0, '2222228', 'valentina.castillo@email.com', '700000006', 'Técnica de Laboratorio', 0, NOW(), 'Seeds'),
+('9a1a77a5-0007-0007-b078-750a9b82aaa7', 'Jorge Luis', 'Mendoza Ortega', '1988-09-17', 1, '2222229', 'jorge.mendoza@email.com', '700000007', 'Comerciante', 0, NOW(), 'Seeds'),
+('9a1a77a5-0008-0008-b078-750a9b82aaa8', 'Isabel', 'Cruz Delgado', '1994-12-05', 0, '2222230', 'isabel.cruz@email.com', '700000008', 'Chef', 0, NOW(), 'Seeds'),
+('9a1a77a5-0009-0009-b078-750a9b82aaa9', 'Sergio', 'Paredes Zamora', '1987-07-12', 1, '2222231', 'sergio.paredes@email.com', '700000009', 'Contador Público', 0, NOW(), 'Seeds'),
+('9a1a77a5-0010-0010-b078-750a9b82aa10', 'Daniela', 'López Salazar', '2003-04-08', 0, '2222232', 'daniela.lopez@email.com', '700000010', 'Estudiante', 0, NOW(), 'Seeds')
 ON CONFLICT ("person_id") DO NOTHING;
+
 
 INSERT INTO public.patient
 ("patient_id", "person_id", "responsible_id", "address", "zone", "city", "home_phone", "occupation", "place_occupation","nit", "sender","state", "created_by", "created_at")
 VALUES
-('aca377cb-7c24-41b1-acf5-6586093961c0', '8c0c77a5-3ca1-482c-b078-750a9b82ad5e', null, 'Calle 1', 'Zona 1', 'Ciudad 1', '12345678', 'Estudiante', 'Universidad', '000001020', '', 'ACTIVE', 'Seeds', NOW())
+('aca377cb-7c24-41b1-acf5-6586093961c0', '8c0c77a5-3ca1-482c-b078-750a9b82ad5e', null, 'Calle 1', 'Zona 1', 'Ciudad 1', '12345678', 'Estudiante', 'Universidad', '000001020', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0001-0001-acf5-658609390001', '9a1a77a5-0001-0001-b078-750a9b82aaa1', null, 'Calle A', 'Zona 1', 'Santa Cruz', '800000001', 'Docente', 'Colegio Central', '000001021', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0002-0002-acf5-658609390002', '9a1a77a5-0002-0002-b078-750a9b82aaa2', null, 'Calle B', 'Zona 2', 'La Paz', '800000002', 'Abogada', 'Estudio Legal', '000001022', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0003-0003-acf5-658609390003', '9a1a77a5-0003-0003-b078-750a9b82aaa3', null, 'Calle C', 'Zona 3', 'Cochabamba', '800000003', 'Ingeniero Civil', 'Constructora ABC', '000001023', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0004-0004-acf5-658609390004', '9a1a77a5-0004-0004-b078-750a9b82aaa4', null, 'Calle D', 'Zona 4', 'Tarija', '800000004', 'Diseñadora Gráfica', 'Agencia Creativa', '000001024', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0005-0005-acf5-658609390005', '9a1a77a5-0005-0005-b078-750a9b82aaa5', null, 'Calle E', 'Zona 5', 'Oruro', '800000005', 'Estudiante', 'Universidad Técnica', '000001025', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0006-0006-acf5-658609390006', '9a1a77a5-0006-0006-b078-750a9b82aaa6', null, 'Calle F', 'Zona 6', 'Sucre', '800000006', 'Técnica de Laboratorio', 'Hospital Regional', '000001026', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0007-0007-acf5-658609390007', '9a1a77a5-0007-0007-b078-750a9b82aaa7', null, 'Calle G', 'Zona 7', 'Potosí', '800000007', 'Comerciante', 'Mercado Popular', '000001027', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0008-0008-acf5-658609390008', '9a1a77a5-0008-0008-b078-750a9b82aaa8', null, 'Calle H', 'Zona 8', 'Trinidad', '800000008', 'Chef', 'Restaurante El Sabor', '000001028', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0009-0009-acf5-658609390009', '9a1a77a5-0009-0009-b078-750a9b82aaa9', null, 'Calle I', 'Zona 9', 'Cobija', '800000009', 'Contador Público', 'Firma Contable ABC', '000001029', '', 'ACTIVE', 'Seeds', NOW()),
+('aca377cb-0010-0010-acf5-658609390010', '9a1a77a5-0010-0010-b078-750a9b82aa10', null, 'Calle J', 'Zona 10', 'Tarija', '800000010', 'Estudiante', 'Colegio Nacional', '000001030', '', 'ACTIVE', 'Seeds', NOW())
 ON CONFLICT (patient_id) DO NOTHING;
 
 
@@ -84,7 +105,31 @@ ON CONFLICT (patient_id) DO NOTHING;
 INSERT INTO public.appointment
 ("appointment_id", "patient_id", "professional_id", "start_date", "end_date", "appointment_type", "status", "reason", "observations", "state", "created_by", "created_at")
 VALUES
-('eca377cb-7c24-41b1-acf5-6586093961c0', 'aca377cb-7c24-41b1-acf5-6586093961c0', '01429580-7e2d-43b5-ae88-93229119c048', '2025-10-29T12:25:00', '2025-10-29T12:50:00', 'Emergencia', 'Confirmado', 'Ejemplo de razón', 'Ejemplo de observación...', 0, 'Seeds', NOW());
+('eca377cb-7c24-41b1-acf5-6586093961c0', 'aca377cb-7c24-41b1-acf5-6586093961c0', '01429580-7e2d-43b5-ae88-93229119c048', '2025-10-29T12:25:00', '2025-10-29T12:50:00', 'Emergencia', 'Confirmado', 'Ejemplo de razón', 'Ejemplo de observación...', 0, 'Seeds', NOW()),
+('eca377cb-0001-0001-acf5-658609390001', 'aca377cb-0001-0001-acf5-658609390001', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-01T09:00:00', '2025-11-01T09:30:00', 'Consulta', 'Pendiente', 'Chequeo general', 'Paciente refiere dolor leve en muelas.', 0, 'Seeds', NOW()),
+('eca377cb-0002-0002-acf5-658609390002', 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-02T14:00:00', '2025-11-02T14:45:00', 'Ortodoncia', 'Confirmado', 'Revisión de brackets', 'Paciente con brackets desde hace 6 meses.', 0, 'Seeds', NOW()),
+('eca377cb-0003-0003-acf5-658609390003', 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-03T11:15:00', '2025-11-03T11:45:00', 'Limpieza Dental', 'Cancelado', 'Limpieza semestral', 'Paciente solicita limpieza profunda.', 0, 'Seeds', NOW()),
+('eca377cb-0004-0004-acf5-658609390004', 'aca377cb-0004-0004-acf5-658609390004', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-04T08:00:00', '2025-11-04T08:30:00', 'Consulta', 'Programado', 'Chequeo anual', '', 0, 'Seeds', NOW()),
+('eca377cb-0005-0005-acf5-658609390005', 'aca377cb-0005-0005-acf5-658609390005', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-05T15:30:00', '2025-11-05T16:00:00', 'Emergencia', 'Confirmado', 'Dolor agudo', 'Paciente refiere dolor intenso en muela inferior derecha.', 0, 'Seeds', NOW()),
+('eca377cb-0006-0006-acf5-658609390006', 'aca377cb-0006-0006-acf5-658609390006', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-06T09:00:00', '2025-12-06T09:30:00', 'Limpieza', 'Pendiente', 'Primera limpieza semestral', '', 0, 'Seeds', NOW()),
+('eca377cb-0007-0007-acf5-658609390007', 'aca377cb-0007-0007-acf5-658609390007', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-07T11:00:00', '2025-12-07T11:30:00', 'Reconsulta', 'Programado', 'Dolor persistente', '', 0, 'Seeds', NOW()),
+('eca377cb-0008-0008-acf5-658609390008', 'aca377cb-0008-0008-acf5-658609390008', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-08T10:00:00', '2025-12-08T10:30:00', 'Emergencia', 'Confirmado', 'Inflamación en encía', '', 0, 'Seeds', NOW()),
+('eca377cb-0009-0009-acf5-658609390009', 'aca377cb-0009-0009-acf5-658609390009', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-09T09:00:00', '2025-12-09T09:30:00', 'Reconsulta', 'Pendiente', 'Control de evolución', '', 0, 'Seeds', NOW()),
+('eca377cb-0010-0010-acf5-658609390010', 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-10T09:00:00', '2025-12-10T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0011-0011-acf5-658609390011', 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-12T09:00:00', '2025-12-12T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0012-0012-acf5-658609390012', 'aca377cb-0001-0001-acf5-658609390001', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-12T09:00:00', '2025-12-12T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0013-0013-acf5-658609390013', 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-13T09:00:00', '2025-12-13T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0014-0014-acf5-658609390014', 'aca377cb-0004-0004-acf5-658609390004', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-14T09:00:00', '2025-12-14T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0015-0015-acf5-658609390015', 'aca377cb-0005-0005-acf5-658609390005', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-15T09:00:00', '2025-12-15T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0016-0016-acf5-658609390016', 'aca377cb-0006-0006-acf5-658609390006', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-16T09:00:00', '2025-12-16T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0017-0017-acf5-658609390017', 'aca377cb-0007-0007-acf5-658609390007', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-17T09:00:00', '2025-12-17T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0018-0018-acf5-658609390018', 'aca377cb-0008-0008-acf5-658609390008', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-18T09:00:00', '2025-12-18T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0019-0019-acf5-658609390019', 'aca377cb-0009-0009-acf5-658609390009', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-19T09:00:00', '2025-12-19T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0020-0020-acf5-658609390020', 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-20T09:00:00', '2025-12-20T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0021-0021-acf5-658609390021', 'aca377cb-0010-0010-acf5-658609390010', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-21T09:00:00', '2025-12-21T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0022-0022-acf5-658609390022', 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-22T09:00:00', '2025-12-22T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
+('eca377cb-0023-0023-acf5-658609390023', 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-23T09:00:00', '2025-12-23T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW());
+
 
 
 -- ===============================
@@ -94,11 +139,11 @@ INSERT INTO public.submodule
 ("submodule_id", "submodule_name", "state", "created_at", "created_by")
 VALUES
 ('1', 'Historia de Salud General', 'ACTIVE', NOW(), 'Seeds'),
-('2', 'Historia Clínica', 'ACTIVE', NOW(), 'Seeds'),
+('2', 'Historia de ortodoncia', 'ACTIVE', NOW(), 'Seeds'),
 ('3', 'Resumen de Tratamiento', 'ACTIVE', NOW(), 'Seeds'),
-('4', 'Presupuesto Ortodoncia', 'ACTIVE', NOW(), 'Seeds'),
-('5', 'Presupuesto Ortopedia', 'ACTIVE', NOW(), 'Seeds'),
-('6', 'Control de Cuotas', 'ACTIVE', NOW(), 'Seeds'),
+('4', 'Tratamiento de Ortodoncia', 'ACTIVE', NOW(), 'Seeds'),
+('5', 'Tratamiento de Ortopedia', 'ACTIVE', NOW(), 'Seeds'),
+('6', 'Tratamiento Miofuncional', 'ACTIVE', NOW(), 'Seeds'),
 ('7', 'Presupuesto Dental', 'ACTIVE', NOW(), 'Seeds');
 
 -- ===============================
