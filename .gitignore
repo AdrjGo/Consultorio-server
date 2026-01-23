@@ -55,7 +55,7 @@ Web.API/[Oo]bj/
 Web.API/[Ll]og/
 Web.API/[Ll]ogs/
 
-appsettings.Development.json
+appsettings.json
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
