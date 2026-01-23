@@ -10,6 +10,7 @@ namespace Domain.Interfaces
         Task<IEnumerable<Appointment>> GetAppointmentsByPatientId(Guid patientId);
         Task<Appointment> CreateAppointment(Appointment appointment);
         Task<Appointment> UpdateAppointment(Appointment appointment);
+        Task<Appointment> ChangeAppointmentLifeStatus(Appointment appointment);
         Task DeleteAppointment(Guid id);
     }
 }

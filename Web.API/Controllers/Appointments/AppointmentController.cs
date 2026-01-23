@@ -124,6 +124,26 @@ namespace Web.API.Controllers
             }
         }
 
+        [Authorize(Policy = Permissions.Appointment.Update)]
+        [HttpPatch("{id}/lifeStatus")]
+        public async Task<IActionResult> ChangeAppointmentLifeStatus(Guid id, [FromBody] AppointmentLifeStatusDto dto)
+        {
+            try
+            {
+                var creatorName = _httpContextAccessor?.HttpContext?.User.FindFirst("name")?.Value;
+                var appointment = await _appointmentService.ChangeAppointmentLifeStatus(id, dto.LifeStatus, creatorName);
+                return Ok(appointment);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
         [Authorize(Policy = Permissions.Appointment.Delete)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAppointment(Guid id)

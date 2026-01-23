@@ -28,6 +28,7 @@ namespace Application.Services
                 EndDate = a.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
                 Type = a.Type.ToString(),
                 Status = a.Status.ToString(),
+                LifeStatus = a.LifeStatus.ToString(),
                 Reason = a.Reason,
                 Observations = a.Observations,
                 Patient = new PatientResponse
@@ -70,6 +71,7 @@ namespace Application.Services
                 EndDate = appointment.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
                 Type = appointment.Type.ToString(),
                 Status = appointment.Status.ToString(),
+                LifeStatus = appointment.LifeStatus.ToString(),
                 Reason = appointment.Reason,
                 Observations = appointment.Observations,
                 Patient = new PatientResponse
@@ -111,6 +113,7 @@ namespace Application.Services
                 EndDate = a.EndDate.ToString("o"),
                 Type = a.Type.ToString(),
                 Status = a.Status.ToString(),
+                LifeStatus = a.LifeStatus.ToString(),
                 Reason = a.Reason,
                 Observations = a.Observations,
                 Patient = new PatientResponse
@@ -153,6 +156,7 @@ namespace Application.Services
                 EndDate = a.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
                 Type = a.Type.ToString(),
                 Status = a.Status.ToString(),
+                LifeStatus = a.LifeStatus.ToString(),
                 Reason = a.Reason,
                 Observations = a.Observations,
                 Patient = new PatientResponse
@@ -194,12 +198,12 @@ namespace Application.Services
                 Reason = dto.Reason,
                 Observations = dto.Observations,
                 State = States.ACTIVE,
+                LifeStatus = AppointmentLifeStatus.NoIniciado,
                 CreatedAt = DateTime.UtcNow,
                 CreatedBy = creatorName
             };
 
             await _appointmentRepository.CreateAppointment(appointment);
-
 
             return new AppointmentCreatedResponse
             {
@@ -232,6 +236,36 @@ namespace Application.Services
             {
                 Id = appointment.Id,
                 Message = "Cita editada correctamente"
+            };
+        }
+
+
+        public async Task<AppointmentUpdatedResponse> ChangeAppointmentLifeStatus(Guid id, AppointmentLifeStatus lifeStatus, string creatorName)
+        {
+            var appointment = await _appointmentRepository.GetAppointmentById(id);
+            if (appointment == null)
+                throw new KeyNotFoundException($"No se encontró la cita");
+
+            if (appointment.Status == AppointmentStatus.Cancelado)
+                throw new InvalidOperationException("No puedes iniciar una cita cancelada");
+
+            if (appointment.LifeStatus == AppointmentLifeStatus.Completada)
+                throw new InvalidOperationException("La cita ya fue completada");
+
+            if (lifeStatus == AppointmentLifeStatus.EnCurso &&
+                appointment.LifeStatus != AppointmentLifeStatus.NoIniciado)
+                throw new InvalidOperationException("Solo puedes iniciar una cita que no ha comenzado");
+
+            appointment.LifeStatus = lifeStatus;
+            appointment.StartAt = DateTime.UtcNow;
+            appointment.StartBy = creatorName;
+
+            await _appointmentRepository.UpdateAppointment(appointment);
+
+            return new AppointmentUpdatedResponse
+            {
+                // Id = appointment.Id,
+                Message = "Cita Iniciada correctamente"
             };
         }
 

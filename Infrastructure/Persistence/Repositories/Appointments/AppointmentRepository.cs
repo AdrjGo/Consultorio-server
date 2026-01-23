@@ -59,6 +59,13 @@ namespace Infrastructure.Repositories
             return appointment;
         }
 
+        public async Task<Appointment> ChangeAppointmentLifeStatus(Appointment appointment)
+        {
+            _context.Appointments.Update(appointment);
+            await _context.SaveChangesAsync();
+            return appointment;
+        }
+
         public async Task DeleteAppointment(Guid id)
         {
             var appointment = await _context.Appointments.FindAsync(id);

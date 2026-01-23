@@ -11,6 +11,7 @@ namespace Application.Responses
         public string EndDate { get; set; }
         public string Type { get; set; }
         public string Status { get; set; }
+        public string LifeStatus { get; set; }
         public string Reason { get; set; }
         public string Observations { get; set; }
 

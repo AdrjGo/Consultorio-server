@@ -17,6 +17,7 @@ namespace Infrastructure.Data
             builder.Property(a => a.EndDate).HasColumnName("end_date").HasColumnType("timestamp without time zone").IsRequired();
             builder.Property(a => a.Type).HasConversion<string>().HasColumnName("appointment_type").IsRequired();
             builder.Property(a => a.Status).HasConversion<string>().HasColumnName("status").IsRequired();
+            builder.Property(a => a.LifeStatus).HasConversion<string>().HasColumnName("life_status").IsRequired();
             builder.Property(a => a.Reason).HasColumnName("reason").HasMaxLength(100).IsRequired();
             builder.Property(a => a.Observations).HasColumnName("observations").HasMaxLength(1000).IsRequired();
 
@@ -24,6 +25,8 @@ namespace Infrastructure.Data
             builder.Property(a => a.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
             builder.Property(a => a.UpdatedBy).HasColumnName("updated_by");
             builder.Property(a => a.UpdatedAt).HasColumnName("updated_at");
+            builder.Property(a => a.StartAt).HasColumnName("start_at");
+            builder.Property(a => a.StartBy).HasColumnName("start_by");
             builder.Property(a => a.State).HasColumnName("state").HasConversion<string>().IsRequired();
 
             builder.HasOne(a => a.Professional)
