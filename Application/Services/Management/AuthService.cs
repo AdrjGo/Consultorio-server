@@ -59,6 +59,12 @@ namespace Application.Services
                 {
                     claims.Add(new Claim(ClaimTypes.Role, role));
                 }
+
+                foreach (var permission in user.UserRoles.SelectMany(ur => ur.Role.RolePermissions.Select(rp => rp.Permission.Name)))
+                {
+                    claims.Add(new Claim("permission", permission));
+                }
+
             }
 
             var tokenDescriptor = new SecurityTokenDescriptor

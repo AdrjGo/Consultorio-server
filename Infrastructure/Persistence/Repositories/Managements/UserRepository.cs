@@ -115,6 +115,8 @@ namespace Infrastructure.Repositories
                 .Include(u => u.Person)
                 .Include(u => u.UserRoles)
                     .ThenInclude(ur => ur.Role)
+                        .ThenInclude(r => r.RolePermissions)
+                            .ThenInclude(rp => rp.Permission)
                 .FirstOrDefaultAsync(u => u.Person.Email.Value == email);
         }
 
