@@ -100,35 +100,37 @@ ON CONFLICT (patient_id) DO NOTHING;
 
 
 -- ===============================
--- Insertar cita
+-- Insertar citas diciembre 2025 - febrero 2026
 -- ===============================
+
 INSERT INTO public.appointment
-("appointment_id", "patient_id", "professional_id", "start_date", "end_date", "appointment_type", "status", "reason", "observations", "state", "created_by", "created_at")
+("appointment_id", "patient_id", "professional_id", "start_date", "end_date", "appointment_type", "status", "life_status", "reason", "observations", "state", "created_by", "created_at", "start_by", "start_at")
 VALUES
-('eca377cb-7c24-41b1-acf5-6586093961c0', 'aca377cb-7c24-41b1-acf5-6586093961c0', '01429580-7e2d-43b5-ae88-93229119c048', '2025-10-29T12:25:00', '2025-10-29T12:50:00', 'Emergencia', 'Confirmado', 'Ejemplo de razón', 'Ejemplo de observación...', 0, 'Seeds', NOW()),
-('eca377cb-0001-0001-acf5-658609390001', 'aca377cb-0001-0001-acf5-658609390001', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-01T09:00:00', '2025-11-01T09:30:00', 'Consulta', 'Pendiente', 'Chequeo general', 'Paciente refiere dolor leve en muelas.', 0, 'Seeds', NOW()),
-('eca377cb-0002-0002-acf5-658609390002', 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-02T14:00:00', '2025-11-02T14:45:00', 'Ortodoncia', 'Confirmado', 'Revisión de brackets', 'Paciente con brackets desde hace 6 meses.', 0, 'Seeds', NOW()),
-('eca377cb-0003-0003-acf5-658609390003', 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-03T11:15:00', '2025-11-03T11:45:00', 'Limpieza Dental', 'Cancelado', 'Limpieza semestral', 'Paciente solicita limpieza profunda.', 0, 'Seeds', NOW()),
-('eca377cb-0004-0004-acf5-658609390004', 'aca377cb-0004-0004-acf5-658609390004', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-04T08:00:00', '2025-11-04T08:30:00', 'Consulta', 'Programado', 'Chequeo anual', '', 0, 'Seeds', NOW()),
-('eca377cb-0005-0005-acf5-658609390005', 'aca377cb-0005-0005-acf5-658609390005', '01429580-7e2d-43b5-ae88-93229119c048', '2025-11-05T15:30:00', '2025-11-05T16:00:00', 'Emergencia', 'Confirmado', 'Dolor agudo', 'Paciente refiere dolor intenso en muela inferior derecha.', 0, 'Seeds', NOW()),
-('eca377cb-0006-0006-acf5-658609390006', 'aca377cb-0006-0006-acf5-658609390006', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-06T09:00:00', '2025-12-06T09:30:00', 'Limpieza', 'Pendiente', 'Primera limpieza semestral', '', 0, 'Seeds', NOW()),
-('eca377cb-0007-0007-acf5-658609390007', 'aca377cb-0007-0007-acf5-658609390007', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-07T11:00:00', '2025-12-07T11:30:00', 'Reconsulta', 'Programado', 'Dolor persistente', '', 0, 'Seeds', NOW()),
-('eca377cb-0008-0008-acf5-658609390008', 'aca377cb-0008-0008-acf5-658609390008', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-08T10:00:00', '2025-12-08T10:30:00', 'Emergencia', 'Confirmado', 'Inflamación en encía', '', 0, 'Seeds', NOW()),
-('eca377cb-0009-0009-acf5-658609390009', 'aca377cb-0009-0009-acf5-658609390009', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-09T09:00:00', '2025-12-09T09:30:00', 'Reconsulta', 'Pendiente', 'Control de evolución', '', 0, 'Seeds', NOW()),
-('eca377cb-0010-0010-acf5-658609390010', 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-10T09:00:00', '2025-12-10T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0011-0011-acf5-658609390011', 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-12T09:00:00', '2025-12-12T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0012-0012-acf5-658609390012', 'aca377cb-0001-0001-acf5-658609390001', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-12T09:00:00', '2025-12-12T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0013-0013-acf5-658609390013', 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-13T09:00:00', '2025-12-13T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0014-0014-acf5-658609390014', 'aca377cb-0004-0004-acf5-658609390004', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-14T09:00:00', '2025-12-14T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0015-0015-acf5-658609390015', 'aca377cb-0005-0005-acf5-658609390005', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-15T09:00:00', '2025-12-15T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0016-0016-acf5-658609390016', 'aca377cb-0006-0006-acf5-658609390006', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-16T09:00:00', '2025-12-16T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0017-0017-acf5-658609390017', 'aca377cb-0007-0007-acf5-658609390007', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-17T09:00:00', '2025-12-17T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0018-0018-acf5-658609390018', 'aca377cb-0008-0008-acf5-658609390008', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-18T09:00:00', '2025-12-18T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0019-0019-acf5-658609390019', 'aca377cb-0009-0009-acf5-658609390009', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-19T09:00:00', '2025-12-19T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0020-0020-acf5-658609390020', 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-20T09:00:00', '2025-12-20T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0021-0021-acf5-658609390021', 'aca377cb-0010-0010-acf5-658609390010', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-21T09:00:00', '2025-12-21T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0022-0022-acf5-658609390022', 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-22T09:00:00', '2025-12-22T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW()),
-('eca377cb-0023-0023-acf5-658609390023', 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-23T09:00:00', '2025-12-23T09:30:00', 'Reconsulta', 'Confirmado', 'Chequeo dental', '', 0, 'Seeds', NOW());
+-- Diciembre 2025
+(gen_random_uuid(), 'aca377cb-7c24-41b1-acf5-6586093961c0', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-01T09:00:00', '2025-12-01T09:30:00', 'Consulta', 'Confirmado', 'Completada', 'Chequeo general', 'Sin observaciones', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0001-0001-acf5-658609390001', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-02T10:00:00', '2025-12-02T10:30:00', 'Emergencia', 'Pendiente', 'NoIniciado', 'Dolor agudo', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-03T11:00:00', '2025-12-03T11:30:00', 'Tratamiento', 'Programado', 'NoIniciado', 'Inicio de tratamiento de ortodoncia', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-04T09:00:00', '2025-12-04T09:30:00', 'Reconsulta', 'Confirmado', 'Completada', 'Seguimiento de limpieza', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0004-0004-acf5-658609390004', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-04T10:00:00', '2025-12-04T10:30:00', 'Seguimiento', 'Reprogramado', 'NoIniciado', 'Evaluar progreso', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0005-0005-acf5-658609390005', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-05T09:00:00', '2025-12-05T09:45:00', 'Emergencia', 'Cancelado', 'NoIniciado', 'Falta de tiempo del paciente', '', 0, 'Seeds', NOW(), NULL, NULL),
+-- Enero 2026
+(gen_random_uuid(), 'aca377cb-0006-0006-acf5-658609390006', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-08T09:30:00', '2026-01-08T10:00:00', 'Limpieza', 'Programado', 'NoIniciado', 'Limpieza semestral', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0007-0007-acf5-658609390007', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-09T11:00:00', '2026-01-09T11:45:00', 'Consulta', 'Confirmado', 'EnCurso', 'Consulta general', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0008-0008-acf5-658609390008', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-10T08:30:00', '2026-01-10T09:00:00', 'Revision_de_progresos', 'Pendiente', 'NoIniciado', 'Evaluación mensual', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0009-0009-acf5-658609390009', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-11T10:15:00', '2026-01-11T10:45:00', 'Tratamiento', 'Programado', 'NoIniciado', 'Aplicación de resina', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0010-0010-acf5-658609390010', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-12T09:00:00', '2026-01-12T09:30:00', 'Emergencia', 'Confirmado', 'EnCurso', 'Dolor post-tratamiento', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0001-0001-acf5-658609390001', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-13T11:00:00', '2026-01-13T11:30:00', 'Eliminacion_de_aparatos', 'Confirmado', 'Completada', 'Retiro de brackets', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-14T09:00:00', '2026-01-14T09:45:00', 'Tratamiento', 'Reprogramado', 'NoIniciado', 'Colocación de coronas', '', 0, 'Seeds', NOW(), NULL, NULL),
+-- Febrero 2026
+(gen_random_uuid(), 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-01T10:00:00', '2026-02-01T10:30:00', 'Consulta', 'Programado', 'NoIniciado', 'Consulta por revisión', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0004-0004-acf5-658609390004', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-02T09:00:00', '2026-02-02T09:30:00', 'Seguimiento', 'Confirmado', 'EnCurso', 'Evaluar sensibilidad', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0005-0005-acf5-658609390005', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-03T11:00:00', '2026-02-03T11:30:00', 'Emergencia', 'Pendiente', 'NoIniciado', 'Inflamación dental', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0006-0006-acf5-658609390006', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-04T10:00:00', '2026-02-04T10:45:00', 'Tratamiento', 'Confirmado', 'EnCurso', 'Implante dental', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0007-0007-acf5-658609390007', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-05T09:00:00', '2026-02-05T09:30:00', 'Consulta', 'Programado', 'NoIniciado', 'Dolor al masticar', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0008-0008-acf5-658609390008', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-06T10:00:00', '2026-02-06T10:30:00', 'Consulta', 'Reprogramado', 'NoIniciado', 'Consulta cancelada por lluvia', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0009-0009-acf5-658609390009', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-07T08:30:00', '2026-02-07T09:00:00', 'Reconsulta', 'Confirmado', 'Completada', 'Revisión de caries tratada', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0010-0010-acf5-658609390010', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-08T11:00:00', '2026-02-08T11:45:00', 'Seguimiento', 'Programado', 'NoIniciado', 'Revisión general mensual', '', 0, 'Seeds', NOW(), NULL, NULL);
+-- Total: 25 registros
 
 
 
