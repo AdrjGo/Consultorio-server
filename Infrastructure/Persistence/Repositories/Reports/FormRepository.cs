@@ -25,7 +25,9 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<FormVersion>> GetAllFormVersionsByFormName(string formName)
         {
-            return await _context.FormVersions.Include(fv => fv.Form).Where(fv => fv.Form.Name == formName).ToListAsync();
+            return await _context.FormVersions.Include(fv => fv.Form).Where(fv => fv.Form.Name == formName).GroupBy(fv => fv.FormId)
+        .Select(g => g.OrderByDescending(fv => fv.NumberVersion).First())
+        .ToListAsync();
         }
 
         public async Task<FormVersion> GetFormBySubmodId(int submodId)

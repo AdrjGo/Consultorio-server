@@ -6,8 +6,8 @@ namespace Domain.Entities
         public required Guid PatientId { get; set; }
         public required DateTime ContractDate { get; set; }
 
-        public required Submodule Submodule { get; set; }
-        public required Patient Patient { get; set; }
+        public Submodule? Submodule { get; set; }
+        public Patient? Patient { get; set; }
         public ICollection<PaymentManager> PaymentManagers { get; set; } = new List<PaymentManager>();
     }
 }
