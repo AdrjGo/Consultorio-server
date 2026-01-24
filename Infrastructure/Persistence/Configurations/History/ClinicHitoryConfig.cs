@@ -15,9 +15,9 @@ namespace Infrastructure.Data
             builder.Property(ch => ch.SubmodId).HasColumnName("submod_id").IsRequired();
 
             builder.Property(ch => ch.CreatedBy).HasColumnName("created_by").IsRequired();
-            builder.Property(ch => ch.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
+            builder.Property(ch => ch.CreatedAt).HasColumnName("created_at").HasColumnType("timestamp without time zone").HasDefaultValueSql("now()").IsRequired();
             builder.Property(ch => ch.UpdatedBy).HasColumnName("updated_by");
-            builder.Property(ch => ch.UpdatedAt).HasColumnName("updated_at");
+            builder.Property(ch => ch.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp without time zone");
             builder.Property(ch => ch.State).HasColumnName("state").HasConversion<string>().IsRequired();
 
             builder.HasOne(ch => ch.Patient)

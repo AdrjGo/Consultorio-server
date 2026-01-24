@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -73,7 +74,7 @@ namespace Application.Services
                 Description = dto.Description,
                 State = States.ACTIVE,
                 CreatedBy = creatorName,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"))
             };
 
             await _evidenceFileRepository.CreateEvidenceFile(evidenceFile);
@@ -96,7 +97,7 @@ namespace Application.Services
             evidenceFile.ExternalReference = new Url(dto.ExternalReference ?? evidenceFile.ExternalReference?.Value);
             evidenceFile.Reference = new FilePath(dto.Reference ?? evidenceFile.Reference?.Value);
             evidenceFile.Description = dto.Description ?? evidenceFile.Description;
-            evidenceFile.UpdatedAt = DateTime.UtcNow;
+            evidenceFile.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             evidenceFile.UpdatedBy = creatorName;
 
             await _evidenceFileRepository.UpdateEvidenceFile(evidenceFile);

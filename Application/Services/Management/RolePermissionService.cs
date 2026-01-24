@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Interfaces;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 
@@ -22,7 +23,7 @@ namespace Application.Services
                 RoleId = rp.RoleId,
                 PermissionId = rp.PermissionId,
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName,
             }).ToList();
 

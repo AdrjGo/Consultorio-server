@@ -28,9 +28,9 @@ namespace Infrastructure.Data
             builder.Property(e => e.Description).HasColumnName("description").HasMaxLength(200);
 
             builder.Property(e => e.CreatedBy).HasColumnName("created_by").IsRequired();
-            builder.Property(e => e.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
+            builder.Property(e => e.CreatedAt).HasColumnName("created_at").HasColumnType("timestamp without time zone").HasDefaultValueSql("now()").IsRequired();
             builder.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-            builder.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            builder.Property(e => e.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp without time zone");
             builder.Property(e => e.State).HasColumnName("state").HasConversion<string>().IsRequired();
 
             builder.HasOne(e => e.Monitoring)

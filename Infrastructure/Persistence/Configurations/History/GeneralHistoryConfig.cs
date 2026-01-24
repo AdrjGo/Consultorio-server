@@ -16,9 +16,9 @@ namespace Infrastructure.Data
             builder.Property(gh => gh.FilledBy).HasColumnName("filled_by").IsRequired();
 
             builder.Property(gh => gh.CreatedBy).HasColumnName("created_by").IsRequired();
-            builder.Property(gh => gh.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
+            builder.Property(gh => gh.CreatedAt).HasColumnName("created_at").HasColumnType("timestamp without time zone").HasDefaultValueSql("now()").IsRequired();
             builder.Property(gh => gh.UpdatedBy).HasColumnName("updated_by");
-            builder.Property(gh => gh.UpdatedAt).HasColumnName("updated_at");
+            builder.Property(gh => gh.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp without time zone");
             builder.Property(gh => gh.State).HasColumnName("state").HasConversion<string>().IsRequired();
 
             builder.HasOne(gh => gh.Patient)

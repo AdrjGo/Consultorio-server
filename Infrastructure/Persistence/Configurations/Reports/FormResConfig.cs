@@ -23,9 +23,9 @@ namespace Infrastructure.Data
                 .IsRequired();
 
             builder.Property(fr => fr.CreatedBy).HasColumnName("created_by").IsRequired();
-            builder.Property(fr => fr.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
+            builder.Property(fr => fr.CreatedAt).HasColumnName("created_at").HasColumnType("timestamp without time zone").HasDefaultValueSql("now()").IsRequired();
             builder.Property(fr => fr.UpdatedBy).HasColumnName("updated_by");
-            builder.Property(fr => fr.UpdatedAt).HasColumnName("updated_at");
+            builder.Property(fr => fr.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp without time zone");
             builder.Property(fr => fr.State).HasColumnName("state").HasConversion<string>().IsRequired();
 
             builder.HasOne(fr => fr.FormVersion)

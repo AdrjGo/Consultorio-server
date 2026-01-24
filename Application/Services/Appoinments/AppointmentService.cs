@@ -199,7 +199,7 @@ namespace Application.Services
                 Observations = dto.Observations,
                 State = States.ACTIVE,
                 LifeStatus = AppointmentLifeStatus.NoIniciado,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName
             };
 

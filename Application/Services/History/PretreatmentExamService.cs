@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -72,7 +73,7 @@ namespace Application.Services
                 Treatment = pretreatmentExamDto.Treatment,
                 Cost = pretreatmentExamDto.Cost,
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName,
 
             };
@@ -97,7 +98,7 @@ namespace Application.Services
             pretreatmentExam.Caries = pretreatmentExamDto.Caries;
             pretreatmentExam.Treatment = pretreatmentExamDto.Treatment;
             pretreatmentExam.Cost = pretreatmentExamDto.Cost;
-            pretreatmentExam.UpdatedAt = DateTime.UtcNow;
+            pretreatmentExam.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             pretreatmentExam.UpdatedBy = creatorName;
 
             await _pretreatmentExamRepository.UpdatePretreatmentExam(pretreatmentExam);

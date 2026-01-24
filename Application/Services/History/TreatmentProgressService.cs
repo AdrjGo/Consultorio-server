@@ -1,4 +1,5 @@
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -73,7 +74,7 @@ namespace Application.Services
                 Payment = paymentAmount,
                 Debt = remainingDebt,
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName,
             };
 

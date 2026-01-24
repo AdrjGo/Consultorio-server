@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -52,7 +53,7 @@ namespace Application.Services
                 Treatment = dto.Treatment,
                 State = States.ACTIVE,
                 CreatedBy = creatorName,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"))
             };
 
             await _monitoringRepository.CreateMonitoring(monitoring);
@@ -72,7 +73,7 @@ namespace Application.Services
 
             monitoring.Nomenclature = dto.Nomenclature ?? monitoring.Nomenclature;
             monitoring.Treatment = dto.Treatment ?? monitoring.Treatment;
-            monitoring.UpdatedAt = DateTime.UtcNow;
+            monitoring.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             monitoring.UpdatedBy = creatorName;
 
             await _monitoringRepository.UpdateMonitoring(monitoring);

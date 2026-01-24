@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -63,6 +64,7 @@ namespace Application.Services
             var forms = await _formRepository.GetAllFormVersionsByFormName(formName);
             if (forms == null)
                 throw new KeyNotFoundException($"No se encontró ningún formulario");
+
             return forms.Select(f => new FormVersionResponse
             {
                 Id = f.Id,
@@ -132,39 +134,54 @@ namespace Application.Services
 
         public async Task<FormVersionMessageResponse> CreateFormVersion(FormVersionDto dto, string creatorName)
         {
-            var existForm = await _formRepository.GetFormBySubmodId(dto.SubmodId);
-            if (existForm != null)
-                throw new KeyNotFoundException($"Ya existe un formulario en este submodulo");
+            var existingForm = await _formRepository.GetFormBySubmodId(dto.SubmodId);
 
-            var formHeader = new Form
+            Guid formId;
+            Form? formHeader = null;
+
+            if (existingForm != null)
             {
-                Id = Guid.CreateVersion7(),
-                Name = dto.Form.Name,
-                Description = dto.Form.Description ?? "",
-                State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
-                CreatedBy = creatorName,
-            };
+                formId = existingForm.Form.Id;
+            }
+            else
+            {
+                formId = Guid.CreateVersion7();
+                formHeader = new Form
+                {
+                    Id = formId,
+                    Name = dto.Form.Name,
+                    Description = dto.Form.Description ?? "",
+                    State = States.ACTIVE,
+                    CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
+                    CreatedBy = creatorName
+                };
+            }
 
             var formVersion = new FormVersion
             {
                 Id = Guid.CreateVersion7(),
                 SubmodID = dto.SubmodId,
-                FormId = formHeader.Id,
+                FormId = formId,
                 NumberVersion = dto.NumberVersion,
                 JsonSchema = dto.JsonSchema,
-                Form = formHeader,
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
-                CreatedBy = creatorName,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
+                CreatedBy = creatorName
             };
 
+            if (formHeader != null)
+            {
+                formVersion.Form = formHeader;
+            }
+
             await _formRepository.CreateFormVersion(formVersion);
+
             return new FormVersionMessageResponse
             {
                 Message = "Formulario creado correctamente",
             };
         }
+
 
         public async Task<FormVersionMessageResponse> UpdateFormVersion(Guid id, FormVersionDto dto, string creatorName)
         {

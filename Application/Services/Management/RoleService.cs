@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -87,7 +88,7 @@ namespace Application.Services
                 Name = dto.Name,
                 Description = dto.Description ?? "",
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName,
             };
 
@@ -113,7 +114,7 @@ namespace Application.Services
                 Name = dto.Role.Name,
                 Description = dto.Role.Description ?? "",
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName,
             };
 
@@ -123,7 +124,7 @@ namespace Application.Services
                 RoleId = role.Id,
                 PermissionId = permissionId,
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName
             }).ToList();
 
@@ -143,7 +144,7 @@ namespace Application.Services
 
             role.Name = dto.Name;
             role.Description = dto.Description ?? "";
-            role.UpdatedAt = DateTime.UtcNow;
+            role.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             role.UpdatedBy = creatorName;
 
             await _roleRepository.UpdateRole(role);
@@ -168,7 +169,7 @@ namespace Application.Services
                 RoleId = role.Id,
                 PermissionId = permissionId,
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName
             }).ToList();
 

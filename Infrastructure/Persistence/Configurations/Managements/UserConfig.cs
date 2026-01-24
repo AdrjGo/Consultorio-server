@@ -15,9 +15,9 @@ namespace Infrastructure.Data
             builder.Property(u => u.Password).HasColumnName("password").IsRequired();
 
             builder.Property(p => p.CreatedBy).HasColumnName("created_by").IsRequired();
-            builder.Property(p => p.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
+            builder.Property(p => p.CreatedAt).HasColumnName("created_at").HasColumnType("timestamp without time zone").HasDefaultValueSql("now()").IsRequired();
             builder.Property(p => p.UpdatedBy).HasColumnName("updated_by");
-            builder.Property(p => p.UpdatedAt).HasColumnName("updated_at");
+            builder.Property(p => p.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp without time zone");
             builder.Property(p => p.State).HasColumnName("state").HasConversion<string>().IsRequired();
 
             builder.HasOne(u => u.Person)

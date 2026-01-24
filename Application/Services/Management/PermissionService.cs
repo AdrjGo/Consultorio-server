@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -61,7 +62,7 @@ namespace Application.Services
                 Name = dto.Name,
                 Description = dto.Description ?? "",
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName,
             };
 
@@ -81,7 +82,7 @@ namespace Application.Services
 
             permission.Name = dto.Name;
             permission.Description = dto.Description ?? "";
-            permission.UpdatedAt = DateTime.UtcNow;
+            permission.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             permission.UpdatedBy = creatorName;
 
             await _permissionRepository.UpdatePermission(permission);

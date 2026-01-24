@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -55,7 +56,7 @@ namespace Application.Services
                 ManagerId = dto.ManagerId,
                 State = States.ACTIVE,
                 CreatedBy = creatorName,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 Manager = manager
             };
 
@@ -87,7 +88,7 @@ namespace Application.Services
             clinic.ManagerId = user.Id;
             clinic.Manager = user;
 
-            clinic.UpdatedAt = DateTime.UtcNow;
+            clinic.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             clinic.UpdatedBy = creatorName;
 
             await _clinicRepository.UpdateClinic(clinic);

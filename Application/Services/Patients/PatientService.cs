@@ -2,6 +2,7 @@ using Application.Common;
 using Application.Dto;
 using Application.Response;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -281,7 +282,7 @@ namespace Application.Services
                 Phone = new PhoneNumber(dto.Person.Phone),
                 Profession = dto.Person.Profession,
                 CreatedBy = creatorName,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
             };
 
             var patient = new Patient
@@ -299,7 +300,7 @@ namespace Application.Services
                 Sender = dto.Sender,
                 Person = patientPerson,
                 CreatedBy = creatorName,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
             };
 
             var today = DateOnly.FromDateTime(DateTime.UtcNow);
@@ -310,7 +311,7 @@ namespace Application.Services
 
             Person? responsible = null;
             PatientResponsible? patientResponsible = null;
-            Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Edad calculada: {age} - Fecha de nacimiento: {birthDate}");
+            // Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Edad calculada: {age} - Fecha de nacimiento: {birthDate}");
 
 
             if (age < 18 && dto.Responsible != null)
@@ -330,7 +331,7 @@ namespace Application.Services
                     Phone = new PhoneNumber(responsibleDto.Person.Phone),
                     Profession = responsibleDto.Person.Profession,
                     CreatedBy = creatorName,
-                    CreatedAt = DateTime.UtcNow,
+                    CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 };
 
                 patientResponsible = new PatientResponsible
@@ -342,7 +343,7 @@ namespace Application.Services
                     Patient = patient,
                     State = States.ACTIVE,
                     CreatedBy = creatorName,
-                    CreatedAt = DateTime.UtcNow,
+                    CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 };
 
                 patient.PatientResponsible = patientResponsible;
@@ -405,7 +406,7 @@ namespace Application.Services
                     patient.PatientResponsible.Person.Phone = new PhoneNumber(dto.Responsible.Person.Phone);
                     patient.PatientResponsible.Person.Profession = dto.Responsible.Person.Profession;
                     patient.PatientResponsible.Parentage = Enum.Parse<PatientParentage>(dto.Responsible.Parentage);
-                    patient.PatientResponsible.Person.UpdatedAt = DateTime.UtcNow;
+                    patient.PatientResponsible.Person.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
                     patient.PatientResponsible.Person.UpdatedBy = creatorName;
                 }
                 else
@@ -424,7 +425,7 @@ namespace Application.Services
                         Phone = new PhoneNumber(dto.Responsible.Person.Phone),
                         Profession = dto.Responsible.Person.Profession,
                         CreatedBy = creatorName,
-                        CreatedAt = DateTime.UtcNow
+                        CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"))
                     };
 
                     patient.PatientResponsible = new PatientResponsible
@@ -436,7 +437,7 @@ namespace Application.Services
                         Parentage = Enum.Parse<PatientParentage>(dto.Responsible.Parentage),
                         State = States.ACTIVE,
                         CreatedBy = creatorName,
-                        CreatedAt = DateTime.UtcNow
+                        CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"))
                     };
                 }
             }

@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -151,7 +152,7 @@ namespace Application.Services
                 Id = Guid.CreateVersion7(),
                 State = States.ACTIVE,
                 CreatedBy = creatorName,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 Name = dto.Person.Name,
                 LastName = dto.Person.LastName,
                 BirthDate = DateOnly.Parse(dto.Person.BirthDate),
@@ -168,7 +169,7 @@ namespace Application.Services
                 PersonId = person.Id,
                 State = States.ACTIVE,
                 CreatedBy = creatorName,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 Person = person,
                 UserRoles = new List<UserRole>(),
@@ -199,7 +200,7 @@ namespace Application.Services
             user.Person.Phone = new PhoneNumber(dto.Person.Phone);
             user.Person.Profession = dto.Person.Profession;
 
-            user.UpdatedAt = DateTime.UtcNow;
+            user.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             user.UpdatedBy = creatorName;
 
             await _userRepository.UpdateUser(user);
@@ -218,7 +219,7 @@ namespace Application.Services
                 throw new KeyNotFoundException($"No se encontró la persona con id {id}");
 
             user.State = Enum.Parse<States>(dto.State);
-            user.UpdatedAt = DateTime.UtcNow;
+            user.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             user.UpdatedBy = creatorName;
 
             await _userRepository.UpdateUser(user);

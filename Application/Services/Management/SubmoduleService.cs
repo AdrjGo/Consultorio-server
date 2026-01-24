@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.Responses;
+using Application.Utils;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
@@ -60,7 +61,7 @@ namespace Application.Services
                 Id = dto.Id,
                 Name = dto.Name,
                 State = States.ACTIVE,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")),
                 CreatedBy = creatorName,
             };
 
@@ -79,7 +80,7 @@ namespace Application.Services
                 throw new KeyNotFoundException($"No se encontró el submódulo con id {id}");
 
             submodule.Name = dto.Name;
-            submodule.UpdatedAt = DateTime.UtcNow;
+            submodule.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             submodule.UpdatedBy = creatorName;
 
             await _submoduleRepository.UpdateSubmodule(submodule);

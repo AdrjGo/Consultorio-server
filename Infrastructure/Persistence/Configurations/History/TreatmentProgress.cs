@@ -16,9 +16,9 @@ namespace Infrastructure.Data
             builder.Property(tp => tp.Debt).HasColumnName("debt").IsRequired();
 
             builder.Property(tp => tp.CreatedBy).HasColumnName("created_by").IsRequired();
-            builder.Property(tp => tp.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()").IsRequired();
+            builder.Property(tp => tp.CreatedAt).HasColumnName("created_at").HasColumnType("timestamp without time zone").HasDefaultValueSql("now()").IsRequired();
             builder.Property(tp => tp.UpdatedBy).HasColumnName("updated_by");
-            builder.Property(tp => tp.UpdatedAt).HasColumnName("updated_at");
+            builder.Property(tp => tp.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp without time zone");
             builder.Property(tp => tp.State).HasColumnName("state").HasConversion<string>().IsRequired();
 
             builder.HasOne(pe => pe.Patient)
