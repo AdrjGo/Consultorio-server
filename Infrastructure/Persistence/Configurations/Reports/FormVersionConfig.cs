@@ -14,6 +14,7 @@ namespace Infrastructure.Data
             builder.Property(fv => fv.Id).HasColumnName("form_version_id").IsRequired();
             builder.Property(fv => fv.FormId).HasColumnName("form_id").IsRequired();
             builder.Property(fv => fv.NumberVersion).HasColumnName("number_version").IsRequired();
+            builder.Property(fv => fv.SubmodID).HasColumnName("submodule_id").IsRequired();
             builder.Property(fv => fv.JsonSchema)
                 .HasColumnName("json_schema")
                 .HasColumnType("jsonb")
