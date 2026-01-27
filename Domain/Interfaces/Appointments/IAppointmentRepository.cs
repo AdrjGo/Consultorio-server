@@ -6,6 +6,7 @@ namespace Domain.Interfaces
     {
         Task<Appointment> GetAppointmentById(Guid id);
         Task<IEnumerable<Appointment>> GetAllAppointments();
+        Task<Appointment> GetAppointmentInCourseByPatientId(Guid patientId);
         Task<IEnumerable<Appointment>> GetAppointmentsByDate(DateTime? initialDate, DateTime? finalDate);
         Task<IEnumerable<Appointment>> GetAppointmentsByPatientId(Guid patientId);
         Task<Appointment> CreateAppointment(Appointment appointment);

@@ -23,6 +23,11 @@ namespace Infrastructure.Repositories
             return await _context.Appointments.Include(a => a.Patient).ThenInclude(a => a.Person).Include(a => a.Professional).ToListAsync();
         }
 
+        public async Task<Appointment> GetAppointmentInCourseByPatientId(Guid patientId)
+        {
+            return await _context.Appointments.Include(a => a.Patient).ThenInclude(a => a.Person).Include(a => a.Professional).FirstOrDefaultAsync(a => a.PatientId == patientId && a.LifeStatus == Domain.Enum.AppointmentLifeStatus.EnCurso);
+        }
+
         public async Task<IEnumerable<Appointment>> GetAppointmentsByDate(DateTime? initialDate, DateTime? finalDate)
         {
             var query = _context.Appointments

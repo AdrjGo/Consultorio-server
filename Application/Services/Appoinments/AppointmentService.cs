@@ -207,7 +207,7 @@ namespace Application.Services
 
             return new AppointmentCreatedResponse
             {
-                Id = appointment.Id,
+                // Id = appointment.Id,
                 Message = "Cita creada correctamente"
             };
         }
@@ -227,7 +227,7 @@ namespace Application.Services
             appointment.Reason = dto.Reason ?? appointment.Reason;
             appointment.Observations = dto.Observations ?? appointment.Observations;
             appointment.State = States.ACTIVE;
-            appointment.UpdatedAt = DateTime.UtcNow;
+            appointment.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             appointment.UpdatedBy = creatorName;
 
             await _appointmentRepository.UpdateAppointment(appointment);
@@ -255,6 +255,12 @@ namespace Application.Services
             if (lifeStatus == AppointmentLifeStatus.EnCurso &&
                 appointment.LifeStatus != AppointmentLifeStatus.NoIniciado)
                 throw new InvalidOperationException("Solo puedes iniciar una cita que no ha comenzado");
+
+            if (appointment.EndDate < LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")))
+                throw new InvalidOperationException("La hora de la cita ya pasó");
+
+            if (appointment.EndDate < appointment.StartDate)
+                throw new InvalidOperationException("La cita no puede finalizar antes de comenzar");
 
             appointment.LifeStatus = lifeStatus;
             appointment.StartAt = DateTime.UtcNow;
