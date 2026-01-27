@@ -28,11 +28,10 @@ namespace Infrastructure.Repositories
             return await _context.EvidenceFiles.Include(ef => ef.Monitoring).Where(ef => ef.Monitoring.Appointment.PatientId == id).ToListAsync();
         }
 
-        public async Task<EvidenceFile> CreateEvidenceFile(EvidenceFile evidenceFile)
+        public async Task CreateEvidenceFile(EvidenceFile evidenceFile)
         {
-            _context.EvidenceFiles.Add(evidenceFile);
+            _context.EvidenceFiles.AddRange(evidenceFile);
             await _context.SaveChangesAsync();
-            return evidenceFile;
         }
 
         public async Task<EvidenceFile> UpdateEvidenceFile(EvidenceFile evidenceFile)

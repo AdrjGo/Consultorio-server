@@ -7,7 +7,7 @@ namespace Domain.Interfaces
         Task<EvidenceFile> GetEvidenceFileById(Guid id);
         Task<IEnumerable<EvidenceFile>> GetEvidenceFilesByAppointmentId(Guid id);
         Task<IEnumerable<EvidenceFile>> GetEvidenceFileByPatient(Guid id);
-        Task<EvidenceFile> CreateEvidenceFile(EvidenceFile evidenceFile);
+        Task CreateEvidenceFile(EvidenceFile evidenceFile);
         Task<EvidenceFile> UpdateEvidenceFile(EvidenceFile evidenceFile);
         Task DeleteEvidenceFile(Guid id);
     }

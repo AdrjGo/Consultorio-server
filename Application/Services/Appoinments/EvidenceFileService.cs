@@ -58,30 +58,31 @@ namespace Application.Services
                 Format = e.Format.ToString(),
                 ExternalReference = e.ExternalReference?.Value,
                 Reference = e.Reference?.Value,
-                Description = e.Description
+                Description = e.Description,
+                MonitoringNomenclature = e.Monitoring.Nomenclature,
+                CreatedAt = e.CreatedAt.ToString("o")
             });
         }
 
-        public async Task<EvidenceFileCreatedResponse> CreateEvidenceFile(EvidenceFileDto dto, string creatorName)
+        public async Task<EvidenceFileCreatedResponse> CreateEvidenceFile(EvidenceFileDto Files, string creatorName)
         {
-            var evidenceFile = new EvidenceFile
+            var evidenceFiles = new EvidenceFile
             {
                 Id = Guid.CreateVersion7(),
-                MonitoringId = dto.MonitoringId,
-                Format = Enum.Parse<EvidenceFileFormat>(dto.Format),
-                ExternalReference = new Url(dto.ExternalReference),
-                Reference = new FilePath(dto.Reference),
-                Description = dto.Description,
+                MonitoringId = Files.MonitoringId,
+                Format = Files.Format,
+                ExternalReference = new Url(Files.ExternalReference),
+                Reference = new FilePath("/null"),
+                Description = Files.Description,
                 State = States.ACTIVE,
                 CreatedBy = creatorName,
                 CreatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"))
             };
 
-            await _evidenceFileRepository.CreateEvidenceFile(evidenceFile);
+            await _evidenceFileRepository.CreateEvidenceFile(evidenceFiles);
 
             return new EvidenceFileCreatedResponse
             {
-                Id = evidenceFile.Id,
                 Message = "Archivo cargado correctamente"
             };
         }
@@ -93,7 +94,7 @@ namespace Application.Services
                 throw new KeyNotFoundException($"No se encontró el archivo");
 
             evidenceFile.MonitoringId = dto.MonitoringId ?? evidenceFile.MonitoringId;
-            evidenceFile.Format = Enum.Parse<EvidenceFileFormat>(dto.Format ?? evidenceFile.Format.ToString());
+            evidenceFile.Format = dto.Format ?? evidenceFile.Format.ToString();
             evidenceFile.ExternalReference = new Url(dto.ExternalReference ?? evidenceFile.ExternalReference?.Value);
             evidenceFile.Reference = new FilePath(dto.Reference ?? evidenceFile.Reference?.Value);
             evidenceFile.Description = dto.Description ?? evidenceFile.Description;

@@ -8,6 +8,8 @@ namespace Application.Responses
         public string? ExternalReference { get; set; }
         public string? Reference { get; set; }
         public string? Description { get; set; }
+        public string? MonitoringNomenclature { get; set; }
+        public string? CreatedAt { get; set; }
     }
 
     public class EvidenceFileCreatedResponse

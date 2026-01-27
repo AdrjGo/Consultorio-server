@@ -5,7 +5,7 @@ namespace Application.Dto
         public Guid MonitoringId { get; set; }
         public string Format { get; set; }
         public string? ExternalReference { get; set; }
-        public string? Reference { get; set; }
+        // public string? Reference { get; set; }
         public string? Description { get; set; }
     }
 
