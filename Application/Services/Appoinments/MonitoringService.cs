@@ -10,10 +10,14 @@ namespace Application.Services
     public class MonitoringService
     {
         private readonly IMonitoringRepository _monitoringRepository;
+        private readonly IContractRepository _contractRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
 
-        public MonitoringService(IMonitoringRepository monitoringRepository)
+        public MonitoringService(IMonitoringRepository monitoringRepository, IContractRepository contractRepository, IAppointmentRepository appointmentRepository)
         {
             _monitoringRepository = monitoringRepository;
+            _contractRepository = contractRepository;
+            _appointmentRepository = appointmentRepository;
         }
 
         public async Task<MonitoringResponse> GetMonitoringById(Guid id)
@@ -45,10 +49,19 @@ namespace Application.Services
 
         public async Task<MonitoringCreatedUpdateResponse> CreateMonitoring(MonitoringDto dto, string creatorName)
         {
+            var appointmentInCourse = await _appointmentRepository.GetAppointmentInCourseByPatientId(dto.PatientId);
+            if (appointmentInCourse == null)
+                throw new InvalidOperationException($"El paciente no tiene cita en curso");
+
+
+            // if (existContract == null)
+            //     throw new InvalidOperationException("No existe un paciente asociado a un contrato de Ortodoncia");
+
+
             var monitoring = new Monitoring
             {
                 Id = Guid.CreateVersion7(),
-                AppointmentId = dto.AppointmentId,
+                AppointmentId = appointmentInCourse.Id,
                 Nomenclature = dto.Nomenclature,
                 Treatment = dto.Treatment,
                 State = States.ACTIVE,
@@ -60,7 +73,6 @@ namespace Application.Services
 
             return new MonitoringCreatedUpdateResponse
             {
-                Id = monitoring.Id,
                 Message = "Seguimiento creado correctamente"
             };
         }
