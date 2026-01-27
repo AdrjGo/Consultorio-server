@@ -26,5 +26,7 @@ namespace Domain.Entities
         public List<PretreatmentExam>? PretreatmentExams { get; set; }
         public List<TreatmentProgress>? TreatmentProgresses { get; set; }
 
+        public List<PaymentTreatment>? PaymentTreatments { get; set; }
+
     }
 }

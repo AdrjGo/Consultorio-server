@@ -114,5 +114,13 @@ namespace Application.Security
             public const string Update = "11111111-1111-1111-1111-111111111165";
             public const string Delete = "11111111-1111-1111-1111-111111111166";
         }
+
+        public static class PaymentTreatment
+        {
+            public const string Create = "11111111-1111-1111-1111-111111111167";
+            public const string Read = "11111111-1111-1111-1111-111111111168";
+            public const string Update = "11111111-1111-1111-1111-111111111169";
+            public const string Delete = "11111111-1111-1111-1111-111111111170";
+        }
     }
 }

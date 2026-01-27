@@ -9,5 +9,7 @@ namespace Domain.Entities
         public Submodule? Submodule { get; set; }
         public Patient? Patient { get; set; }
         public ICollection<PaymentManager> PaymentManagers { get; set; } = new List<PaymentManager>();
+
+        public List<PaymentTreatment>? PaymentTreatments { get; set; }
     }
 }

@@ -29,6 +29,7 @@ namespace Infrastructure.Data
         public DbSet<GeneralHistory> GeneralHistories { get; set; }
         public DbSet<PretreatmentExam> PretreatmentExams { get; set; }
         public DbSet<TreatmentProgress> TreatmentProgress { get; set; }
+        public DbSet<PaymentTreatment> PaymentTreatments { get; set; }
         public DbSet<Form> Forms { get; set; }
         public DbSet<FormRes> FormRes { get; set; }
         public DbSet<FormVersion> FormVersions { get; set; }
