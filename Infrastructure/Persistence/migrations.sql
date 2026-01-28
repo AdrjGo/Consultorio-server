@@ -103,6 +103,7 @@ ON CONFLICT (patient_id) DO NOTHING;
 -- Insertar citas diciembre 2025 - febrero 2026
 -- ===============================
 
+
 INSERT INTO public.appointment
 ("appointment_id", "patient_id", "professional_id", "start_date", "end_date", "appointment_type", "status", "life_status", "reason", "observations", "state", "created_by", "created_at", "start_by", "start_at")
 VALUES
@@ -115,17 +116,17 @@ VALUES
 (gen_random_uuid(), 'aca377cb-0005-0005-acf5-658609390005', '01429580-7e2d-43b5-ae88-93229119c048', '2025-12-05T09:00:00', '2025-12-05T09:45:00', 'Emergencia', 'Cancelado', 'NoIniciado', 'Falta de tiempo del paciente', '', 0, 'Seeds', NOW(), NULL, NULL),
 -- Enero 2026
 (gen_random_uuid(), 'aca377cb-0006-0006-acf5-658609390006', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-08T09:30:00', '2026-01-08T10:00:00', 'Limpieza', 'Programado', 'NoIniciado', 'Limpieza semestral', '', 0, 'Seeds', NOW(), NULL, NULL),
-(gen_random_uuid(), 'aca377cb-0007-0007-acf5-658609390007', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-09T11:00:00', '2026-01-09T11:45:00', 'Consulta', 'Confirmado', 'Confirmado', 'Consulta general', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0007-0007-acf5-658609390007', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-09T11:00:00', '2026-01-09T11:45:00', 'Consulta', 'Confirmado', 'NoIniciado', 'Consulta general', '', 0, 'Seeds', NOW(), NULL, NULL),
 (gen_random_uuid(), 'aca377cb-0008-0008-acf5-658609390008', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-10T08:30:00', '2026-01-10T09:00:00', 'Revision_de_progresos', 'Pendiente', 'NoIniciado', 'Evaluación mensual', '', 0, 'Seeds', NOW(), NULL, NULL),
 (gen_random_uuid(), 'aca377cb-0009-0009-acf5-658609390009', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-11T10:15:00', '2026-01-11T10:45:00', 'Tratamiento', 'Programado', 'NoIniciado', 'Aplicación de resina', '', 0, 'Seeds', NOW(), NULL, NULL),
-(gen_random_uuid(), 'aca377cb-0010-0010-acf5-658609390010', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-12T09:00:00', '2026-01-12T09:30:00', 'Emergencia', 'Confirmado', 'Confirmado', 'Dolor post-tratamiento', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0010-0010-acf5-658609390010', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-12T09:00:00', '2026-01-12T09:30:00', 'Emergencia', 'Confirmado', 'NoIniciado', 'Dolor post-tratamiento', '', 0, 'Seeds', NOW(), NULL, NULL),
 (gen_random_uuid(), 'aca377cb-0001-0001-acf5-658609390001', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-13T11:00:00', '2026-01-13T11:30:00', 'Eliminacion_de_aparatos', 'Confirmado', 'Completada', 'Retiro de brackets', '', 0, 'Seeds', NOW(), NULL, NULL),
 (gen_random_uuid(), 'aca377cb-0002-0002-acf5-658609390002', '01429580-7e2d-43b5-ae88-93229119c048', '2026-01-14T09:00:00', '2026-01-14T09:45:00', 'Tratamiento', 'Reprogramado', 'NoIniciado', 'Colocación de coronas', '', 0, 'Seeds', NOW(), NULL, NULL),
 -- Febrero 2026
 (gen_random_uuid(), 'aca377cb-0003-0003-acf5-658609390003', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-01T10:00:00', '2026-02-01T10:30:00', 'Consulta', 'Programado', 'NoIniciado', 'Consulta por revisión', '', 0, 'Seeds', NOW(), NULL, NULL),
-(gen_random_uuid(), 'aca377cb-0004-0004-acf5-658609390004', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-02T09:00:00', '2026-02-02T09:30:00', 'Seguimiento', 'Confirmado', 'Confirmado', 'Evaluar sensibilidad', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0004-0004-acf5-658609390004', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-02T09:00:00', '2026-02-02T09:30:00', 'Seguimiento', 'Confirmado', 'NoIniciado', 'Evaluar sensibilidad', '', 0, 'Seeds', NOW(), NULL, NULL),
 (gen_random_uuid(), 'aca377cb-0005-0005-acf5-658609390005', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-03T11:00:00', '2026-02-03T11:30:00', 'Emergencia', 'Pendiente', 'NoIniciado', 'Inflamación dental', '', 0, 'Seeds', NOW(), NULL, NULL),
-(gen_random_uuid(), 'aca377cb-0006-0006-acf5-658609390006', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-04T10:00:00', '2026-02-04T10:45:00', 'Tratamiento', 'Confirmado', 'Confirmado', 'Implante dental', '', 0, 'Seeds', NOW(), NULL, NULL),
+(gen_random_uuid(), 'aca377cb-0006-0006-acf5-658609390006', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-04T10:00:00', '2026-02-04T10:45:00', 'Tratamiento', 'Confirmado', 'NoIniciado', 'Implante dental', '', 0, 'Seeds', NOW(), NULL, NULL),
 (gen_random_uuid(), 'aca377cb-0007-0007-acf5-658609390007', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-05T09:00:00', '2026-02-05T09:30:00', 'Consulta', 'Programado', 'NoIniciado', 'Dolor al masticar', '', 0, 'Seeds', NOW(), NULL, NULL),
 (gen_random_uuid(), 'aca377cb-0008-0008-acf5-658609390008', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-06T10:00:00', '2026-02-06T10:30:00', 'Consulta', 'Reprogramado', 'NoIniciado', 'Consulta cancelada por lluvia', '', 0, 'Seeds', NOW(), NULL, NULL),
 (gen_random_uuid(), 'aca377cb-0009-0009-acf5-658609390009', '01429580-7e2d-43b5-ae88-93229119c048', '2026-02-07T08:30:00', '2026-02-07T09:00:00', 'Reconsulta', 'Confirmado', 'Completada', 'Revisión de caries tratada', '', 0, 'Seeds', NOW(), NULL, NULL),
@@ -241,7 +242,11 @@ VALUES
     ('11111111-1111-1111-1111-111111111167', 'Paciente', 'Crear Pago', 'Permite crear pago de tratamiento', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111168', 'Paciente', 'Leer Pago', 'Permite leer pagos de tratamiento', 0, NOW(), 'Seeds'),
     ('11111111-1111-1111-1111-111111111169', 'Paciente', 'Actualizar Pago', 'Permite actualizar pago de tratamiento', 0, NOW(), 'Seeds'),
-    ('11111111-1111-1111-1111-111111111170', 'Paciente', 'Eliminar Pago', 'Permite eliminar pago de tratamiento', 0, NOW(), 'Seeds');
+    ('11111111-1111-1111-1111-111111111170', 'Paciente', 'Eliminar Pago', 'Permite eliminar pago de tratamiento', 0, NOW(), 'Seeds'),
+
+    -- Contract
+    ('11111111-1111-1111-1111-111111111171', 'Paciente', 'Leer Contrato', 'Permite leer contrato', 0, NOW(), 'Seeds'),
+    ('11111111-1111-1111-1111-111111111172', 'Paciente', 'Crear Contrato', 'Permite crear contrato', 0, NOW(), 'Seeds');
 
 
 
@@ -309,7 +314,9 @@ VALUES
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111167', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111168', 0, NOW(), 'Seeds'),
     (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111169', 0, NOW(), 'Seeds'),
-    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111170', 0, NOW(), 'Seeds');
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111170', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111171', 0, NOW(), 'Seeds'),
+    (gen_random_uuid(), 'd4f1f8a0-f7a9-4b8c-a7e1-e9e0a2e3e4e5', '11111111-1111-1111-1111-111111111172', 0, NOW(), 'Seeds');
 
 
 
@@ -352,143 +359,6 @@ VALUES
   "title": "Historia de Salud General",
   "type": "object",
   "properties": {
-    "datosPaciente": {
-      "title": "DATOS DEL PACIENTE",
-      "type": "object",
-      "properties": {
-        "nombresApellidos": {
-          "type": "string",
-          "title": "Nombres y apellidos"
-        },
-        "temperatura": {
-          "type": "string",
-          "title": "T°C"
-        },
-        "motivoConsulta": {
-          "type": "string",
-          "title": "Motivo de la consulta"
-        },
-        "fechaNacimiento": {
-          "type": "string",
-          "format": "date",
-          "title": "Fecha de nacimiento"
-        },
-        "edad": {
-          "type": "integer",
-          "title": "Edad",
-          "minimum": 0,
-          "maximum": 120
-        },
-        "ci": {
-          "type": "string",
-          "title": "C.I. (Cédula de Identidad)"
-        },
-        "domicilio": {
-          "type": "string",
-          "title": "Domicilio"
-        },
-        "zona": {
-          "type": "string",
-          "title": "Zona"
-        },
-        "ciudad": {
-          "type": "string",
-          "title": "Ciudad"
-        },
-        "celular": {
-          "type": "string",
-          "title": "Celular"
-        },
-        "telefonoDomicilio": {
-          "type": "string",
-          "title": "Teléfono domicilio"
-        },
-        "fax": {
-          "type": "string",
-          "title": "Fax"
-        },
-        "emailPrincipal": {
-          "type": "string",
-          "format": "email",
-          "title": "Email principal"
-        },
-        "emailAlternativo": {
-          "type": "string",
-          "format": "email",
-          "title": "Email alternativo"
-        },
-        "profesion": {
-          "type": "string",
-          "title": "Profesión"
-        },
-        "lugarTrabajoColegio": {
-          "type": "string",
-          "title": "Lugar de trabajo o Colegio"
-        },
-        "telefonoOficina": {
-          "type": "string",
-          "title": "Teléfono oficina"
-        },
-        "personaRemitio": {
-          "type": "string",
-          "title": "Persona que le remitió"
-        }
-      },
-      "required": [
-        "nombresApellidos",
-        "fechaNacimiento",
-        "ci",
-        "celular"
-      ]
-    },
-    "datosPadres": {
-      "title": "DATOS DE LOS PADRES (EN CASO DE MENORES DE EDAD)",
-      "type": "object",
-      "properties": {
-        "nombreMadre": {
-          "type": "string",
-          "title": "Nombre de la madre"
-        },
-        "profesionMadre": {
-          "type": "string",
-          "title": "Profesión/ocupación"
-        },
-        "trabajoMadre": {
-          "type": "string",
-          "title": "Lugar de trabajo"
-        },
-        "celularMadre": {
-          "type": "string",
-          "title": "Celular"
-        },
-        "emailMadre": {
-          "type": "string",
-          "format": "email",
-          "title": "E-mail"
-        },
-        "nombrePadre": {
-          "type": "string",
-          "title": "Nombre del padre"
-        },
-        "profesionPadre": {
-          "type": "string",
-          "title": "Profesión/ocupación"
-        },
-        "trabajoPadre": {
-          "type": "string",
-          "title": "Lugar de trabajo"
-        },
-        "celularPadre": {
-          "type": "string",
-          "title": "Celular"
-        },
-        "emailPadre": {
-          "type": "string",
-          "format": "email",
-          "title": "E-mail"
-        }
-      }
-    },
     "datosSaludGeneral": {
       "title": "DATOS DE SALUD GENERAL",
       "type": "object",
@@ -636,24 +506,9 @@ VALUES
         "contactoPersonaEnferma",
         "contactoCovid19"
       ]
-    },
-    "personaLlenoFormulario": {
-      "title": "Persona que llenó el formulario (en caso de menores de edad)",
-      "type": "object",
-      "properties": {
-        "nombre": {
-          "type": "string",
-          "title": "Nombre"
-        },
-        "parentesco": {
-          "type": "string",
-          "title": "Relación de parentesco"
-        }
-      }
     }
   },
   "required": [
-    "datosPaciente",
     "datosSaludGeneral"
   ]
 }', 0, NOW(), 'Seeds'),
@@ -667,131 +522,6 @@ VALUES
       "title": "HISTORIA DE SALUD GENERAL",
       "type": "object",
       "properties": {
-        "datosPaciente": {
-          "title": "DATOS DEL PACIENTE",
-          "type": "object",
-          "properties": {
-            "nombresApellidos": {
-              "type": "string",
-              "title": "Nombres y apellidos"
-            },
-            "temperatura": {
-              "type": "string",
-              "title": "T°C"
-            },
-            "motivoConsulta": {
-              "type": "string",
-              "title": "Motivo de la consulta"
-            },
-            "fechaNacimiento": {
-              "type": "string",
-              "format": "date",
-              "title": "Fecha de nacimiento"
-            },
-            "edad": {
-              "type": "integer",
-              "title": "Edad"
-            },
-            "ci": {
-              "type": "string",
-              "title": "C.I."
-            },
-            "domicilio": {
-              "type": "string",
-              "title": "Domicilio"
-            },
-            "zona": {
-              "type": "string",
-              "title": "Zona"
-            },
-            "ciudad": {
-              "type": "string",
-              "title": "Ciudad"
-            },
-            "celular": {
-              "type": "string",
-              "title": "Celular"
-            },
-            "telefonoDomicilio": {
-              "type": "string",
-              "title": "Teléfono domicilio"
-            },
-            "emailPrincipal": {
-              "type": "string",
-              "format": "email",
-              "title": "Email principal"
-            },
-            "emailAlternativo": {
-              "type": "string",
-              "format": "email",
-              "title": "Email alternativo"
-            },
-            "profesion": {
-              "type": "string",
-              "title": "Profesión"
-            },
-            "lugarTrabajoColegio": {
-              "type": "string",
-              "title": "Lugar de trabajo o Colegio"
-            },
-            "telefonoOficina": {
-              "type": "string",
-              "title": "Teléfono oficina"
-            },
-            "personaRemitio": {
-              "type": "string",
-              "title": "Persona que le remitió"
-            }
-          }
-        },
-        "datosPadres": {
-          "title": "DATOS DE LOS PADRES (EN CASO DE MENORES DE EDAD)",
-          "type": "object",
-          "properties": {
-            "nombreMadre": {
-              "type": "string",
-              "title": "Nombre de la madre"
-            },
-            "profesionMadre": {
-              "type": "string",
-              "title": "Profesión/ocupación"
-            },
-            "trabajoMadre": {
-              "type": "string",
-              "title": "Lugar de trabajo"
-            },
-            "celularMadre": {
-              "type": "string",
-              "title": "Celular"
-            },
-            "emailMadre": {
-              "type": "string",
-              "format": "email",
-              "title": "Email"
-            },
-            "nombrePadre": {
-              "type": "string",
-              "title": "Nombre del padre"
-            },
-            "profesionPadre": {
-              "type": "string",
-              "title": "Profesión/ocupación"
-            },
-            "trabajoPadre": {
-              "type": "string",
-              "title": "Lugar de trabajo"
-            },
-            "celularPadre": {
-              "type": "string",
-              "title": "Celular"
-            },
-            "emailPadre": {
-              "type": "string",
-              "format": "email",
-              "title": "Email"
-            }
-          }
-        },
         "datosSaludGeneral": {
           "title": "DATOS DE SALUD GENERAL",
           "type": "object",
@@ -895,20 +625,6 @@ VALUES
             "telefonoMedico": {
               "type": "string",
               "title": "Teléfono del médico"
-            }
-          }
-        },
-        "personaLlenoFormulario": {
-          "title": "Persona que llenó el formulario (en caso de menores de edad)",
-          "type": "object",
-          "properties": {
-            "nombre": {
-              "type": "string",
-              "title": "Nombre"
-            },
-            "parentesco": {
-              "type": "string",
-              "title": "Relación de parentesco"
             }
           }
         }
@@ -1133,43 +849,6 @@ VALUES
   "description": "Documento de planificación y seguimiento del tratamiento dental",
   "type": "object",
   "properties": {
-    "identificacion": {
-      "title": "IDENTIFICACIÓN DEL PACIENTE",
-      "type": "object",
-      "properties": {
-        "codigoPaciente": {
-          "type": "string",
-          "title": "Código de paciente",
-          "pattern": "^P-\\d{6}$",
-          "description": "Formato: P-XXXXXX"
-        },
-        "fechaEvaluacion": {
-          "type": "string",
-          "format": "date",
-          "title": "Fecha de evaluación inicial"
-        },
-        "profesionalResponsable": {
-          "type": "string",
-          "title": "Odontólogo tratante"
-        },
-        "especialidad": {
-          "type": "string",
-          "title": "Especialidad principal",
-          "enum": [
-            "Ortodoncia",
-            "Periodoncia",
-            "Endodoncia",
-            "Rehabilitación Oral",
-            "Cirugía Maxilofacial",
-            "Odontopediatría",
-            "Estética Dental",
-            "General"
-          ],
-          "default": "General"
-        }
-      },
-      "required": ["fechaEvaluacion", "profesionalResponsable"]
-    },
     "evaluacionInicial": {
       "title": "EVALUACIÓN INICIAL",
       "type": "object",
@@ -1534,7 +1213,6 @@ VALUES
     }
   },
   "required": [
-    "identificacion",
     "evaluacionInicial",
     "diagnosticos",
     "planTratamiento",
@@ -1548,36 +1226,6 @@ VALUES
   "title": "Contrato Integral de Tratamiento de Ortodoncia",
   "type": "object",
   "properties": {
-    "informacionContrato": {
-      "title": "INFORMACIÓN DEL CONTRATO",
-      "type": "object",
-      "properties": {
-        "numeroContrato": {
-          "type": "string",
-          "title": "Número de contrato",
-          "pattern": "^ORT-\\d{4}-\\d{3}$",
-          "description": "Formato: ORT-AAAA-NNN"
-        },
-        "fechaContrato": {
-          "type": "string",
-          "format": "date",
-          "title": "Fecha de contrato"
-        },
-        "tipoContrato": {
-          "type": "string",
-          "title": "Tipo de contrato",
-          "enum": [
-            "Completo",
-            "Por fases",
-            "Interceptivo",
-            "De compensación",
-            "Prequirúrgico"
-          ],
-          "default": "Completo"
-        }
-      },
-      "required": ["numeroContrato", "fechaContrato", "tipoContrato"]
-    },
     "detallesTratamiento": {
       "title": "DETALLES DEL TRATAMIENTO",
       "type": "object",
@@ -1633,101 +1281,6 @@ VALUES
         }
       },
       "required": ["modalidadAparatologia", "arcadaTratada", "tiempoEstimadoTotal"]
-    },
-    "estructuraCostos": {
-      "title": "ESTRUCTURA DE COSTOS",
-      "type": "object",
-      "properties": {
-        "costosBasicos": {
-          "type": "object",
-          "title": "Costos básicos del tratamiento",
-          "properties": {
-            "costoTotal": {
-              "type": "number",
-              "title": "Costo total del tratamiento",
-              "minimum": 0
-            },
-            "descuentoAplicado": {
-              "type": "number",
-              "title": "Descuento aplicado (%)",
-              "minimum": 0,
-              "maximum": 50
-            },
-            "subtotal": {
-              "type": "number",
-              "title": "Subtotal después de descuento",
-              "readOnly": true
-            }
-          }
-        },
-        "cuotaInicial": {
-          "type": "object",
-          "title": "Cuota inicial",
-          "properties": {
-            "monto": {
-              "type": "number",
-              "title": "Monto",
-              "minimum": 0
-            },
-            "porcentaje": {
-              "type": "number",
-              "title": "Porcentaje del total",
-              "minimum": 0,
-              "maximum": 100
-            },
-            "fechaVencimiento": {
-              "type": "string",
-              "format": "date",
-              "title": "Fecha de vencimiento"
-            }
-          }
-        },
-        "cuotasMensuales": {
-          "type": "object",
-          "title": "Cuotas mensuales",
-          "properties": {
-            "numeroCuotas": {
-              "type": "integer",
-              "title": "Número de cuotas",
-              "minimum": 1,
-              "maximum": 48
-            },
-            "montoCuota": {
-              "type": "number",
-              "title": "Monto por cuota",
-              "minimum": 0
-            },
-            "diaPago": {
-              "type": "integer",
-              "title": "Día de pago mensual",
-              "minimum": 1,
-              "maximum": 31
-            }
-          }
-        },
-        "costosAdicionales": {
-          "type": "array",
-          "title": "Costos adicionales no incluidos",
-          "items": {
-            "type": "object",
-            "properties": {
-              "concepto": {
-                "type": "string",
-                "title": "Concepto"
-              },
-              "costoEstimado": {
-                "type": "number",
-                "title": "Costo estimado"
-              },
-              "obligatorio": {
-                "type": "boolean",
-                "title": "¿Obligatorio?"
-              }
-            }
-          }
-        }
-      },
-      "required": ["costosBasicos", "cuotaInicial", "cuotasMensuales"]
     },
     "politicasContrato": {
       "title": "POLÍTICAS DEL CONTRATO",
@@ -1939,9 +1492,7 @@ VALUES
     }
   },
   "required": [
-    "informacionContrato",
     "detallesTratamiento",
-    "estructuraCostos",
     "firmasAutorizaciones"
   ]
 }', 0, NOW(), 'Seeds'),
@@ -1956,12 +1507,6 @@ VALUES
       "title": "MÓDULO DE INFORMACIÓN",
       "type": "object",
       "properties": {
-        "codigoContrato": {
-          "type": "string",
-          "title": "Código de contrato",
-          "pattern": "^ORTP-\\d{4}-J\\d{2}$",
-          "description": "Formato: ORTP-AAAA-JNN (J=Juvenil)"
-        },
         "fechaInicio": {
           "type": "string",
           "format": "date",
@@ -2076,87 +1621,6 @@ VALUES
       },
       "required": ["objetivosPrimarios", "aparatosSeleccionados"]
     },
-    "moduloEconomico": {
-      "title": "MÓDULO ECONÓMICO",
-      "type": "object",
-      "properties": {
-        "estructuraPago": {
-          "type": "object",
-          "title": "Estructura de pago",
-          "properties": {
-            "costoTotal": {
-              "type": "number",
-              "title": "Costo total del tratamiento"
-            },
-            "modalidadPago": {
-              "type": "string",
-              "title": "Modalidad de pago",
-              "enum": [
-                "Pago único con descuento",
-                "Cuota inicial + mensualidades",
-                "Pago por fases",
-                "Pago por procedimiento"
-              ]
-            },
-            "beneficiosIncluidos": {
-              "type": "array",
-              "title": "Beneficios incluidos",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "Ajustes mensuales",
-                  "Reposición de aparatos (1 vez)",
-                  "Controles radiográficos",
-                  "Fotografías clínicas",
-                  "Instrucciones de higiene",
-                  "Urgencias incluidas"
-                ]
-              }
-            }
-          }
-        },
-        "planPagoSeleccionado": {
-          "type": "object",
-          "title": "Plan de pago seleccionado",
-          "properties": {
-            "cuotaInicial": {
-              "type": "number",
-              "title": "Cuota inicial"
-            },
-            "cuotasMensuales": {
-              "type": "integer",
-              "title": "Número de cuotas mensuales"
-            },
-            "valorCuota": {
-              "type": "number",
-              "title": "Valor de cada cuota"
-            },
-            "diaCorte": {
-              "type": "integer",
-              "title": "Día de corte para pagos",
-              "minimum": 1,
-              "maximum": 31
-            }
-          }
-        },
-        "costosExcluidos": {
-          "type": "array",
-          "title": "Costos específicos excluidos",
-          "items": {
-            "type": "string",
-            "enum": [
-              "Extracciones dentales",
-              "Tratamiento de caries",
-              "Limpiezas profesionales",
-              "Radiografías especializadas",
-              "Aparatos perdidos o dañados",
-              "Tratamiento de segunda fase"
-            ]
-          }
-        }
-      },
-      "required": ["estructuraPago", "planPagoSeleccionado"]
-    },
     "moduloCompromisos": {
       "title": "MÓDULO DE COMPROMISOS",
       "type": "object",
@@ -2253,7 +1717,6 @@ VALUES
   "required": [
     "moduloInformacion",
     "moduloTratamiento",
-    "moduloEconomico",
     "moduloCompromisos"
   ]
 }', 0, NOW(), 'Seeds'),

@@ -13,7 +13,6 @@ namespace Infrastructure.Data
             builder.Property(c => c.Id).HasColumnName("contract_id").IsRequired();
             builder.Property(c => c.SubmodID).HasColumnName("submod_id").IsRequired();
             builder.Property(c => c.PatientId).HasColumnName("patient_id").IsRequired();
-            builder.Property(c => c.ContractDate).HasColumnName("contract_date").HasColumnType("timestamp without time zone").IsRequired();
 
             builder.Property(c => c.CreatedBy).HasColumnName("created_by").IsRequired();
             builder.Property(c => c.CreatedAt).HasColumnName("created_at").HasColumnType("timestamp without time zone").HasDefaultValueSql("now()").IsRequired();

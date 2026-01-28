@@ -122,5 +122,13 @@ namespace Application.Security
             public const string Update = "11111111-1111-1111-1111-111111111169";
             public const string Delete = "11111111-1111-1111-1111-111111111170";
         }
+
+        public static class Contract
+        {
+            public const string Create = "11111111-1111-1111-1111-111111111171";
+            public const string Read = "11111111-1111-1111-1111-111111111172";
+            public const string Update = "11111111-1111-1111-1111-111111111173";
+            public const string Delete = "11111111-1111-1111-1111-111111111174";
+        }
     }
 }

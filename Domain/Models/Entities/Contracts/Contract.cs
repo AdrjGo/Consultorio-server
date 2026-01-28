@@ -4,7 +4,8 @@ namespace Domain.Entities
     {
         public required int SubmodID { get; set; }
         public required Guid PatientId { get; set; }
-        public required DateTime ContractDate { get; set; }
+        public required int TotalCost { get; set; }
+        public required int MonthsDuration { get; set; }
 
         public Submodule? Submodule { get; set; }
         public Patient? Patient { get; set; }

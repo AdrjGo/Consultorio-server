@@ -20,7 +20,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Contract?> GetContractByPatientId(Guid patientId)
         {
-            return await _context.Contracts.Include(c => c.Patient).Where(c => c.PatientId == patientId).FirstOrDefaultAsync();
+            return await _context.Contracts.Include(c => c.Patient).Include(c => c.PaymentManagers).ThenInclude(pm => pm.Person).Where(c => c.PatientId == patientId).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Contract>> GetContractsByPatientId(Guid patientId)
