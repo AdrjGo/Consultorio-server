@@ -6,7 +6,7 @@ namespace Domain.Entities
         public required Guid ContractId { get; set; }
         public string? Parentage { get; set; }
 
-        public required Person Person { get; set; }
-        public required Contract Contract { get; set; }
+        public Person? Person { get; set; }
+        public Contract? Contract { get; set; }
     }
 }
