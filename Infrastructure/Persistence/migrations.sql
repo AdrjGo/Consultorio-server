@@ -347,6 +347,12 @@ VALUES
 ('00000000-0000-0000-0000-000000000006', 'Tratamiento Miofuncional', 'Formulario para el tratamiento miofuncional', 0, NOW(), 'Seeds');
 
 
+-- ===============================
+-- Examen pretratratamiento
+-- ===============================
+
+
+
 
 -- ===============================
 -- Versiones de formularios

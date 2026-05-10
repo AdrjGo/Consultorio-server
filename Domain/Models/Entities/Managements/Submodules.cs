@@ -14,7 +14,8 @@ namespace Domain.Entities
         public DateTime? UpdatedAt { get; set; }
 
         public TreatmentSummary? TreatmentSummary { get; set; }
-        public Contract? Contract { get; set; }
+        public List<Contract> Contracts { get; set; } = new();
+
         public List<FormVersion>? FormVersions { get; set; } = new();
         public ClinicHistory? ClinicHistory { get; set; }
         public GeneralHistory? GeneralHistory { get; set; }
