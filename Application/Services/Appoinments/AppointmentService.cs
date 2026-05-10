@@ -263,7 +263,7 @@ namespace Application.Services
                 throw new InvalidOperationException("La cita no puede finalizar antes de comenzar");
 
             appointment.LifeStatus = lifeStatus;
-            appointment.StartAt = DateTime.UtcNow;
+            appointment.StartAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             appointment.StartBy = creatorName;
 
             await _appointmentRepository.UpdateAppointment(appointment);
