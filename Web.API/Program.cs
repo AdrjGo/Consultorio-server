@@ -74,7 +74,6 @@ builder.Services.AddScoped<PretreatmentExamService>();
 builder.Services.AddScoped<TreatmentProgressService>();
 builder.Services.AddScoped<PaymentTreatmentService>();
 builder.Services.AddScoped<ContractService>();
-builder.Services.AddScoped<ClinicalDataService>();
 
 //Services de Autenticación
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();
