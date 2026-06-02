@@ -62,7 +62,6 @@ namespace Application.Services
             return new OrthodonticsContractDataDto(
                 patientInfo,
                 formResponse?.JsonResponse ?? new object(),
-                contract.CreatedAt.ToString("dd-MM-yyyy"),
                 contract.TotalCost,
                 contract.MonthsDuration,
                 paymentManagerInfo,
