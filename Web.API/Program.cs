@@ -53,6 +53,7 @@ builder.Services.AddScoped<IFormResRepository, FormResRespository>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IPaymentTreatmentRepository, PaymentTreatmentRespository>();
 builder.Services.AddScoped<IPaymentManagerRepository, PaymentManagerRepository>();
+builder.Services.AddScoped<IOrthodonticsContractReportRepository, OrthodonticsContractReportRepository>();
 
 // Services
 builder.Services.AddHttpContextAccessor();
@@ -74,6 +75,7 @@ builder.Services.AddScoped<PretreatmentExamService>();
 builder.Services.AddScoped<TreatmentProgressService>();
 builder.Services.AddScoped<PaymentTreatmentService>();
 builder.Services.AddScoped<ContractService>();
+builder.Services.AddScoped<OrthodonticsContractReportService>();
 
 //Services de Autenticación
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();

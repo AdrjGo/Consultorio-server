@@ -1229,278 +1229,83 @@ VALUES
 
 (gen_random_uuid(), '00000000-0000-0000-0000-000000000004', '4', '4', '{
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Contrato Integral de Tratamiento de Ortodoncia",
+  "title": "TRATAMIENTO DE ORTODONCIA - PRESUPUESTO Y CONTRATO",
   "type": "object",
   "properties": {
-    "detallesTratamiento": {
-      "title": "DETALLES DEL TRATAMIENTO",
+
+    "faseTratamiento": {
+      "title": "FASE DEL TRATAMIENTO",
       "type": "object",
       "properties": {
-        "modalidadAparatologia": {
-          "type": "string",
-          "title": "Modalidad de aparatología",
-          "enum": [
-            "Brackets metálicos convencionales",
-            "Brackets estéticos (cerámica/zafiro)",
-            "Brackets autoligables",
-            "Sistema lingual",
-            "Alineadores transparentes (Invisalign)",
-            "Aparatología removible"
-          ]
-        },
-        "arcadaTratada": {
-          "type": "string",
-          "title": "Arcada(s) a tratar",
-          "enum": ["Superior", "Inferior", "Ambas arcadas"],
-          "default": "Ambas arcadas"
-        },
-        "extraccionesRequeridas": {
-          "type": "boolean",
-          "title": "¿Requiere extracciones dentales?"
-        },
-        "detallesExtracciones": {
-          "type": "string",
-          "title": "Detalles de extracciones (si aplica)"
-        },
-        "tiempoEstimadoTotal": {
-          "type": "object",
-          "title": "Tiempo estimado total",
-          "properties": {
-            "meses": {
-              "type": "integer",
-              "title": "Meses",
-              "minimum": 1,
-              "maximum": 48
-            },
-            "rango": {
-              "type": "string",
-              "title": "Rango estimado",
-              "description": "Ej: 18-24 meses"
-            }
-          }
-        },
-        "citasEstimadas": {
+        "preventivo": { "type": "boolean", "title": "Preventivo" },
+        "ortopedico": { "type": "boolean", "title": "Ortopédico" },
+        "ortodonciaCompensacion": { "type": "boolean", "title": "Ortodoncia de compensación" },
+        "ortodonciaCirugia": { "type": "boolean", "title": "Ortodoncia para cirugía ortognática" },
+        "interceptivo": { "type": "boolean", "title": "Interceptivo" },
+        "correctivo": { "type": "boolean", "title": "Correctivo" },
+        "ortodonciaPeriodontal": { "type": "boolean", "title": "Ortodoncia de compromiso periodontal" },
+        "ortodonciaRehabilitacion": { "type": "boolean", "title": "Ortodoncia para rehabilitación" }
+      }
+    },
+
+    "aparatologia": {
+      "title": "APARATOLOGÍA",
+      "type": "string",
+      "ui:widget": "textarea"
+    },
+
+    "tiempoPresupuesto": {
+      "title": "TIEMPO Y PRESUPUESTO",
+      "type": "object",
+      "properties": {
+        "tiempoEstimadoMeses": {
           "type": "integer",
-          "title": "Número estimado de citas",
+          "title": "Tiempo estimado de tratamiento",
           "minimum": 1,
-          "maximum": 100
-        }
-      },
-      "required": ["modalidadAparatologia", "arcadaTratada", "tiempoEstimadoTotal"]
-    },
-    "politicasContrato": {
-      "title": "POLÍTICAS DEL CONTRATO",
-      "type": "object",
-      "properties": {
-        "periodoGarantia": {
-          "type": "object",
-          "title": "Período de garantía",
-          "properties": {
-            "meses": {
-              "type": "integer",
-              "title": "Meses de garantía",
-              "minimum": 0,
-              "maximum": 36
-            },
-            "cubre": {
-              "type": "array",
-              "title": "¿Qué cubre la garantía?",
-              "items": {
+          "maximum": 60
+        },
+        "presupuesto": {
+          "title": "PRESUPUESTO",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "concepto": {
                 "type": "string",
-                "enum": [
-                  "Rotura de brackets",
-                  "Descementado de brackets",
-                  "Rotura de arcos",
-                  "Ajustes menores",
-                  "Controles post-tratamiento"
-                ]
-              }
+                "title": "Concepto",
+                "enum": ["Cuota Inicial", "Cuotas Mensuales", "Otro"]
+              },
+              "costo": { "type": "number", "title": "Costo (Bs)", "minimum": 0 },
+              "cantidad": { "type": "integer", "title": "Cantidad", "minimum": 1, "default": 1 },
+              "total": { "type": "number", "title": "TOTAL (Bs)" },
+              "observacion": { "type": "string", "title": "Observación" }
             }
-          }
-        },
-        "politicaCancelacion": {
-          "type": "object",
-          "title": "Política de cancelación",
-          "properties": {
-            "diasRetracto": {
-              "type": "integer",
-              "title": "Días de derecho de retracto",
-              "minimum": 0,
-              "maximum": 30
-            },
-            "porcentajePenalidad": {
-              "type": "number",
-              "title": "Penalidad por cancelación (%)",
-              "minimum": 0,
-              "maximum": 100
-            },
-            "condicionesReembolso": {
-              "type": "string",
-              "title": "Condiciones de reembolso",
-              "ui:widget": "textarea"
-            }
-          }
-        },
-        "politicaInasistencias": {
-          "type": "object",
-          "title": "Política de inasistencias",
-          "properties": {
-            "toleranciaMinutos": {
-              "type": "integer",
-              "title": "Tolerancia (minutos)",
-              "minimum": 0,
-              "maximum": 60
-            },
-            "cargoCancelacionTardia": {
-              "type": "number",
-              "title": "Cargo por cancelación tardía"
-            },
-            "maximoInasistencias": {
-              "type": "integer",
-              "title": "Máximo de inasistencias permitidas"
-            }
-          }
-        }
-      }
-    },
-    "responsabilidades": {
-      "title": "RESPONSABILIDADES",
-      "type": "object",
-      "properties": {
-        "responsabilidadesPaciente": {
-          "type": "array",
-          "title": "Responsabilidades del paciente",
-          "items": {
-            "type": "string"
           },
-          "default": [
-            "Asistir a todas las citas programadas",
-            "Mantener excelente higiene oral",
-            "Seguir instrucciones dietéticas",
-            "Usar elásticos según indicación",
-            "Reportar cualquier problema inmediatamente"
-          ]
+          "minItems": 3
         },
-        "responsabilidadesClinica": {
-          "type": "array",
-          "title": "Responsabilidades de la clínica",
-          "items": {
-            "type": "string"
-          },
-          "default": [
-            "Proporcionar tratamiento de calidad",
-            "Mantener equipos en óptimas condiciones",
-            "Respetar horarios acordados",
-            "Proporcionar educación al paciente",
-            "Mantener confidencialidad de datos"
-          ]
-        }
-      }
-    },
-    "seguimientoContencion": {
-      "title": "SEGUIMIENTO Y CONTENCIÓN",
-      "type": "object",
-      "properties": {
-        "planContencion": {
-          "type": "object",
-          "title": "Plan de contención post-tratamiento",
-          "properties": {
-            "tipoContenedor": {
-              "type": "string",
-              "title": "Tipo de contenedor",
-              "enum": [
-                "Retenedor fijo",
-                "Retenedor removible Hawley",
-                "Retenedor Essix",
-                "Placa de contención",
-                "Combinación"
-              ]
-            },
-            "duracionUso": {
-              "type": "string",
-              "title": "Duración de uso",
-              "description": "Ej: 24 horas/día por 6 meses, luego nocturno"
-            },
-            "costoIncluido": {
-              "type": "boolean",
-              "title": "¿Incluido en el costo total?"
-            }
-          }
-        },
-        "seguimientoPosterior": {
-          "type": "object",
-          "title": "Seguimiento posterior",
-          "properties": {
-            "controlesIncluidos": {
-              "type": "integer",
-              "title": "Controles incluidos (meses)",
-              "minimum": 0,
-              "maximum": 24
-            },
-            "frecuenciaControles": {
-              "type": "string",
-              "title": "Frecuencia de controles"
-            }
-          }
-        }
-      }
-    },
-    "firmasAutorizaciones": {
-      "title": "FIRMAS Y AUTORIZACIONES",
-      "type": "object",
-      "properties": {
-        "aceptacionClausulas": {
-          "type": "object",
-          "title": "Aceptación de cláusulas",
-          "properties": {
-            "aceptaTerminos": {
-              "type": "boolean",
-              "title": "Acepta los términos del contrato"
-            },
-            "autorizaTratamiento": {
-              "type": "boolean",
-              "title": "Autoriza el tratamiento"
-            },
-            "consienteFotos": {
-              "type": "boolean",
-              "title": "Consiente uso de fotografías clínicas"
-            },
-            "aceptaContacto": {
-              "type": "boolean",
-              "title": "Autoriza contacto para seguimiento"
-            }
-          }
-        },
-        "informacionFirmantes": {
-          "type": "object",
-          "title": "Información de los firmantes",
-          "properties": {
-            "nombrePaciente": {
-              "type": "string",
-              "title": "Nombre completo del paciente"
-            },
-            "nombreResponsable": {
-              "type": "string",
-              "title": "Nombre del responsable (si aplica)"
-            },
-            "parentesco": {
-              "type": "string",
-              "title": "Parentesco"
-            },
-            "nombreOdontologo": {
-              "type": "string",
-              "title": "Nombre del odontólogo tratante"
-            }
-          }
+        "observaciones": {
+          "type": "string",
+          "title": "Observaciones generales",
+          "ui:widget": "textarea"
         }
       },
-      "required": ["aceptacionClausulas", "informacionFirmantes"]
+      "required": ["tiempoEstimadoMeses", "presupuesto"]
+    },
+
+    "responsabilidadPagos": {
+      "title": "RESPONSABILIDAD DE PAGOS",
+      "type": "object",
+      "properties": {
+        "nombre": { "type": "string", "title": "Nombre del responsable" },
+        "parentesco": { "type": "string", "title": "Parentesco" },
+        "email": { "type": "string", "title": "E-Mail", "format": "email" },
+        "telefono": { "type": "string", "title": "Teléfono" },
+        "celular": { "type": "string", "title": "Celular" }
+      },
+      "required": ["nombre"]
     }
   },
-  "required": [
-    "detallesTratamiento",
-    "firmasAutorizaciones"
-  ]
+  "required": ["faseTratamiento", "aparatologia", "tiempoPresupuesto", "responsabilidadPagos"]
 }', 0, NOW(), 'Seeds'),
 
 (gen_random_uuid(), '00000000-0000-0000-0000-000000000005', '5', '5', '{
