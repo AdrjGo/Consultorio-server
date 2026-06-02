@@ -25,6 +25,7 @@ namespace Application.Dto.Reports
     public record OrthodonticsContractDataDto(
         PatientInfoDto Patient,
         object FormResponse,
+        string ContractDate,
         decimal TotalCost,
         int MonthsDuration,
         PaymentManagerInfoDto PaymentManager,
