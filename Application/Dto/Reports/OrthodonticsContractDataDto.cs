@@ -20,7 +20,8 @@ namespace Application.Dto.Reports
 
     public record DoctorInfoDto(
         string DoctorName, string DoctorCI,
-        string ClinicName, string ClinicAddress);
+        string ClinicName, string ClinicAddress,
+        string ClinicPhone, string ClinicEmail);
 
     public record OrthodonticsContractDataDto(
         PatientInfoDto Patient,

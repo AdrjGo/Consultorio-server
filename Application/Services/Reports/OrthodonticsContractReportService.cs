@@ -55,9 +55,11 @@ namespace Application.Services
                     $"{clinic.Manager.Person.Name} {clinic.Manager.Person.LastName}",
                     clinic.Manager.Person.Ci,
                     clinic.ClinicName,
-                    clinic.ClinicAddress
+                    clinic.ClinicAddress,
+                    clinic.ClinicPhone.ToString(),
+                    clinic.ClinicEmail.ToString()
                 )
-                : new DoctorInfoDto("", "", "", "");
+                : new DoctorInfoDto("", "", "", "", "", "");
 
             return new OrthodonticsContractDataDto(
                 patientInfo,
