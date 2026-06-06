@@ -130,5 +130,10 @@ namespace Application.Security
             public const string Update = "11111111-1111-1111-1111-111111111173";
             public const string Delete = "11111111-1111-1111-1111-111111111174";
         }
+
+        public static class ClinicalReport
+        {
+            public const string Read = "11111111-1111-1111-1111-111111111175";
+        }
     }
 }

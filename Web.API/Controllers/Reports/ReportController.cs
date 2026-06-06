@@ -11,10 +11,14 @@ namespace Web.API.Controllers
     public class ReportController : ControllerBase
     {
         private readonly OrthodonticsContractReportService _orthodonticsService;
+        private readonly ClinicalReportService _clinicalReportService;
 
-        public ReportController(OrthodonticsContractReportService orthodonticsService)
+        public ReportController(
+            OrthodonticsContractReportService orthodonticsService,
+            ClinicalReportService clinicalReportService)
         {
             _orthodonticsService = orthodonticsService;
+            _clinicalReportService = clinicalReportService;
         }
 
         [Authorize(policy: Permissions.Contract.Read)]
@@ -32,6 +36,24 @@ namespace Web.API.Controllers
             catch (KeyNotFoundException ex)
             {
                 return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        [Authorize(policy: Permissions.ClinicalReport.Read)]
+        [HttpGet("clinical-data/{patientId:guid}")]
+        public async Task<ActionResult> GetClinicalData(Guid patientId)
+        {
+            try
+            {
+                var data = await _clinicalReportService.GetClinicalReportDataAsync(patientId);
+                if (data == null)
+                    return NotFound(new { message = "Paciente no encontrado" });
+
+                return Ok(data);
             }
             catch (Exception ex)
             {
