@@ -12,13 +12,16 @@ namespace Web.API.Controllers
     {
         private readonly OrthodonticsContractReportService _orthodonticsService;
         private readonly ClinicalReportService _clinicalReportService;
+        private readonly FinancialReportService _financialReportService;
 
         public ReportController(
             OrthodonticsContractReportService orthodonticsService,
-            ClinicalReportService clinicalReportService)
+            ClinicalReportService clinicalReportService,
+            FinancialReportService financialReportService)
         {
             _orthodonticsService = orthodonticsService;
             _clinicalReportService = clinicalReportService;
+            _financialReportService = financialReportService;
         }
 
         [Authorize(policy: Permissions.Contract.Read)]
@@ -58,6 +61,51 @@ namespace Web.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        [Authorize(policy: Permissions.FinancialReport.Read)]
+        [HttpGet("payment-data/{patientId:guid}")]
+        public async Task<ActionResult> GetPaymentData(Guid patientId, [FromQuery] DateOnly? startDate, [FromQuery] DateOnly? endDate)
+        {
+            try
+            {
+                var data = await _financialReportService.GetPaymentReportDataAsync(patientId, startDate, endDate);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+        [Authorize(policy: Permissions.FinancialReport.Read)]
+        [HttpGet("quota-data/{contractId:guid}")]
+        public async Task<ActionResult> GetQuotaData(Guid contractId)
+        {
+            try
+            {
+                var data = await _financialReportService.GetQuotaReportDataAsync(contractId);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+        [Authorize(policy: Permissions.FinancialReport.Read)]
+        [HttpGet("account-statement/{patientId:guid}")]
+        public async Task<ActionResult> GetAccountStatement(Guid patientId)
+        {
+            try
+            {
+                var data = await _financialReportService.GetAccountStatementDataAsync(patientId);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
             }
         }
     }

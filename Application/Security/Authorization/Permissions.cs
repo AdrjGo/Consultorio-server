@@ -135,5 +135,10 @@ namespace Application.Security
         {
             public const string Read = "11111111-1111-1111-1111-111111111175";
         }
+
+        public static class FinancialReport
+        {
+            public const string Read = "financial-report";
+        }
     }
 }

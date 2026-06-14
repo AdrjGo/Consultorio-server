@@ -53,8 +53,9 @@ builder.Services.AddScoped<IFormResRepository, FormResRespository>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IPaymentTreatmentRepository, PaymentTreatmentRespository>();
 builder.Services.AddScoped<IPaymentManagerRepository, PaymentManagerRepository>();
-builder.Services.AddScoped<IOrthodonticsContractReportRepository, OrthodonticsContractReportRepository>();
-builder.Services.AddScoped<IClinicalReportRepository, ClinicalReportRepository>();
+        builder.Services.AddScoped<IOrthodonticsContractReportRepository, OrthodonticsContractReportRepository>();
+        builder.Services.AddScoped<IClinicalReportRepository, ClinicalReportRepository>();
+        builder.Services.AddScoped<IFinancialReportRepository, FinancialReportRepository>();
 
 // Services
 builder.Services.AddHttpContextAccessor();
@@ -77,7 +78,8 @@ builder.Services.AddScoped<TreatmentProgressService>();
 builder.Services.AddScoped<PaymentTreatmentService>();
 builder.Services.AddScoped<ContractService>();
 builder.Services.AddScoped<OrthodonticsContractReportService>();
-builder.Services.AddScoped<ClinicalReportService>();
+        builder.Services.AddScoped<ClinicalReportService>();
+        builder.Services.AddScoped<FinancialReportService>();
 
 //Services de Autenticación
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();
