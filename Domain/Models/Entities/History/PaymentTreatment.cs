@@ -9,7 +9,7 @@ namespace Domain.Entities
         public required int Amount { get; set; }
         public required PaymentMethod Method { get; set; }
         public required string RecivedBy { get; set; }
-        public required string? Observations { get; set; }
+        public string? Observations { get; set; }
 
         public Patient? Patient { get; set; }
         public Contract? Contract { get; set; }
