@@ -49,6 +49,8 @@ Infrastructure/[Ll]og/
 Infrastructure/[Ll]ogs/
 Infrastructure/Migrations/
 
+Tests/[Oo]bj/
+
 Web.API/bld/
 Web.API/[Bb]in/
 Web.API/[Oo]bj/
