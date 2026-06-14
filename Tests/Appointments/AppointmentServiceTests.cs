@@ -27,7 +27,7 @@ namespace Consultorio.Tests.Appointments
         {
             var person = new Person { Id = Guid.NewGuid(), State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Name = "P", LastName = "L", BirthDate = DateOnly.FromDateTime(DateTime.UtcNow.AddYears(-20)), Sex = Gender.MALE, Ci = "c", Phone = new PhoneNumber("1") };
             var patient = new Patient { Id = Guid.NewGuid(), Person = person, PersonId = person.Id, Address = "a", Zone = "z", City = "c", Occupation = "o", PlaceOccupation = "p", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
-            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = patient.Id, ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", Observations = "o", Patient = patient, State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
+            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = patient.Id, ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", Observations = "o", Patient = patient, State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
             _repo.Setup(r => r.GetAllAppointments()).ReturnsAsync(new List<Appointment> { ap });
 
             var res = (await _service.GetAllAppointments()).ToList();
@@ -43,7 +43,7 @@ namespace Consultorio.Tests.Appointments
         {
             var person = new Person { Id = Guid.NewGuid(), State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Name = "P2", LastName = "L2", BirthDate = DateOnly.FromDateTime(DateTime.UtcNow.AddYears(-30)), Sex = Gender.FEMALE, Ci = "c2", Phone = new PhoneNumber("2") };
             var patient = new Patient { Id = Guid.NewGuid(), Person = person, PersonId = person.Id, Address = "a", Zone = "z", City = "c", Occupation = "o", PlaceOccupation = "p", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
-            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = patient.Id, ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", Observations = "o", Patient = patient, State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
+            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = patient.Id, ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", Observations = "o", Patient = patient, State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
             _repo.Setup(r => r.GetAppointmentById(ap.Id)).ReturnsAsync(ap);
 
             var res = await _service.GetAppointmentById(ap.Id);
@@ -64,7 +64,7 @@ namespace Consultorio.Tests.Appointments
         {
             var person = new Person { Id = Guid.NewGuid(), State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Name = "PD", LastName = "L", BirthDate = DateOnly.FromDateTime(DateTime.UtcNow.AddYears(-20)), Sex = Gender.MALE, Ci = "c", Phone = new PhoneNumber("1") };
             var patient = new Patient { Id = Guid.NewGuid(), Person = person, PersonId = person.Id, Address = "a", Zone = "z", City = "c", Occupation = "o", PlaceOccupation = "p", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
-            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = patient.Id, ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", Observations = "o", Patient = patient, State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
+            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = patient.Id, ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", Observations = "o", Patient = patient, State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
             _repo.Setup(r => r.GetAppointmentsByDate(It.IsAny<DateTime?>(), It.IsAny<DateTime?>())).ReturnsAsync(new List<Appointment> { ap });
 
             var res = (await _service.GetAppointmentsByDate(DateTime.UtcNow.ToString(), DateTime.UtcNow.AddDays(1).ToString())).ToList();
@@ -77,7 +77,7 @@ namespace Consultorio.Tests.Appointments
         {
             var person = new Person { Id = Guid.NewGuid(), State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Name = "PX", LastName = "L", BirthDate = DateOnly.FromDateTime(DateTime.UtcNow.AddYears(-20)), Sex = Gender.MALE, Ci = "c", Phone = new PhoneNumber("1") };
             var patient = new Patient { Id = Guid.NewGuid(), Person = person, PersonId = person.Id, Address = "a", Zone = "z", City = "c", Occupation = "o", PlaceOccupation = "p", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
-            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = patient.Id, ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", Observations = "o", Patient = patient, State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
+            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = patient.Id, ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", Observations = "o", Patient = patient, State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
             _repo.Setup(r => r.GetAppointmentsByPatientId(patient.Id)).ReturnsAsync(new List<Appointment> { ap });
 
             var res = (await _service.GetAppointmentsByPatientId(patient.Id)).ToList();
@@ -106,7 +106,7 @@ namespace Consultorio.Tests.Appointments
         [Fact]
         public async Task UpdateAppointment_Updates_WhenExists()
         {
-            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = Guid.NewGuid(), ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
+            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = Guid.NewGuid(), ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
             _repo.Setup(r => r.GetAppointmentById(ap.Id)).ReturnsAsync(ap);
             _repo.Setup(r => r.UpdateAppointment(It.IsAny<Appointment>())).ReturnsAsync((Appointment a) => a);
 
@@ -129,7 +129,7 @@ namespace Consultorio.Tests.Appointments
         public async Task DeleteAppointment_Deletes_WhenExists()
         {
             var id = Guid.NewGuid();
-            var ap = new Appointment { Id = id, PatientId = Guid.NewGuid(), ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
+            var ap = new Appointment { Id = id, PatientId = Guid.NewGuid(), ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
             _repo.Setup(r => r.GetAppointmentById(id)).ReturnsAsync(ap);
             _repo.Setup(r => r.DeleteAppointment(id)).Returns(Task.CompletedTask);
 

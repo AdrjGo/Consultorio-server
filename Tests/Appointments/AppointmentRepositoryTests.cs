@@ -59,7 +59,7 @@ namespace Consultorio.Tests.Appointments
             ctx.Users.Add(doctor);
             await ctx.SaveChangesAsync();
 
-            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = p.Id, ProfessionalId = doctor.Id, StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", Observations = "o", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
+            var ap = new Appointment { Id = Guid.NewGuid(), PatientId = p.Id, ProfessionalId = doctor.Id, StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", Observations = "o", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
             await repo.CreateAppointment(ap);
 
             var got = await repo.GetAppointmentById(ap.Id);
@@ -104,8 +104,8 @@ namespace Consultorio.Tests.Appointments
             await ctx.SaveChangesAsync();
 
             var now = DateTime.UtcNow;
-            var a1 = new Appointment { Id = Guid.NewGuid(), PatientId = p.Id, ProfessionalId = doctor.Id, StartDate = now.AddDays(-1), EndDate = now.AddDays(-1).AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Observations = "Prueba" };
-            var a2 = new Appointment { Id = Guid.NewGuid(), PatientId = p.Id, ProfessionalId = doctor.Id, StartDate = now.AddDays(1), EndDate = now.AddDays(1).AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Observations = "Prueba1" };
+            var a1 = new Appointment { Id = Guid.NewGuid(), PatientId = p.Id, ProfessionalId = doctor.Id, StartDate = now.AddDays(-1), EndDate = now.AddDays(-1).AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Observations = "Prueba" };
+            var a2 = new Appointment { Id = Guid.NewGuid(), PatientId = p.Id, ProfessionalId = doctor.Id, StartDate = now.AddDays(1), EndDate = now.AddDays(1).AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Observations = "Prueba1" };
 
             ctx.Appointments.AddRange(a1, a2);
             await ctx.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace Consultorio.Tests.Appointments
             ctx.Users.Add(doctor);
             await ctx.SaveChangesAsync();
 
-            var a1 = new Appointment { Id = Guid.NewGuid(), PatientId = p.Id, ProfessionalId = doctor.Id, StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Observations = "Observación de prueba" };
+            var a1 = new Appointment { Id = Guid.NewGuid(), PatientId = p.Id, ProfessionalId = doctor.Id, StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Observations = "Observaciï¿½n de prueba" };
             ctx.Appointments.Add(a1);
             await ctx.SaveChangesAsync();
 
