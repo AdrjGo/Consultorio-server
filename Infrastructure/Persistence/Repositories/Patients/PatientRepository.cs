@@ -104,5 +104,12 @@ namespace Infrastructure.Repositories
             _context.Patients.Remove(patient);
             await _context.SaveChangesAsync();
         }
+
+        public async Task RemovePatientResponsible(PatientResponsible responsible)
+        {
+            _context.Persons.Remove(responsible.Person);
+            _context.PatientResponsibles.Remove(responsible);
+            await _context.SaveChangesAsync();
+        }
     }
 }

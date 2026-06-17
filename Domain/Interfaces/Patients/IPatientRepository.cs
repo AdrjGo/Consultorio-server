@@ -11,6 +11,7 @@ namespace Domain.Interfaces
         Task<(IEnumerable<Patient> Patients, int TotalCount)> GetPatientsPagedAsync(int pageNumber, int pageSize, string? search = null, string? state = null);
         Task<Patient> CreatePatient(Patient patient);
         Task<Patient> UpdatePatient(Patient patient);
+        Task RemovePatientResponsible(PatientResponsible responsible);
         Task DeletePatient(Guid id);
     }
 }

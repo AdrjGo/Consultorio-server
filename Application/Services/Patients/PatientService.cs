@@ -382,8 +382,9 @@ namespace Application.Services
             patient.PlaceOccupation = dto.PlaceOccupation;
             patient.Sender = dto.Sender;
             patient.Nit = dto.Nit;
-            patient.State = Enum.Parse<States>(dto.State);
-            patient.Person.UpdatedAt = DateTime.UtcNow;
+            if (dto.State != null)
+                patient.State = Enum.Parse<States>(dto.State);
+            patient.Person.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             patient.Person.UpdatedBy = creatorName;
 
             // Calcular edad
@@ -443,8 +444,14 @@ namespace Application.Services
             }
             else
             {
-                // Si ya no es menor, eliminar responsable
-                patient.PatientResponsible = null;
+                // Si ya no es menor o no se envía responsable, eliminar responsable existente
+                if (patient.PatientResponsible != null)
+                {
+                    var oldResponsible = patient.PatientResponsible;
+                    patient.PatientResponsible = null;
+                    patient.ResponsibleId = null;
+                    await _patientRepository.RemovePatientResponsible(oldResponsible);
+                }
             }
 
             await _patientRepository.UpdatePatient(patient);

@@ -202,7 +202,7 @@ namespace Application.Services
                 throw new KeyNotFoundException($"Esta versión ya existe");
             }
             formVersion.JsonSchema = dto.JsonSchema;
-            formVersion.Form.UpdatedAt = DateTime.UtcNow;
+            formVersion.Form.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
             formVersion.Form.UpdatedBy = creatorName;
 
             await _formRepository.UpdateFormVersion(formVersion);
