@@ -53,10 +53,9 @@ namespace Application.Services
             if (appointmentInCourse == null)
                 throw new InvalidOperationException($"El paciente no tiene cita en curso");
 
-
-            // if (existContract == null)
-            //     throw new InvalidOperationException("No existe un paciente asociado a un contrato de Ortodoncia");
-
+            var existingMonitoring = await _monitoringRepository.GetMonitoringByAppointmentId(appointmentInCourse.Id);
+            if (existingMonitoring != null)
+                throw new InvalidOperationException($"La cita ya tiene un seguimiento registrado");
 
             var monitoring = new Monitoring
             {
