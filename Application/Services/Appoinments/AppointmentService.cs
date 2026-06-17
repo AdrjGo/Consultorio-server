@@ -256,7 +256,8 @@ namespace Application.Services
                 appointment.LifeStatus != AppointmentLifeStatus.NoIniciado)
                 throw new InvalidOperationException("Solo puedes iniciar una cita que no ha comenzado");
 
-            if (appointment.EndDate < LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")))
+            if (lifeStatus == AppointmentLifeStatus.EnCurso &&
+                appointment.EndDate < LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o")))
                 throw new InvalidOperationException("La hora de la cita ya pasó");
 
             if (appointment.EndDate < appointment.StartDate)
