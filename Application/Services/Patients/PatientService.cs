@@ -476,5 +476,18 @@ namespace Application.Services
             await _patientRepository.UpdatePatient(patient);
         }
 
+        public async Task RestorePatient(Guid id, string creatorName)
+        {
+            var patient = await _patientRepository.GetPatientById(id);
+            if (patient == null)
+                throw new KeyNotFoundException($"No se encontró al paciente");
+
+            patient.State = States.ACTIVE;
+            patient.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
+            patient.UpdatedBy = creatorName;
+
+            await _patientRepository.UpdatePatient(patient);
+        }
+
     }
 }

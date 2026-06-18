@@ -155,5 +155,25 @@ namespace Web.API.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+        [Authorize(Policy = Permissions.Patient.Update)]
+        [HttpPatch("{id}/restore")]
+        public async Task<IActionResult> RestorePatient(Guid id)
+        {
+            try
+            {
+                var creatorName = _httpContextAccessor.HttpContext.User.FindFirst("name")?.Value;
+                await _patientsService.RestorePatient(id, creatorName);
+                return Ok(new { message = "Paciente restaurado" });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
     }
 }
