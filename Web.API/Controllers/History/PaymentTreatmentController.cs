@@ -67,6 +67,10 @@ namespace Web.API.Controllers
                 var paymentTreatment = await _paymentTreatmentService.CreatePaymentTreatment(dto, creatorName);
                 return Ok(paymentTreatment);
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = ex.Message });
@@ -86,6 +90,10 @@ namespace Web.API.Controllers
             catch (KeyNotFoundException ex)
             {
                 return NotFound(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {

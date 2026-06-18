@@ -77,6 +77,13 @@ namespace Application.Services
             if (contract == null)
                 throw new KeyNotFoundException("Contrato no encontrado para este paciente");
 
+            var existingPayments = await _paymentTreatmentRepository.GetAllPaymentTreatmentsByPatientId(paymentTreatmentDto.PatientId);
+            var totalPaid = existingPayments.Sum(p => p.Amount);
+            var newTotalPaid = totalPaid + paymentTreatmentDto.Amount;
+
+            if (newTotalPaid > contract.TotalCost)
+                throw new InvalidOperationException("El monto del pago excede la deuda pendiente");
+
             var paymentTreatment = new PaymentTreatment
             {
                 Id = Guid.NewGuid(),
@@ -104,6 +111,19 @@ namespace Application.Services
             var paymentTreatment = await _paymentTreatmentRepository.GetPaymentTreatmentById(id);
             if (paymentTreatment == null)
                 throw new KeyNotFoundException($"No se encontró el examen de tratamiento");
+
+            var contract = await _contractRepository.GetContractByPatientId(paymentTreatment.PatientId);
+            if (contract == null)
+                throw new KeyNotFoundException("Contrato no encontrado para este paciente");
+
+            var existingPayments = await _paymentTreatmentRepository.GetAllPaymentTreatmentsByPatientId(paymentTreatment.PatientId);
+            var totalPaidWithoutCurrent = existingPayments
+                .Where(p => p.Id != id)
+                .Sum(p => p.Amount);
+            var newTotalPaid = totalPaidWithoutCurrent + paymentTreatmentDto.Amount;
+
+            if (newTotalPaid > contract.TotalCost)
+                throw new InvalidOperationException("El monto del pago excede la deuda pendiente");
 
             paymentTreatment.Amount = paymentTreatmentDto.Amount;
             paymentTreatment.Method = paymentTreatmentDto.Method;

@@ -65,6 +65,10 @@ namespace Application.Services
             var totalPaid = previousPayments.Sum(p => p.Payment);
 
             var newTotalPaid = totalPaid + paymentAmount;
+
+            if (newTotalPaid > totalCost)
+                throw new InvalidOperationException("El monto del pago excede la deuda pendiente");
+
             var remainingDebt = Math.Max(totalCost - newTotalPaid, 0);
 
             var newProgress = new TreatmentProgress
