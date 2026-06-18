@@ -20,12 +20,21 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Appointment>> GetAllAppointments()
         {
-            return await _context.Appointments.Include(a => a.Patient).ThenInclude(a => a.Person).Include(a => a.Professional).ToListAsync();
+            return await _context.Appointments
+                .Include(a => a.Patient).ThenInclude(a => a.Person)
+                .Include(a => a.Professional)
+                .Where(a => a.State == Domain.Enum.States.ACTIVE)
+                .ToListAsync();
         }
 
         public async Task<Appointment> GetAppointmentInCourseByPatientId(Guid patientId)
         {
-            return await _context.Appointments.Include(a => a.Patient).ThenInclude(a => a.Person).Include(a => a.Professional).FirstOrDefaultAsync(a => a.PatientId == patientId && a.LifeStatus == Domain.Enum.AppointmentLifeStatus.EnCurso);
+            return await _context.Appointments
+                .Include(a => a.Patient).ThenInclude(a => a.Person)
+                .Include(a => a.Professional)
+                .FirstOrDefaultAsync(a => a.PatientId == patientId
+                    && a.State == Domain.Enum.States.ACTIVE
+                    && a.LifeStatus == Domain.Enum.AppointmentLifeStatus.EnCurso);
         }
 
         public async Task<IEnumerable<Appointment>> GetAppointmentsByDate(DateTime? initialDate, DateTime? finalDate)
@@ -33,6 +42,7 @@ namespace Infrastructure.Repositories
             var query = _context.Appointments
                 .Include(a => a.Patient).ThenInclude(a => a.Person)
                 .Include(a => a.Professional)
+                .Where(a => a.State == Domain.Enum.States.ACTIVE)
                 .AsQueryable();
 
             if (initialDate.HasValue)
@@ -47,13 +57,18 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Appointment>> GetAppointmentsByPatientId(Guid patientId)
         {
-            return await _context.Appointments.Include(a => a.Patient).ThenInclude(a => a.Person).Include(a => a.Professional).Where(x => x.PatientId == patientId).ToListAsync();
+            return await _context.Appointments
+                .Include(a => a.Patient).ThenInclude(a => a.Person)
+                .Include(a => a.Professional)
+                .Where(x => x.PatientId == patientId && x.State == Domain.Enum.States.ACTIVE)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Appointment>> GetOverlappingAppointments(Guid professionalId, DateTime startDate, DateTime endDate)
         {
             return await _context.Appointments
                 .Where(a => a.ProfessionalId == professionalId
+                    && a.State == Domain.Enum.States.ACTIVE
                     && a.StartDate < endDate
                     && a.EndDate > startDate
                     && a.Status != Domain.Enum.AppointmentStatus.Cancelado)

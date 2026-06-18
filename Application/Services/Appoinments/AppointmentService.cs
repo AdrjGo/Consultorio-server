@@ -295,13 +295,17 @@ namespace Application.Services
             };
         }
 
-        public async Task DeleteAppointment(Guid id)
+        public async Task DeleteAppointment(Guid id, string creatorName)
         {
             var appointment = await _appointmentRepository.GetAppointmentById(id);
             if (appointment == null)
-                throw new KeyNotFoundException($"No se encontró la paciente");
+                throw new KeyNotFoundException($"No se encontró la cita");
 
-            await _appointmentRepository.DeleteAppointment(id);
+            appointment.State = States.INACTIVE;
+            appointment.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
+            appointment.UpdatedBy = creatorName;
+
+            await _appointmentRepository.UpdateAppointment(appointment);
         }
 
     }

@@ -131,18 +131,18 @@ namespace Consultorio.Tests.Appointments
             var id = Guid.NewGuid();
             var ap = new Appointment { Id = id, PatientId = Guid.NewGuid(), ProfessionalId = Guid.NewGuid(), StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddHours(1), Type = AppointmentType.Consulta, Status = AppointmentStatus.Programado, LifeStatus = AppointmentLifeStatus.NoIniciado, Reason = "r", State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow };
             _repo.Setup(r => r.GetAppointmentById(id)).ReturnsAsync(ap);
-            _repo.Setup(r => r.DeleteAppointment(id)).Returns(Task.CompletedTask);
+            _repo.Setup(r => r.UpdateAppointment(It.IsAny<Appointment>())).Returns(Task.FromResult(ap));
 
-            await _service.DeleteAppointment(id);
+            await _service.DeleteAppointment(id, "test-user");
 
-            _repo.Verify(r => r.DeleteAppointment(id), Times.Once);
+            _repo.Verify(r => r.UpdateAppointment(It.Is<Appointment>(a => a.Id == id && a.State == States.INACTIVE)), Times.Once);
         }
 
         [Fact]
         public async Task DeleteAppointment_Throws_WhenNotFound()
         {
             _repo.Setup(r => r.GetAppointmentById(It.IsAny<Guid>())).ReturnsAsync((Appointment?)null);
-            await Assert.ThrowsAsync<KeyNotFoundException>(() => _service.DeleteAppointment(Guid.NewGuid()));
+            await Assert.ThrowsAsync<KeyNotFoundException>(() => _service.DeleteAppointment(Guid.NewGuid(), "test-user"));
         }
     }
 }

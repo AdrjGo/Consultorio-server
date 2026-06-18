@@ -150,7 +150,8 @@ namespace Web.API.Controllers
         {
             try
             {
-                await _appointmentService.DeleteAppointment(id);
+                var creatorName = _httpContextAccessor.HttpContext.User.FindFirst("name")?.Value;
+                await _appointmentService.DeleteAppointment(id, creatorName);
                 return Ok(new { message = "Cita eliminada" });
             }
             catch (KeyNotFoundException ex)
