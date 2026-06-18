@@ -186,6 +186,12 @@ namespace Application.Services
 
         public async Task<AppointmentCreatedResponse> CreateAppointment(AppointmentDto dto, string creatorName)
         {
+            var overlapping = await _appointmentRepository.GetOverlappingAppointments(dto.ProfessionalId, dto.StartDate, dto.EndDate);
+
+            if (overlapping.Any())
+                throw new InvalidOperationException(
+                    "Ya existe una cita programada en ese horario");
+
             var appointment = new Appointment
             {
                 Id = Guid.CreateVersion7(),
@@ -218,10 +224,23 @@ namespace Application.Services
             if (appointment == null)
                 throw new KeyNotFoundException($"No se encontró la cita");
 
+            var newStart = dto.StartDate ?? appointment.StartDate;
+            var newEnd = dto.EndDate ?? appointment.EndDate;
+            var professionalId = dto.ProfessionalId != Guid.Empty
+                ? dto.ProfessionalId
+                : appointment.ProfessionalId;
+
+            var overlapping = await _appointmentRepository.GetOverlappingAppointments(
+                professionalId, newStart, newEnd);
+
+            if (overlapping.Any(o => o.Id != Id))
+                throw new InvalidOperationException(
+                    "El profesional ya tiene una cita programada en ese horario");
+
             appointment.PatientId = appointment.PatientId;
             appointment.ProfessionalId = appointment.ProfessionalId;
-            appointment.StartDate = dto.StartDate ?? appointment.StartDate;
-            appointment.EndDate = dto.EndDate ?? appointment.EndDate;
+            appointment.StartDate = newStart;
+            appointment.EndDate = newEnd;
             appointment.Type = dto.Type ?? appointment.Type;
             appointment.Status = dto.Status ?? appointment.Status;
             appointment.Reason = dto.Reason ?? appointment.Reason;

@@ -50,6 +50,16 @@ namespace Infrastructure.Repositories
             return await _context.Appointments.Include(a => a.Patient).ThenInclude(a => a.Person).Include(a => a.Professional).Where(x => x.PatientId == patientId).ToListAsync();
         }
 
+        public async Task<IEnumerable<Appointment>> GetOverlappingAppointments(Guid professionalId, DateTime startDate, DateTime endDate)
+        {
+            return await _context.Appointments
+                .Where(a => a.ProfessionalId == professionalId
+                    && a.StartDate < endDate
+                    && a.EndDate > startDate
+                    && a.Status != Domain.Enum.AppointmentStatus.Cancelado)
+                .ToListAsync();
+        }
+
         public async Task<Appointment> CreateAppointment(Appointment appointment)
         {
             _context.Appointments.Add(appointment);

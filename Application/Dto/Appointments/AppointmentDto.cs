@@ -34,6 +34,7 @@ namespace Application.Dto
     public class AppointmentUpdateDto
     {
         public DateTime? StartDate { get; set; }
+        public Guid ProfessionalId { get; set; }
         public DateTime? EndDate { get; set; }
         public AppointmentType? Type { get; set; }
         public AppointmentStatus? Status { get; set; }
