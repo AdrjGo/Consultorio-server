@@ -142,7 +142,8 @@ namespace Web.API.Controllers
         {
             try
             {
-                await _patientsService.DeletePatient(id);
+                var creatorName = _httpContextAccessor.HttpContext.User.FindFirst("name")?.Value;
+                await _patientsService.DeletePatient(id, creatorName);
                 return Ok(new { message = "Paciente eliminado" });
             }
             catch (KeyNotFoundException ex)

@@ -463,13 +463,17 @@ namespace Application.Services
             };
         }
 
-        public async Task DeletePatient(Guid id)
+        public async Task DeletePatient(Guid id, string creatorName)
         {
             var patient = await _patientRepository.GetPatientById(id);
             if (patient == null)
                 throw new KeyNotFoundException($"No se encontró al paciente");
 
-            await _patientRepository.DeletePatient(id);
+            patient.State = States.INACTIVE;
+            patient.UpdatedAt = LocalDateTime.ParseBoliviaTime(DateTime.UtcNow.ToString("o"));
+            patient.UpdatedBy = creatorName;
+
+            await _patientRepository.UpdatePatient(patient);
         }
 
     }

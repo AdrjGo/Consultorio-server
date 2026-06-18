@@ -297,17 +297,17 @@ namespace Consultorio.Tests.Patients
         }
 
         [Fact]
-        public async Task DeletePatient_ShouldDelete_WhenExists()
+        public async Task DeletePatient_ShouldSoftDelete_WhenExists()
         {
             var id = Guid.NewGuid();
             var person = new Person { Id = Guid.NewGuid(), State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Name = "D", LastName = "L", BirthDate = DateOnly.FromDateTime(DateTime.UtcNow.AddYears(-30)), Sex = Gender.MALE, Ci = "c", Phone = new PhoneNumber("1") };
             var patient = new Patient { Id = id, State = States.ACTIVE, CreatedBy = "t", CreatedAt = DateTime.UtcNow, Person = person, PersonId = person.Id, Address = "a", Zone = "z", City = "c", Occupation = "occ", PlaceOccupation = "place" };
             _patientRepo.Setup(r => r.GetPatientById(id)).ReturnsAsync(patient);
-            _patientRepo.Setup(r => r.DeletePatient(id)).Returns(Task.CompletedTask);
+            _patientRepo.Setup(r => r.UpdatePatient(It.IsAny<Patient>())).ReturnsAsync(patient);
 
-            await _service.DeletePatient(id);
+            await _service.DeletePatient(id, "test-user");
 
-            _patientRepo.Verify(r => r.DeletePatient(id), Times.Once);
+            _patientRepo.Verify(r => r.UpdatePatient(It.Is<Patient>(p => p.State == States.INACTIVE)), Times.Once);
         }
     }
 }
